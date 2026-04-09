@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SPC Healthcare</title>
+    <title>Interior | Stratus</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="hero">
+    <header>
       <nav class="navbar">
-        <a href="#" class="brand" aria-label="Stratus Home">
+        <a href="./index.html" class="brand" aria-label="Stratus Home">
           <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
         </a>
         <div class="nav-right">
           <ul class="nav-links">
-            <li><a href="#">Home</a></li>
+            <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./interior.html">Interior</a></li>
@@ -24,143 +24,32 @@
           <button type="button" class="btn-primary">Get Started</button>
         </div>
       </nav>
-
-      <section class="hero-content">
-        <h1>Where minimal meets sustainability</h1>
-      </section>
     </header>
 
-    <section class="about-section" id="about">
-      <div class="about-content-row">
-        <span class="about-tag">ABOUT</span>
-        <h2 class="about-title">STRATUS IS AN ARCHITECTURAL PRACTICE BUILT ON INTENTION.</h2>
-        <p class="about-copy">
-          We approach every project with a clear balance.
-          <br />
-          Seventy five percent sustainability that prioritises natural materials, passive design, and long term durability.
-          <br />
-          Twenty five percent practicality that ensures usability, efficiency, and real world relevance.
-        </p>
+    <section class="architecture-hero">
+      <div class="architecture-hero-content">
+        <h1>Interiors shaped with intention</h1>
       </div>
     </section>
 
-    <section class="about-visual-section">
-      <div class="about-visual-container">
-        <div class="about-image-collage">
-          <div class="about-image image-one">
-            <img src="./Public/about/IMG1.png" alt="Interior preview 1" />
-          </div>
-          <div class="about-image image-two">
-            <img src="./Public/about/IMG2.png" alt="Interior preview 2" />
-          </div>
-          <div class="about-image image-three">
-            <img src="./Public/about/IMG3.png" alt="Interior preview 3" />
-          </div>
-
-          <div class="about-metrics">
-            <div class="metric-item">
-              <h3>75%</h3>
-              <p>SUSTAINABLE</p>
-            </div>
-            <div class="metric-item">
-              <h3>25%</h3>
-              <p>COMMERCIAL</p>
-            </div>
-            <div class="metric-item">
-              <h3>100%</h3>
-              <p>THOUGHTFUL</p>
-            </div>
-          </div>
+    <section class="interior-feature-section" aria-labelledby="interior-feature-heading">
+      <div class="interior-feature-inner">
+        <div class="interior-feature-copy">
+          <p class="interior-feature-kicker">• De Atelier</p>
+          <div class="interior-feature-rule" aria-hidden="true"></div>
+          <h2 id="interior-feature-heading">Expert Design Solutions for Your Unique Needs</h2>
+          <p class="interior-feature-lede">
+            De Atelier focuses on creating interiors that feel refined, balanced, and complete.
+            Every element is considered to enhance comfort, usability, and spatial experience.
+          </p>
         </div>
 
-        <div class="about-metrics-column">
-          <button type="button" class="learn-about-btn">Learn About</button>
+        <div class="interior-feature-media">
+          <img
+            src="./Public/services/de-atelier/de-atelier-main.jpg"
+            alt="De Atelier interior living and dining composition"
+          />
         </div>
-      </div>
-    </section>
-
-    <section class="services-section" id="services">
-      <div class="services-grid">
-        <article class="service-card">
-          <img src="./Public/Container.png" alt="Architecture service" />
-          <div class="service-overlay">
-            <h3>Architecture</h3>
-            <p>Thoughtful spaces designed for modern, sustainable living.</p>
-            <button type="button" class="service-read-more">Read More</button>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <img src="./Public/Container (1).png" alt="Construction and real estate service" />
-          
-          <div class="service-overlay">
-            <h3>Construction &amp; Real Estate Development</h3>
-            
-            <p>
-              From blueprint to delivery, we build with precision and intent.
-            </p>
-        
-            <button type="button" class="service-read-more">
-              Read More
-            </button>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <img src="./Public/Container (2).png" alt="Design studio service" />
-          <div class="service-overlay">
-            <h3>De Atelier (Design Studio)</h3>
-            <p>Curated interiors where minimal aesthetics meet timeless function.</p>
-            <button type="button" class="service-read-more">Read More</button>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="projects-section" id="projects">
-      <div class="projects-header">
-        <h2>PROJECTS</h2>
-        <div class="projects-tabs">
-          <button type="button" class="project-tab is-active" data-project-tab="architecture" aria-selected="true">
-            Architecture
-          </button>
-          <button type="button" class="project-tab" data-project-tab="construction" aria-selected="false">
-            Construction
-          </button>
-        </div>
-      </div>
-
-      <div class="projects-frame">
-        <article class="project-card">
-          <a href="./architecture.html" class="project-card-link" data-project-link>
-            <img
-              src="./Public/4719.jpg"
-              alt="Architecture project 1"
-              data-architecture="./Public/4719.jpg"
-              data-construction="./Public/Container.png"
-            />
-          </a>
-        </article>
-        <article class="project-card">
-          <a href="./architecture.html" class="project-card-link" data-project-link>
-            <img
-              src="./Public/21352.jpg"
-              alt="Architecture project 2"
-              data-architecture="./Public/21352.jpg"
-              data-construction="./Public/Container (1).png"
-            />
-          </a>
-        </article>
-        <article class="project-card">
-          <a href="./architecture.html" class="project-card-link" data-project-link>
-            <img
-              src="./Public/2151003670.jpg"
-              alt="Architecture project 3"
-              data-architecture="./Public/2151003670.jpg"
-              data-construction="./Public/Container (2).png"
-            />
-          </a>
-        </article>
       </div>
     </section>
 
@@ -194,25 +83,122 @@
       </div>
     </section>
 
-    <section class="gallary-section" id="gallary">
-      <div class="gallary-header">
-        <h2>GALLARY</h2>
-        <p>A closer look at materials, spatial details, and the evolution of design into built form.</p>
-      </div>
+    <section class="architecture-latest-section" aria-labelledby="architecture-latest-heading" data-latest-works>
+      <div class="architecture-latest-inner">
+        <header class="architecture-latest-header">
+          <div class="architecture-latest-header-left">
+            <p class="architecture-latest-eyebrow">Latest works</p>
+            <h2 id="architecture-latest-heading">Projects that Inspire</h2>
+          </div>
+          <p class="architecture-latest-header-right" data-latest-subtitle>
+            A curated selection of projects that reflect our design thinking and execution.
+          </p>
+        </header>
 
-      <div class="gallary-grid">
-        <article class="gallary-card">
-          <img src="./Public/56bd5a4161ff0da43798dc1e10e7b57daa4fdf22.jpg" alt="Gallary image 1" data-gallary-slot="0" />
-        </article>
-        <article class="gallary-card">
-          <img src="./Public/563a5173d6b7e08f3f5c7b229b6094f267cd063a.jpg" alt="Gallary image 2" data-gallary-slot="1" />
-        </article>
-        <article class="gallary-card">
-          <img src="./Public/65339acbdecec6082d0c26491b2fd9b835f97d2d.jpg" alt="Gallary image 3" data-gallary-slot="2" />
-        </article>
-        <article class="gallary-card">
-          <img src="./Public/66878b007410800d33e501ce4a6592ccbb6ac6da.jpg" alt="Gallary image 4" data-gallary-slot="3" />
-        </article>
+        <div class="architecture-latest-grid">
+          <article class="architecture-latest-card architecture-latest-card--primary">
+            <div class="architecture-latest-media">
+              <img
+                data-latest-img="left"
+                src="./Public/services/architecture/architecture-main.jpg"
+                alt="Featured project"
+              />
+              <span class="architecture-latest-media-label" data-latest-label="left">Coastal Retreat &copy;2019</span>
+            </div>
+            <div class="architecture-latest-meta" data-latest-meta="left">
+              <span>15 Rue des Rosiers, Le Marais</span>
+              <span>Paris, France</span>
+              <span>LH-103</span>
+            </div>
+          </article>
+
+          <article class="architecture-latest-card architecture-latest-card--secondary">
+            <div class="architecture-latest-media">
+              <img
+                data-latest-img="right"
+                src="./Public/services/construction/construction-main.jpg"
+                alt="Secondary project"
+              />
+              <span class="architecture-latest-media-label" data-latest-label="right">Chic Apartment &copy;2019</span>
+            </div>
+            <div class="architecture-latest-meta" data-latest-meta="right">
+              <span>789 Broadway, SoHo</span>
+              <span>New York, USA</span>
+              <span>LH-001</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="architecture-latest-controls" aria-label="Latest works controls">
+          <button
+            type="button"
+            class="architecture-latest-arrow"
+            data-latest-prev
+            aria-label="Previous projects"
+          >
+            &#8592;
+          </button>
+          <div class="architecture-latest-progress" aria-hidden="true">
+            <span class="architecture-latest-progress-track"></span>
+            <span class="architecture-latest-progress-fill" data-latest-progress></span>
+          </div>
+          <button
+            type="button"
+            class="architecture-latest-arrow"
+            data-latest-next
+            aria-label="Next projects"
+          >
+            &#8594;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="interior-design-space-section" aria-labelledby="interior-design-space-heading" data-interior-space>
+      <div class="interior-design-space-inner">
+        <h2 id="interior-design-space-heading">Take A Look on Our Design Space</h2>
+
+        <div class="interior-design-space-grid">
+          <div class="interior-design-space-left">
+            <div class="interior-design-space-thumb interior-design-space-thumb--top">
+              <img
+                src="./Public/services/de-atelier/de-atelier-main.jpg"
+                alt="Design space preview top"
+                data-space-img="left-top"
+              />
+            </div>
+            <div class="interior-design-space-thumb interior-design-space-thumb--bottom">
+              <img
+                src="./Public/services/approach/approach-main.jpg"
+                alt="Design space preview bottom"
+                data-space-img="left-bottom"
+              />
+            </div>
+
+            <div class="interior-design-space-meta">
+              <p class="interior-design-space-title" data-space-title>Living Room</p>
+              <div class="interior-design-space-meta-row">
+                <p class="interior-design-space-subtitle" data-space-subtitle>Beach Side</p>
+                <button
+                  type="button"
+                  class="interior-design-space-next"
+                  data-space-next
+                  aria-label="Show next design space"
+                >
+                  &#8594;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="interior-design-space-main">
+            <img
+              src="./Public/services/de-atelier/de-atelier-main.jpg"
+              alt="Main design space showcase"
+              data-space-img="main"
+            />
+          </div>
+        </div>
       </div>
     </section>
 
@@ -288,17 +274,29 @@
       </div>
     </section>
 
+    <section class="interior-team-hire-wrap">
+      <section class="team-hire-strip interior-team-hire-strip" aria-label="Design hiring call to action">
+        <div class="team-hire-image">
+          <img src="./Public/about/IMG1.png" alt="Design interior" />
+        </div>
+        <div class="team-hire-content">
+          <h3>Blending creativity and functionality in every design</h3>
+          <a href="#" class="team-hire-btn">Hire Us Now</a>
+        </div>
+      </section>
+    </section>
+
     <footer class="site-footer">
       <div class="footer-main">
         <div class="footer-top">
           <nav class="footer-nav" aria-label="Footer">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
+            <a href="./index.html">Home</a>
+            <a href="./about.html">About</a>
+            <a href="./services.html">Services</a>
             <a href="#">Blog</a>
             <a href="#">Contact</a>
           </nav>
-          <a href="#" class="footer-logo-link" aria-label="Stratus Home">
+          <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
             <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" />
           </a>
         </div>
@@ -332,6 +330,7 @@
         </div>
       </div>
     </footer>
+
     <script src="./script.js"></script>
   </body>
 </html>

@@ -182,7 +182,7 @@ h6 {
       rgba(85, 61, 50, 0.5),
       rgba(85, 61, 50, 0.5)
     ),
-    url("./Public/hero/BG.png");
+    url("./Public/home_page_hero.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -190,11 +190,20 @@ h6 {
 
 .navbar {
   width: 100%;
+  max-width: 100%;
   padding: var(--space-sm) var(--space-lg);
   background-color: var(--navbar-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.navbar-leading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .brand {
@@ -231,6 +240,78 @@ h6 {
   font-weight: 500;
 }
 
+.nav-toggle,
+.nav-backdrop {
+  display: none;
+}
+
+.nav-toggle {
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.nav-toggle-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 22px;
+}
+
+.nav-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 1px;
+  background: currentColor;
+  transform-origin: center;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+
+.navbar.is-open .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar.is-open .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.navbar.is-open .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle-bar {
+    transition: none;
+  }
+}
+
+body.nav-menu-open {
+  overflow: hidden;
+}
+
 button {
   padding: 14px 28px;
   border-radius: 8px;
@@ -262,7 +343,7 @@ button {
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(rgba(85, 61, 50, 0.5), rgba(85, 61, 50, 0.5)),
-    url("./Public/hero/BG.png");
+    url("./Public/about_hero_section.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -286,7 +367,7 @@ button {
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(rgba(85, 61, 50, 0.5), rgba(85, 61, 50, 0.5)),
-    url("./Public/hero/BG.png");
+    url("./Public/Service_page_hero_section.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -314,6 +395,21 @@ button {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.architecture-hero--architecture {
+  background-image: linear-gradient(rgba(85, 61, 50, 0.5), rgba(85, 61, 50, 0.5)),
+    url("./Public/Articture__page_hero_section.png");
+}
+
+.architecture-hero--construction {
+  background-image: linear-gradient(rgba(85, 61, 50, 0.5), rgba(85, 61, 50, 0.5)),
+    url("./Public/Construction_page_hero_section.png");
+}
+
+.architecture-hero--interior {
+  background-image: linear-gradient(rgba(85, 61, 50, 0.5), rgba(85, 61, 50, 0.5)),
+    url("./Public/interior__page_hero_section_1.png");
 }
 
 .architecture-hero-content {
@@ -2044,21 +2140,116 @@ button {
 }
 
 @media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-sm);
+    position: relative;
+    z-index: 200;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .navbar-leading {
+    position: relative;
+    z-index: 201;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    justify-content: space-between;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: 0;
+    flex-shrink: 0;
+  }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 198;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(26, 18, 14, 0.52);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.28s ease,
+      visibility 0.28s ease;
+  }
+
+  .navbar.is-open .nav-backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .nav-right {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    position: fixed;
+    z-index: 199;
+    top: 0;
+    right: 0;
+    width: min(300px, 86vw);
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    padding: calc(var(--space-sm) + 52px) var(--space-md) var(--space-md);
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    gap: var(--space-md);
+    background: var(--navbar-color);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.22);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(100%);
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .navbar.is-open .nav-right {
+    transform: translateX(0);
+    pointer-events: auto;
   }
 
   .nav-links {
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 10px 4px;
+    font-size: 17px;
+  }
+
+  .nav-right .btn-primary {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-right,
+    .nav-backdrop {
+      transition: none;
+    }
   }
 
   h1 {
@@ -2522,6 +2713,59 @@ button {
 
   .philosophy-content h2 {
     font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .philosophy-section {
+    padding: 32px 20px 40px;
+    align-items: stretch;
+    overflow-x: clip;
+  }
+
+  .philosophy-layout {
+    min-width: 0;
+    width: 100%;
+    gap: 24px;
+    justify-items: stretch;
+  }
+
+  .philosophy-layout .philosophy-content {
+    order: -1;
+    max-width: none;
+    text-align: left;
+  }
+
+  .philosophy-collage {
+    justify-self: center;
+    --philosophy-scale: min(1, calc((100vw - 40px) / 400px));
+    transform: scale(var(--philosophy-scale));
+    transform-origin: top center;
+    margin: 0 auto calc(-360px * (1 - var(--philosophy-scale)));
+  }
+
+  .philosophy-content h2 {
+    font-size: clamp(26px, 7.5vw, 34px);
+    line-height: 1.12;
+    margin-bottom: 14px;
+    letter-spacing: 0.4px;
+  }
+
+  .philosophy-content h3 {
+    font-size: 15px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .philosophy-content p {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    max-width: none;
+  }
+
+  .philosophy-content p:last-of-type {
+    margin-bottom: 0;
   }
 }
 

@@ -8,11 +8,27 @@
   </head>
   <body>
     <header>
-      <nav class="navbar">
-        <a href="./index.html" class="brand" aria-label="Stratus Home">
-          <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
-        </a>
-        <div class="nav-right">
+      <nav class="navbar" aria-label="Primary">
+        <div class="navbar-leading">
+          <a href="./index.html" class="brand" aria-label="Stratus Home">
+            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
+          </a>
+          <button
+            type="button"
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="site-navigation"
+            aria-label="Open menu"
+          >
+            <span class="nav-toggle-bars" aria-hidden="true">
+              <span class="nav-toggle-bar"></span>
+              <span class="nav-toggle-bar"></span>
+              <span class="nav-toggle-bar"></span>
+            </span>
+          </button>
+        </div>
+        <div class="nav-backdrop" aria-hidden="true"></div>
+        <div class="nav-right" id="site-navigation">
           <ul class="nav-links">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
@@ -26,7 +42,7 @@
       </nav>
     </header>
 
-    <section class="architecture-hero">
+    <section class="architecture-hero architecture-hero--construction">
       <div class="architecture-hero-content">
         <h1>Design shaped through purpose and precision</h1>
       </div>

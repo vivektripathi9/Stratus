@@ -394,3 +394,43 @@ if (latestRoot) {
     applyState();
   });
 })();
+
+(function () {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  const status = document.getElementById("contact-form-status");
+  const mail = "studio@stratus.example";
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const fd = new FormData(form);
+    const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim();
+    const topic = String(fd.get("topic") || "").trim();
+    const message = String(fd.get("message") || "").trim();
+    const topicLabel = (() => {
+      const sel = form.querySelector("#contact-topic");
+      if (!sel || !sel.selectedOptions.length) return topic;
+      return sel.selectedOptions[0].textContent || topic;
+    })();
+
+    const subject = encodeURIComponent(`Stratus enquiry: ${topicLabel}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "—"}\nInterest: ${topicLabel}\n\n${message}`
+    );
+
+    window.location.href = `mailto:${mail}?subject=${subject}&body=${body}`;
+
+    if (status) {
+      status.textContent =
+        "If your email app did not open, send the same details to " + mail + ".";
+    }
+  });
+})();

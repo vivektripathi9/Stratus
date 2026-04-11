@@ -34,6 +34,7 @@
             <li><a href="./about.html">About</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./interior.html">Interior</a></li>
+            <li><a href="./gallary.html">Gallery</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
@@ -62,8 +63,8 @@
 
         <div class="interior-feature-media">
           <img
-            src="./Public/services/de-atelier/de-atelier-main.jpg"
-            alt="De Atelier interior living and dining composition"
+            src="./Public/hero/Rectangle%2043%20(2).png"
+            alt="Mungo brunch cafe interior with glass block wall, bouclé seating, warm plaster walls, and glowing counter signage"
           />
         </div>
       </div>
@@ -71,16 +72,11 @@
 
     <section class="philosophy-section" id="philosophy">
       <div class="philosophy-layout">
-        <div class="philosophy-collage">
-          <div class="philosophy-thumb philosophy-thumb-top">
-            <img src="./Public/about/IMG3.png" alt="Interior detail" />
-          </div>
-          <div class="philosophy-main">
-            <img src="./Public/4719.jpg" alt="Team lead portrait" />
-          </div>
-          <div class="philosophy-thumb philosophy-thumb-bottom">
-            <img src="./Public/about/IMG2.png" alt="Interior shelf detail" />
-          </div>
+        <div class="philosophy-collage philosophy-collage--single">
+          <img
+            src="./Public/Our_philosophy.png"
+            alt="Warm interior with crafted lighting reflecting our design philosophy"
+          />
         </div>
 
         <div class="philosophy-content">
@@ -116,8 +112,8 @@
             <div class="architecture-latest-media">
               <img
                 data-latest-img="left"
-                src="./Public/services/architecture/architecture-main.jpg"
-                alt="Featured project"
+                src="./Public/about/our_ongoing.jpg"
+                alt="Brutalist waterside building at dusk with warm interior light and reflective plaza"
               />
               <span class="architecture-latest-media-label" data-latest-label="left">Coastal Retreat &copy;2019</span>
             </div>
@@ -132,14 +128,16 @@
             <div class="architecture-latest-media">
               <img
                 data-latest-img="right"
-                src="./Public/services/construction/construction-main.jpg"
-                alt="Secondary project"
+                src="./Public/about/on_going.jpg"
+                alt="Contemporary interior lounge with concrete walls, patterned tile, and staircase"
               />
-              <span class="architecture-latest-media-label" data-latest-label="right">Chic Apartment &copy;2019</span>
+              <span class="architecture-latest-media-label" data-latest-label="right"
+                >Chic Apartment &copy;2019</span
+              >
             </div>
             <div class="architecture-latest-meta" data-latest-meta="right">
               <span>789 Broadway, SoHo</span>
-              <span>New York, USA</span>
+              <span>new york, usa</span>
               <span>LH-001</span>
             </div>
           </article>
@@ -170,51 +168,105 @@
       </div>
     </section>
 
-    <section class="interior-design-space-section" aria-labelledby="interior-design-space-heading" data-interior-space>
+    <section class="interior-design-space-section" aria-labelledby="interior-design-space-heading">
       <div class="interior-design-space-inner">
         <h2 id="interior-design-space-heading">Take A Look on Our Design Space</h2>
 
         <div class="interior-design-space-grid">
-          <div class="interior-design-space-left">
-            <div class="interior-design-space-thumb interior-design-space-thumb--top">
+          <div class="interior-design-space-col interior-design-space-col--left">
+            <figure class="interior-design-space-figure interior-design-space-figure--sq">
               <img
-                src="./Public/services/de-atelier/de-atelier-main.jpg"
-                alt="Design space preview top"
-                data-space-img="left-top"
+                src="./Public/navbar/interior%20(4).png"
+                alt="Open-plan office with teal accents, wood workstations, concrete ceiling, and windows to greenery"
               />
-            </div>
-            <div class="interior-design-space-thumb interior-design-space-thumb--bottom">
+            </figure>
+            <figure class="interior-design-space-figure interior-design-space-figure--sq">
               <img
-                src="./Public/services/approach/approach-main.jpg"
-                alt="Design space preview bottom"
-                data-space-img="left-bottom"
+                src="./Public/navbar/interior%20(1).png"
+                alt="Modern multi-storey building at twilight with brick jaali, glass, palm trees, and illuminated signage"
               />
-            </div>
-
+            </figure>
             <div class="interior-design-space-meta">
-              <p class="interior-design-space-title" data-space-title>Living Room</p>
+              <p class="interior-design-space-title">Dongle Desk</p>
               <div class="interior-design-space-meta-row">
-                <p class="interior-design-space-subtitle" data-space-subtitle>Beach Side</p>
-                <button
-                  type="button"
+                <p class="interior-design-space-subtitle">Type — Commercial</p>
+                <a
+                  href="./services.html"
                   class="interior-design-space-next"
-                  data-space-next
-                  aria-label="Show next design space"
+                  aria-label="Explore Stratus services"
                 >
                   &#8594;
-                </button>
+                </a>
               </div>
             </div>
           </div>
 
-          <div class="interior-design-space-main">
-            <img
-              src="./Public/services/de-atelier/de-atelier-main.jpg"
-              alt="Main design space showcase"
-              data-space-img="main"
-            />
+          <div class="interior-design-space-col interior-design-space-col--right">
+            <figure class="interior-design-space-figure interior-design-space-figure--wide">
+              <img
+                src="./Public/navbar/interior%20(3).png"
+                alt="Exterior of a modern multi-storey building at dusk with decorative brick lattice facade, large windows with warm interior light, and palm trees against a twilight sky"
+              />
+            </figure>
+            <figure class="interior-design-space-figure interior-design-space-figure--tall">
+              <img
+                src="./Public/navbar/interior%20(2).png"
+                alt="Commercial building at dusk with glowing Dongle Design and Dongle Cafe signage, concrete entrance, and large glass windows"
+              />
+            </figure>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="testimonials-section testimonials-section--interior" id="testimonials" aria-labelledby="interior-testimonials-heading">
+      <div class="testimonials-header">
+        <h2 id="interior-testimonials-heading">WHAT OUR CLIENTS SAY</h2>
+        <p>
+          Feedback from people who lived through our interior process—from first concept to the final
+          layer of detail.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <img
+            class="testimonial-avatar"
+            src="./Public/navbar/testomonial%20(1).png"
+            alt="John Carter"
+          />
+          <h3>John Carter</h3>
+          <p>
+            Our living room was completely transformed! The team captured our vision perfectly and
+            exceeded our expectations.
+          </p>
+        </article>
+
+        <article class="testimonial-card">
+          <img
+            class="testimonial-avatar"
+            src="./Public/navbar/testomonial%20(2).png"
+            alt="Sophie Moore"
+          />
+          <h3>Sophie Moore</h3>
+          <p>
+            Professional and creative! The design process was smooth, and the results are stunning.
+            Highly recommend their services.
+          </p>
+        </article>
+
+        <article class="testimonial-card">
+          <img
+            class="testimonial-avatar"
+            src="./Public/navbar/testomonial%20(3).png"
+            alt="Matt Cannon"
+          />
+          <h3>Matt Cannon</h3>
+          <p>
+            Their attention to detail and commitment to quality turned our house into a home we love.
+            Outstanding work!
+          </p>
+        </article>
       </div>
     </section>
 
@@ -228,7 +280,10 @@
         <div class="latest-article-grid">
           <article class="latest-article-card">
             <div class="latest-article-image-wrap">
-              <img src="./Public/65339acbdecec6082d0c26491b2fd9b835f97d2d.jpg" alt="Latest article image 1" />
+              <img
+                src="./Public/the_largest_article%20(1).jpg"
+                alt="Interior feature with layered copper pendant lighting"
+              />
             </div>
             <p>Posuere urna nec tincidunt praesent egestas maecenas.</p>
             <a href="#" class="latest-article-link">Learn More <span aria-hidden="true">&#8250;</span></a>
@@ -236,7 +291,10 @@
 
           <article class="latest-article-card">
             <div class="latest-article-image-wrap">
-              <img src="./Public/56bd5a4161ff0da43798dc1e10e7b57daa4fdf22.jpg" alt="Latest article image 2" />
+              <img
+                src="./Public/the_largest_article%20(2).jpg"
+                alt="Modern kitchen with wood island, glass cabinetry, and sculptural lighting"
+              />
             </div>
             <p>Posuere urna nec tincidunt praesent egestas maecenas.</p>
             <a href="#" class="latest-article-link">Learn More <span aria-hidden="true">&#8250;</span></a>
@@ -244,7 +302,10 @@
 
           <article class="latest-article-card">
             <div class="latest-article-image-wrap">
-              <img src="./Public/66878b007410800d33e501ce4a6592ccbb6ac6da.jpg" alt="Latest article image 3" />
+              <img
+                src="./Public/the_largest_article%20(3).jpg"
+                alt="Minimal bedroom with artwork, wood accents, and warm accent lighting"
+              />
             </div>
             <p>Posuere urna nec tincidunt praesent egestas maecenas.</p>
             <a href="#" class="latest-article-link">Learn More <span aria-hidden="true">&#8250;</span></a>
@@ -254,52 +315,26 @@
       </div>
     </section>
 
-    <section class="testimonials-section" id="testimonials">
-      <div class="testimonials-header">
-        <h2>WHAT OUR CLIENTS SAY</h2>
-        <p>Experiences shaped through collaboration, trust, and thoughtful execution.</p>
-      </div>
-
-      <div class="testimonials-grid">
-        <article class="testimonial-card">
-          <img class="testimonial-avatar" src="./Public/563a5173d6b7e08f3f5c7b229b6094f267cd063a.jpg" alt="John Carter" />
-          <h3>John Carter</h3>
-          <p>
-            Our living room was completely transformed! The team captured our vision perfectly and
-            exceeded our expectations.
-          </p>
-        </article>
-
-        <article class="testimonial-card">
-          <img class="testimonial-avatar" src="./Public/65339acbdecec6082d0c26491b2fd9b835f97d2d.jpg" alt="Sophie Moore" />
-          <h3>Sophie Moore</h3>
-          <p>
-            Professional and creative! The design process was smooth, and the results are stunning.
-            Highly recommend their services.
-          </p>
-        </article>
-
-        <article class="testimonial-card">
-          <img class="testimonial-avatar" src="./Public/66878b007410800d33e501ce4a6592ccbb6ac6da.jpg" alt="Matt Cannon" />
-          <h3>Matt Cannon</h3>
-          <p>
-            Their attention to detail and commitment to quality turned our house into a home we love.
-            Outstanding work!
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="interior-team-hire-wrap">
-      <section class="team-hire-strip interior-team-hire-strip" aria-label="Design hiring call to action">
-        <div class="team-hire-image">
-          <img src="./Public/about/IMG1.png" alt="Design interior" />
+    <section class="services-cta-banner services-cta-banner--architecture" aria-labelledby="interior-cta-heading">
+      <div class="services-cta-banner-inner">
+        <div class="services-cta-banner-card">
+          <div class="services-cta-banner-visual">
+            <div class="services-cta-banner-frame">
+              <img
+                src="./Public/about/f8b6249a1841e23e438602fdc15b81b5879e2e06.png"
+                alt="Warm cafe interior framed by glowing glass block columns, bouclé chairs, and lush greenery"
+              />
+            </div>
+          </div>
+          <div class="services-cta-banner-content">
+            <h2 id="interior-cta-heading" class="services-cta-banner-title">
+              Blending creativity and functionality
+              <span class="services-cta-banner-title-line">in every design.</span>
+            </h2>
+            <a href="#" class="services-cta-banner-btn">Hire us now</a>
+          </div>
         </div>
-        <div class="team-hire-content">
-          <h3>Blending creativity and functionality in every design</h3>
-          <a href="#" class="team-hire-btn">Hire Us Now</a>
-        </div>
-      </section>
+      </div>
     </section>
 
     <footer class="site-footer">

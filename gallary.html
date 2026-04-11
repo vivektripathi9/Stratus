@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | Stratus</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" aria-label="Primary">
+        <div class="navbar-leading">
+          <a href="./index.html" class="brand" aria-label="Stratus Home">
+            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
+          </a>
+          <button
+            type="button"
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="site-navigation"
+            aria-label="Open menu"
+          >
+            <span class="nav-toggle-bars" aria-hidden="true">
+              <span class="nav-toggle-bar"></span>
+              <span class="nav-toggle-bar"></span>
+              <span class="nav-toggle-bar"></span>
+            </span>
+          </button>
+        </div>
+        <div class="nav-backdrop" aria-hidden="true"></div>
+        <div class="nav-right" id="site-navigation">
+          <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./interior.html">Interior</a></li>
+            <li><a href="./gallary.html" aria-current="page">Gallery</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <button type="button" class="btn-primary">Get Started</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="architecture-hero architecture-hero--gallery" aria-labelledby="gallery-hero-heading">
+        <div class="architecture-hero-content">
+          <h1 id="gallery-hero-heading">Minimal thinking. Lasting design.</h1>
+        </div>
+      </section>
+
+      <section
+        class="gallery-page-section"
+        aria-label="Work gallery"
+        data-gallery-categories
+      >
+        <div class="gallery-page-inner">
+          <div class="gallery-page-tabs" role="tablist" aria-label="Gallery categories">
+            <button
+              type="button"
+              class="gallery-page-tab is-active"
+              role="tab"
+              id="gallery-tab-interior"
+              aria-selected="true"
+              aria-controls="gallery-panel-interior"
+              data-gallery-tab="interior"
+            >
+              Interior
+            </button>
+            <button
+              type="button"
+              class="gallery-page-tab"
+              role="tab"
+              id="gallery-tab-architecture"
+              aria-selected="false"
+              aria-controls="gallery-panel-architecture"
+              data-gallery-tab="architecture"
+            >
+              Architecture
+            </button>
+            <button
+              type="button"
+              class="gallery-page-tab"
+              role="tab"
+              id="gallery-tab-construction"
+              aria-selected="false"
+              aria-controls="gallery-panel-construction"
+              data-gallery-tab="construction"
+            >
+              Construction
+            </button>
+          </div>
+
+          <div class="gallery-page-panels">
+            <div
+              class="gallery-page-panel"
+              id="gallery-panel-interior"
+              role="tabpanel"
+              aria-labelledby="gallery-tab-interior"
+              data-gallery-panel="interior"
+            >
+              <div class="gallery-page-grid">
+                <div class="gallery-page-row gallery-page-row--end" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(4).png"
+                      alt="Open-plan office with teal walls, wood desks, concrete ceiling, and windows to greenery"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(5).png"
+                      alt="Workspace with concrete wall, terracotta accent, wood desks, and geometric screen"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(6).png"
+                      alt="Compact kitchen and breakfast bar with wood counter, stools, and large window to trees"
+                      loading="lazy"
+                    />
+                  </figure>
+                </div>
+                <div class="gallery-page-row gallery-page-row--start" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(7).png"
+                      alt="Two people in a modern meeting booth with concrete wall and wood-slat ceiling"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(8).png"
+                      alt="Bright open office with lounge sofa, white desks, and floor-to-ceiling windows"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(9).png"
+                      alt="Twin glass meeting pods with wood desks, monitors, and patterned yellow carpet"
+                      loading="lazy"
+                    />
+                  </figure>
+                </div>
+                <div class="gallery-page-row gallery-page-row--end" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(10).png"
+                      alt="Cafe with exposed brick, patterned tile floor, and glass doors to a palm-lined terrace"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(11).png"
+                      alt="Dining room with marble table, patterned banquette, and sliding doors to a garden"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/hero/Rectangle%20(12).png"
+                      alt="Industrial cafe with brick wall, white chairs, wood tables, and Edison pendant lights"
+                      loading="lazy"
+                    />
+                  </figure>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="gallery-page-panel"
+              id="gallery-panel-architecture"
+              role="tabpanel"
+              aria-labelledby="gallery-tab-architecture"
+              data-gallery-panel="architecture"
+              hidden
+            >
+              <div class="gallery-page-grid">
+                <div class="gallery-page-row gallery-page-row--end" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img src="./Public/Articture__page_hero_section.png" alt="Architecture hero composition" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/architecture/Rectangle%2043%20(1).png" alt="Architectural facade study" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/architecture/Image%20Placeholder.png" alt="Architecture visualization placeholder" loading="lazy" />
+                  </figure>
+                </div>
+                <div class="gallery-page-row gallery-page-row--start" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img src="./Public/313fc7585f39b443fe92c3760dff362f65dee332.png" alt="Modern building exterior with warm evening light" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/about/our_ongoing.jpg" alt="Brutalist waterside building at dusk" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/about/on_going.jpg" alt="Contemporary building with interior glow" loading="lazy" />
+                  </figure>
+                </div>
+                <div class="gallery-page-row gallery-page-row--end" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img src="./Public/Our_philosophy.png" alt="Interior architecture with crafted lighting" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img
+                      src="./Public/about/Secession%20in%20a%20contemporary%20setting%20optimized%20for%20modern%20living%20style..png"
+                      alt="Contemporary living space with sculptural forms"
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png" alt="Designed interior with bold color and form" loading="lazy" />
+                  </figure>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="gallery-page-panel"
+              id="gallery-panel-construction"
+              role="tabpanel"
+              aria-labelledby="gallery-tab-construction"
+              data-gallery-panel="construction"
+              hidden
+            >
+              <div class="gallery-page-grid">
+                <div class="gallery-page-row gallery-page-row--end" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img src="./Public/Construction_page_hero_section.png" alt="Construction site and structure overview" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/AAsection__3%20(1).jpg" alt="Construction progress and building shell" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/AAsection__3%20(2).jpg" alt="On-site construction and materials" loading="lazy" />
+                  </figure>
+                </div>
+                <div class="gallery-page-row gallery-page-row--start" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img src="./Public/services/Rectangle%20(3).png" alt="Commercial build-out and interior structure" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/services/imagess%20(1).png" alt="Construction and finished interior transition" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/services/imagess%20(2).png" alt="Built environment and spatial volume" loading="lazy" />
+                  </figure>
+                </div>
+                <div class="gallery-page-row gallery-page-row--end" role="presentation">
+                  <figure class="gallery-page-item">
+                    <img src="./Public/container_1.png" alt="Project container visualization" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/container_3.png" alt="Structural and layout study" loading="lazy" />
+                  </figure>
+                  <figure class="gallery-page-item">
+                    <img src="./Public/about/Dongle.png" alt="Commercial interior build with signage and facade" loading="lazy" />
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="services-cta-banner services-cta-banner--architecture" aria-labelledby="gallery-cta-heading">
+        <div class="services-cta-banner-inner">
+          <div class="services-cta-banner-card">
+            <div class="services-cta-banner-visual">
+              <div class="services-cta-banner-frame">
+                <img
+                  src="./Public/about/f8b6249a1841e23e438602fdc15b81b5879e2e06.png"
+                  alt="Warm cafe interior framed by glowing glass block columns, bouclé chairs, and lush greenery"
+                />
+              </div>
+            </div>
+            <div class="services-cta-banner-content">
+              <h2 id="gallery-cta-heading" class="services-cta-banner-title">
+                Blending creativity and functionality
+                <span class="services-cta-banner-title-line">in every design.</span>
+              </h2>
+              <a href="#" class="services-cta-banner-btn">Hire us now</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-top">
+          <nav class="footer-nav" aria-label="Footer">
+            <a href="./index.html">Home</a>
+            <a href="./about.html">About</a>
+            <a href="./services.html">Services</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+          </nav>
+          <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
+            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" />
+          </a>
+        </div>
+
+        <div class="footer-divider" aria-hidden="true"></div>
+
+        <div class="footer-middle">
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">t</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">ig</a>
+          </div>
+
+          <div class="footer-middle-divider" aria-hidden="true"></div>
+
+          <p class="footer-note">
+            Posuere urna nec tincidunt praesent egestas maecenas pharetra convallis posuere ipsum
+            nunc.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <p class="footer-copy">&copy; Copyright by Stratus - All right reserved.</p>
+          <div class="footer-legal">
+            <a href="./terms.html">Terms</a>
+            <a href="./privacy.html">Privacy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

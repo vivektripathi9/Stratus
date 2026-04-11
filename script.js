@@ -9,9 +9,9 @@ const projectPageLinks = {
 
 const projectAltText = {
   architecture: [
-    "Architecture project 1",
-    "Architecture project 2",
-    "Architecture project 3",
+    "Modern cubic residence at night with warm lighting",
+    "Contemporary home at dusk with triangular glass gable",
+    "Multi-storey modern facade with glass balconies at evening",
   ],
   construction: [
     "Construction project 1",
@@ -48,10 +48,17 @@ projectTabs.forEach((tab) => {
 const gallaryImages = document.querySelectorAll("[data-gallary-slot]");
 
 const gallaryImagePool = [
-  "./Public/56bd5a4161ff0da43798dc1e10e7b57daa4fdf22.jpg",
-  "./Public/563a5173d6b7e08f3f5c7b229b6094f267cd063a.jpg",
-  "./Public/65339acbdecec6082d0c26491b2fd9b835f97d2d.jpg",
-  "./Public/66878b007410800d33e501ce4a6592ccbb6ac6da.jpg",
+  "./Public/313fc7585f39b443fe92c3760dff362f65dee332.png",
+  "./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png",
+  "./Public/about/IMG1%20(1).png",
+  "./Public/IMG4.png",
+];
+
+const gallaryAltPool = [
+  "Modern cafe interior with glass block partition, circular ceiling panels, and sage upholstered seating",
+  "Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs",
+  "Warm-toned interior with layered materials, soft lighting, and contemporary furnishings",
+  "Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants",
 ];
 
 if (gallaryImages.length) {
@@ -77,7 +84,7 @@ if (gallaryImages.length) {
   gallaryImages.forEach((img, slotIndex) => {
     const src = gallaryImagePool[slotIndex % gallaryImagePool.length];
     img.src = src;
-    img.alt = `Gallary image ${slotIndex + 1}`;
+    img.alt = gallaryAltPool[slotIndex % gallaryAltPool.length] || `Gallery image ${slotIndex + 1}`;
   });
 
   let gallaryStep = 0;
@@ -92,7 +99,7 @@ if (gallaryImages.length) {
         img.classList.remove("is-sliding-out");
         img.classList.add("is-sliding-in");
         img.src = gallaryImagePool[nextIndex];
-        img.alt = `Gallary image ${nextIndex + 1}`;
+        img.alt = gallaryAltPool[nextIndex] || `Gallery image ${nextIndex + 1}`;
         requestAnimationFrame(() => {
           img.classList.remove("is-sliding-in");
         });
@@ -101,8 +108,87 @@ if (gallaryImages.length) {
   }, 2600);
 }
 
-// Architecture page — Latest works slider (two-up layout)
+const galleryCategoryRoot = document.querySelector("[data-gallery-categories]");
+if (galleryCategoryRoot) {
+  const tabs = galleryCategoryRoot.querySelectorAll("[data-gallery-tab]");
+  const panels = galleryCategoryRoot.querySelectorAll("[data-gallery-panel]");
+
+  function activateGalleryCategory(category) {
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.galleryTab === category;
+      tab.classList.toggle("is-active", isActive);
+      tab.setAttribute("aria-selected", String(isActive));
+    });
+    panels.forEach((panel) => {
+      const match = panel.dataset.galleryPanel === category;
+      panel.hidden = !match;
+    });
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      activateGalleryCategory(tab.dataset.galleryTab);
+    });
+  });
+}
+
+// Projects that Inspire — six projects rotate two at a time: main (left) + next (right) only
+const latestWorksSubtitleVariants = [
+  "A curated selection of projects that reflect our design thinking and execution.",
+  "Commercial and hospitality interiors shaped by light, texture, and material craft.",
+  "Spaces where architecture, interiors, and daily use meet with clarity.",
+];
+
+const latestWorksProjects = [
+  {
+    src: "./Public/about/our_ongoing.jpg",
+    alt: "Brutalist waterside building at dusk with warm interior light and reflective plaza",
+    label: "Coastal Retreat ©2019",
+    meta: ["15 Rue des Rosiers, Le Marais", "Paris, France", "LH-103"],
+  },
+  {
+    src: "./Public/about/on_going.jpg",
+    alt: "Contemporary interior lounge with concrete walls, patterned tile, and staircase",
+    label: "Chic Apartment ©2019",
+    meta: ["789 Broadway, SoHo", "new york, usa", "LH-001"],
+  },
+  {
+    src: "./Public/about/vk.png",
+    alt: "Modern cafe with bar seating, brick wall, patterned tile, and palm views",
+    label: "CAFE GREY",
+    meta: ["15 Rue des Rosiers, Le Marais", "Paris, France", "LH-103"],
+  },
+  {
+    src: "./Public/about/Avk.png",
+    alt: "Bright cafe and workspace with varied seating and warm accent lighting",
+    label: "DONGLE DESK",
+    meta: ["789 Broadway, Soho", "new york, usa", "LH-001"],
+  },
+  {
+    src: "./Public/about/cafe_grey.png",
+    alt: "Industrial chic cafe with wood tables, Edison bulbs, and red brick bar wall",
+    label: "CAFE GREY",
+    meta: ["15 Rue des Rosiers, Le Marais", "Paris, France", "LH-103"],
+  },
+  {
+    src: "./Public/about/Dongle.png",
+    alt: "Collaborative workspace and dining interior with refined detailing",
+    label: "DONGLE DESK",
+    meta: ["789 Broadway, SoHo", "new york, usa", "LH-001"],
+  },
+];
+
 const latestRoot = document.querySelector("[data-latest-works]");
+const LATEST_FADE_MS = 360;
+
+function whenLatestImageReady(img) {
+  if (!img) return Promise.resolve();
+  if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+  return new Promise((resolve) => {
+    img.addEventListener("load", () => resolve(), { once: true });
+    img.addEventListener("error", () => resolve(), { once: true });
+  });
+}
 
 if (latestRoot) {
   const prevBtn = latestRoot.querySelector("[data-latest-prev]");
@@ -117,74 +203,9 @@ if (latestRoot) {
   const leftMeta = latestRoot.querySelector('[data-latest-meta="left"]');
   const rightMeta = latestRoot.querySelector('[data-latest-meta="right"]');
 
-  const slides = [
-    {
-      subtitle:
-        "A curated selection of projects that reflect our design thinking and execution.",
-      left: {
-        src: "./Public/services/architecture/architecture-main.jpg",
-        alt: "Coastal retreat project",
-        label: "Coastal Retreat ©2019",
-        meta: ["15 Rue des Rosiers, Le Marais", "Paris, France", "LH-103"],
-      },
-      right: {
-        src: "./Public/services/construction/construction-main.jpg",
-        alt: "Chic apartment project",
-        label: "Chic Apartment ©2019",
-        meta: ["789 Broadway, SoHo", "New York, USA", "LH-001"],
-      },
-    },
-    {
-      subtitle:
-        "Dummy content for now — swap images and copy whenever you’re ready.",
-      left: {
-        src: "./Public/2151003670.jpg",
-        alt: "Modern residence exterior",
-        label: "Hillside House ©2020",
-        meta: ["Sierra Road", "California, USA", "LH-112"],
-      },
-      right: {
-        src: "./Public/4719.jpg",
-        alt: "Interior detail study",
-        label: "Studio Loft ©2020",
-        meta: ["Market Street", "San Francisco, USA", "LH-019"],
-      },
-    },
-    {
-      subtitle:
-        "An evolving set of references — replace with final project content later.",
-      left: {
-        src: "./Public/65339acbdecec6082d0c26491b2fd9b835f97d2d.jpg",
-        alt: "Contemporary architectural study",
-        label: "Courtyard Home ©2021",
-        meta: ["Old Town", "Barcelona, Spain", "LH-208"],
-      },
-      right: {
-        src: "./Public/66878b007410800d33e501ce4a6592ccbb6ac6da.jpg",
-        alt: "Modern facade detail",
-        label: "Urban Pavilion ©2021",
-        meta: ["Docklands", "Melbourne, AU", "LH-054"],
-      },
-    },
-    {
-      subtitle:
-        "More dummy projects — keep the layout, swap assets anytime.",
-      left: {
-        src: "./Public/services/initial-consultation/initial-consultation-main.jpg",
-        alt: "Interior lounge concept",
-        label: "Atrium Villa ©2022",
-        meta: ["Lakeside Drive", "Zurich, CH", "LH-317"],
-      },
-      right: {
-        src: "./Public/services/approach/approach-main.jpg",
-        alt: "Material palette study",
-        label: "Material Study ©2022",
-        meta: ["Design District", "Copenhagen, DK", "LH-088"],
-      },
-    },
-  ];
-
-  let slideIndex = 0;
+  const projectCount = latestWorksProjects.length;
+  let frameIndex = 0;
+  let animating = false;
 
   function setMeta(container, values) {
     if (!container) return;
@@ -194,118 +215,89 @@ if (latestRoot) {
     });
   }
 
-  function setSlide(index) {
-    const slide = slides[index];
-    if (!slide) return;
+  function subtitleForFrame(i) {
+    const idx = Math.min(Math.floor(i / 2), latestWorksSubtitleVariants.length - 1);
+    return latestWorksSubtitleVariants[idx];
+  }
 
-    if (subtitleEl) subtitleEl.textContent = slide.subtitle;
+  function updateProgress(i) {
+    if (!progressEl) return;
+    const n = projectCount || 1;
+    const stepPct = 100 / n;
+    progressEl.style.width = `${stepPct}%`;
+    progressEl.style.transform = `translateX(${i * 100}%)`;
+  }
+
+  function applyFrame(i) {
+    const main = latestWorksProjects[i % projectCount];
+    const next = latestWorksProjects[(i + 1) % projectCount];
+
+    if (subtitleEl) subtitleEl.textContent = subtitleForFrame(i);
 
     if (leftImg) {
-      leftImg.src = slide.left.src;
-      leftImg.alt = slide.left.alt;
+      leftImg.src = main.src;
+      leftImg.alt = main.alt;
     }
     if (rightImg) {
-      rightImg.src = slide.right.src;
-      rightImg.alt = slide.right.alt;
+      rightImg.src = next.src;
+      rightImg.alt = next.alt;
     }
 
-    if (leftLabel) leftLabel.textContent = slide.left.label;
-    if (rightLabel) rightLabel.textContent = slide.right.label;
+    if (leftLabel) leftLabel.textContent = main.label;
+    if (rightLabel) rightLabel.textContent = next.label;
 
-    setMeta(leftMeta, slide.left.meta);
-    setMeta(rightMeta, slide.right.meta);
-
-    if (progressEl) {
-      const stepPct = slides.length ? 100 / slides.length : 100;
-      progressEl.style.width = `${stepPct}%`;
-      progressEl.style.transform = `translateX(${index * stepPct}%)`;
-    }
+    setMeta(leftMeta, main.meta);
+    setMeta(rightMeta, next.meta);
+    updateProgress(i);
   }
 
-  function next() {
-    slideIndex = (slideIndex + 1) % slides.length;
-    setSlide(slideIndex);
-  }
+  async function setFrame(index, { animate = true } = {}) {
+    if (!projectCount) return;
 
-  function prev() {
-    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-    setSlide(slideIndex);
-  }
+    const leftMedia = leftImg?.closest(".architecture-latest-media");
+    const rightMedia = rightImg?.closest(".architecture-latest-media");
 
-  if (nextBtn) nextBtn.addEventListener("click", next);
-  if (prevBtn) prevBtn.addEventListener("click", prev);
-
-  setSlide(slideIndex);
-}
-
-// Interior page — Design Space showcase
-const interiorSpaceRoot = document.querySelector("[data-interior-space]");
-
-if (interiorSpaceRoot) {
-  const nextBtn = interiorSpaceRoot.querySelector("[data-space-next]");
-  const titleEl = interiorSpaceRoot.querySelector("[data-space-title]");
-  const subtitleEl = interiorSpaceRoot.querySelector("[data-space-subtitle]");
-  const mainImg = interiorSpaceRoot.querySelector('[data-space-img="main"]');
-  const topImg = interiorSpaceRoot.querySelector('[data-space-img="left-top"]');
-  const bottomImg = interiorSpaceRoot.querySelector('[data-space-img="left-bottom"]');
-
-  const spaces = [
-    {
-      title: "Living Room",
-      subtitle: "Beach Side",
-      main: "./Public/services/de-atelier/de-atelier-main.jpg",
-      top: "./Public/services/de-atelier/de-atelier-main.jpg",
-      bottom: "./Public/services/approach/approach-main.jpg",
-    },
-    {
-      title: "Dining Room",
-      subtitle: "City View",
-      main: "./Public/services/architecture/architecture-main.jpg",
-      top: "./Public/2151003670.jpg",
-      bottom: "./Public/services/construction/construction-main.jpg",
-    },
-    {
-      title: "Lounge",
-      subtitle: "Sunset Deck",
-      main: "./Public/56bd5a4161ff0da43798dc1e10e7b57daa4fdf22.jpg",
-      top: "./Public/66878b007410800d33e501ce4a6592ccbb6ac6da.jpg",
-      bottom: "./Public/65339acbdecec6082d0c26491b2fd9b835f97d2d.jpg",
-    },
-  ];
-
-  let currentSpace = 0;
-
-  function setSpace(index) {
-    const space = spaces[index];
-    if (!space) return;
-
-    if (titleEl) titleEl.textContent = space.title;
-    if (subtitleEl) subtitleEl.textContent = space.subtitle;
-
-    if (mainImg) {
-      mainImg.src = space.main;
-      mainImg.alt = `${space.title} main view`;
+    if (!animate) {
+      applyFrame(index);
+      await Promise.all([whenLatestImageReady(leftImg), whenLatestImageReady(rightImg)]);
+      return;
     }
 
-    if (topImg) {
-      topImg.src = space.top;
-      topImg.alt = `${space.title} detail top`;
-    }
+    leftMedia?.classList.add("is-latest-fading");
+    rightMedia?.classList.add("is-latest-fading");
 
-    if (bottomImg) {
-      bottomImg.src = space.bottom;
-      bottomImg.alt = `${space.title} detail bottom`;
-    }
-  }
+    await new Promise((r) => setTimeout(r, LATEST_FADE_MS));
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      currentSpace = (currentSpace + 1) % spaces.length;
-      setSpace(currentSpace);
+    applyFrame(index);
+
+    await Promise.all([whenLatestImageReady(leftImg), whenLatestImageReady(rightImg)]);
+
+    requestAnimationFrame(() => {
+      leftMedia?.classList.remove("is-latest-fading");
+      rightMedia?.classList.remove("is-latest-fading");
     });
   }
 
-  setSpace(currentSpace);
+  async function goTo(delta) {
+    if (animating || projectCount === 0) return;
+    animating = true;
+    if (prevBtn) prevBtn.disabled = true;
+    if (nextBtn) nextBtn.disabled = true;
+
+    frameIndex = (frameIndex + delta + projectCount) % projectCount;
+    try {
+      await setFrame(frameIndex, { animate: true });
+    } finally {
+      animating = false;
+      if (prevBtn) prevBtn.disabled = false;
+      if (nextBtn) nextBtn.disabled = false;
+    }
+  }
+
+  if (nextBtn) nextBtn.addEventListener("click", () => goTo(1));
+  if (prevBtn) prevBtn.addEventListener("click", () => goTo(-1));
+
+  setFrame(0, { animate: false });
 }
 
 /* Mobile navbar: hamburger drawer */

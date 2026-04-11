@@ -1,3 +1,77 @@
+(function initStratusPageTransitions() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduceMotion.matches) return;
+
+  window.addEventListener(
+    "pageshow",
+    (ev) => {
+      if (!ev.persisted) return;
+      document.documentElement.classList.remove("stratus-exit-prep");
+      document.body.classList.remove("stratus-is-leaving");
+    },
+    false
+  );
+
+  document.documentElement.addEventListener(
+    "click",
+    (e) => {
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      const a = e.target.closest("a");
+      if (!a || !a.href) return;
+      if (a.target === "_blank" || a.getAttribute("download")) return;
+
+      const hrefAttr = (a.getAttribute("href") || "").trim();
+      if (!hrefAttr || hrefAttr === "#") return;
+      if (hrefAttr.startsWith("mailto:") || hrefAttr.startsWith("tel:") || hrefAttr.startsWith("javascript:"))
+        return;
+      if (hrefAttr.startsWith("#") && hrefAttr.length > 1) return;
+
+      let dest;
+      try {
+        dest = new URL(a.href, window.location.href);
+      } catch {
+        return;
+      }
+      if (dest.origin !== window.location.origin) return;
+
+      const here = new URL(window.location.href);
+      const samePath =
+        dest.pathname === here.pathname ||
+        (dest.pathname.endsWith("/index.html") && here.pathname.endsWith("/")) ||
+        (here.pathname.endsWith("/index.html") && dest.pathname.endsWith("/"));
+      if (samePath && dest.hash && dest.hash.length > 1) return;
+
+      e.preventDefault();
+
+      const html = document.documentElement;
+      const body = document.body;
+      html.classList.add("stratus-exit-prep");
+      body.classList.remove("stratus-is-leaving");
+      void body.offsetWidth;
+      body.classList.add("stratus-is-leaving");
+
+      const destination = a.href;
+      const fallbackMs = 420;
+      const timeoutId = window.setTimeout(() => {
+        window.location.href = destination;
+      }, fallbackMs);
+
+      function onExitEnd(ev) {
+        if (ev.target !== body || ev.propertyName !== "opacity") return;
+        window.clearTimeout(timeoutId);
+        body.removeEventListener("transitionend", onExitEnd);
+        window.location.href = destination;
+      }
+
+      body.addEventListener("transitionend", onExitEnd, false);
+    },
+    true
+  );
+})();
+
 const projectTabs = document.querySelectorAll("[data-project-tab]");
 const projectImages = document.querySelectorAll(".projects-frame .project-card img");
 const projectLinks = document.querySelectorAll(".projects-frame [data-project-link]");
@@ -88,8 +162,17 @@ if (gallaryImages.length) {
   });
 
   let gallaryStep = 0;
+  let gallaryTimer = null;
 
-  setInterval(() => {
+  const gallarySection = document.querySelector(".gallary-section");
+  function gallaryLikelyInView(el) {
+    if (!el) return true;
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight + 120 && r.bottom > -120;
+  }
+  let gallarySectionVisible = gallaryLikelyInView(gallarySection);
+
+  function gallaryTick() {
     gallaryStep += 1;
     gallaryImages.forEach((img, slotIndex) => {
       img.classList.remove("is-sliding-in");
@@ -105,7 +188,45 @@ if (gallaryImages.length) {
         });
       }, 220);
     });
-  }, 2600);
+  }
+
+  function startGallaryRotation() {
+    if (gallaryTimer || !gallarySectionVisible || document.visibilityState === "hidden") return;
+    gallaryTimer = setInterval(gallaryTick, 2600);
+  }
+
+  function stopGallaryRotation() {
+    if (!gallaryTimer) return;
+    clearInterval(gallaryTimer);
+    gallaryTimer = null;
+  }
+
+  function syncGallaryRotation() {
+    if (gallarySectionVisible && document.visibilityState === "visible") {
+      startGallaryRotation();
+    } else {
+      stopGallaryRotation();
+    }
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    syncGallaryRotation();
+  });
+
+  if (gallarySection && "IntersectionObserver" in window) {
+    const rotObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          gallarySectionVisible = entry.isIntersecting;
+          syncGallaryRotation();
+        });
+      },
+      { root: null, rootMargin: "80px 0px", threshold: 0 }
+    );
+    rotObserver.observe(gallarySection);
+  }
+
+  syncGallaryRotation();
 }
 
 const galleryCategoryRoot = document.querySelector("[data-gallery-categories]");

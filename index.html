@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SPC Healthcare</title>
+    <link rel="preload" href="./Public/home_page_hero.png" as="image" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -11,7 +26,13 @@
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="#" class="brand" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
+            <img
+              src="./Public/navbar/logo.png"
+              alt="Stratus logo"
+              class="brand-logo"
+              fetchpriority="high"
+              decoding="async"
+            />
           </a>
           <button
             type="button"
@@ -68,18 +89,24 @@
             <img
               src="./Public/x.png"
               alt="Modern cafe interior with wood tables, woven pendant lights, and warm ambient glow"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="about-image image-two">
             <img
               src="./Public/home_page_section2_image2.png"
               alt="Modern cafe space with glass block wall and seating"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="about-image image-three">
             <img
               src="./Public/home_page_section2_image3.png"
               alt="Cafe counter and dining area with MUNGO signage"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -108,7 +135,12 @@
     <section class="services-section" id="services">
       <div class="services-grid">
         <article class="service-card">
-          <img src="./Public/container_1.png" alt="Modern residential architecture at dusk" />
+          <img
+            src="./Public/container_1.png"
+            alt="Modern residential architecture at dusk"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="service-overlay">
             <h3>Architecture</h3>
             <p>Thoughtful spaces designed for modern, sustainable living.</p>
@@ -117,7 +149,12 @@
         </article>
 
         <article class="service-card">
-          <img src="./Public/Container (1).png" alt="Construction and real estate service" />
+          <img
+            src="./Public/Container (1).png"
+            alt="Construction and real estate service"
+            loading="lazy"
+            decoding="async"
+          />
           
           <div class="service-overlay">
             <h3>Construction &amp; Real Estate Development</h3>
@@ -133,7 +170,12 @@
         </article>
 
         <article class="service-card">
-          <img src="./Public/container_3.png" alt="Interior design studio with warm materials and display shelving" />
+          <img
+            src="./Public/container_3.png"
+            alt="Interior design studio with warm materials and display shelving"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="service-overlay">
             <h3>De Atelier (Design Studio)</h3>
             <p>Curated interiors where minimal aesthetics meet timeless function.</p>
@@ -164,6 +206,8 @@
               alt="Modern cubic residence at night with warm lighting"
               data-architecture="./Public/image_1.png"
               data-construction="./Public/Container.png"
+              loading="lazy"
+              decoding="async"
             />
           </a>
         </article>
@@ -174,6 +218,8 @@
               alt="Contemporary home at dusk with triangular glass gable"
               data-architecture="./Public/image_2.png"
               data-construction="./Public/Container (1).png"
+              loading="lazy"
+              decoding="async"
             />
           </a>
         </article>
@@ -184,6 +230,8 @@
               alt="Multi-storey modern facade with glass balconies at evening"
               data-architecture="./Public/image_3.png"
               data-construction="./Public/Container (2).png"
+              loading="lazy"
+              decoding="async"
             />
           </a>
         </article>
@@ -196,6 +244,8 @@
           <img
             src="./Public/Our_philosophy.png"
             alt="Warm interior with crafted lighting reflecting our design philosophy"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -227,6 +277,8 @@
             src="./Public/313fc7585f39b443fe92c3760dff362f65dee332.png"
             alt="Modern cafe interior with glass block partition, circular ceiling panels, and sage upholstered seating"
             data-gallary-slot="0"
+            loading="lazy"
+            decoding="async"
           />
         </article>
         <article class="gallary-card">
@@ -234,6 +286,8 @@
             src="./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png"
             alt="Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs"
             data-gallary-slot="1"
+            loading="lazy"
+            decoding="async"
           />
         </article>
         <article class="gallary-card">
@@ -241,6 +295,8 @@
             src="./Public/about/IMG1%20(1).png"
             alt="Warm-toned interior with layered materials, soft lighting, and contemporary furnishings"
             data-gallary-slot="2"
+            loading="lazy"
+            decoding="async"
           />
         </article>
         <article class="gallary-card">
@@ -248,6 +304,8 @@
             src="./Public/IMG4.png"
             alt="Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants"
             data-gallary-slot="3"
+            loading="lazy"
+            decoding="async"
           />
         </article>
       </div>
@@ -266,6 +324,8 @@
               <img
                 src="./Public/the_largest_article%20(1).jpg"
                 alt="Interior feature with layered copper pendant lighting"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <p>Posuere urna nec tincidunt praesent egestas maecenas.</p>
@@ -277,6 +337,8 @@
               <img
                 src="./Public/the_largest_article%20(2).jpg"
                 alt="Modern kitchen with wood island, glass cabinetry, and sculptural lighting"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <p>Posuere urna nec tincidunt praesent egestas maecenas.</p>
@@ -288,6 +350,8 @@
               <img
                 src="./Public/the_largest_article%20(3).jpg"
                 alt="Minimal bedroom with artwork, wood accents, and warm accent lighting"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <p>Posuere urna nec tincidunt praesent egestas maecenas.</p>
@@ -310,6 +374,8 @@
             class="testimonial-avatar"
             src="./Public/navbar/testomonial%20(1).png"
             alt="John Carter"
+            loading="lazy"
+            decoding="async"
           />
           <h3>John Carter</h3>
           <p>
@@ -323,6 +389,8 @@
             class="testimonial-avatar"
             src="./Public/navbar/testomonial%20(2).png"
             alt="Sophie Moore"
+            loading="lazy"
+            decoding="async"
           />
           <h3>Sophie Moore</h3>
           <p>
@@ -336,6 +404,8 @@
             class="testimonial-avatar"
             src="./Public/navbar/testomonial%20(3).png"
             alt="Matt Cannon"
+            loading="lazy"
+            decoding="async"
           />
           <h3>Matt Cannon</h3>
           <p>
@@ -357,7 +427,13 @@
             <a href="./contact.html">Contact</a>
           </nav>
           <a href="#" class="footer-logo-link" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" />
+            <img
+              src="./Public/navbar/logo.png"
+              alt="Stratus logo"
+              class="footer-logo"
+              loading="lazy"
+              decoding="async"
+            />
           </a>
         </div>
 
@@ -390,6 +466,6 @@
         </div>
       </div>
     </footer>
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
   </body>
 </html>

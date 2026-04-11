@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About | Stratus</title>
+    <link rel="preload" href="./Public/about_hero_section.png" as="image" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -11,7 +26,13 @@
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="./index.html" class="brand" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
+            <img
+              src="./Public/navbar/logo.png"
+              alt="Stratus logo"
+              class="brand-logo"
+              fetchpriority="high"
+              decoding="async"
+            />
           </a>
           <button
             type="button"
@@ -66,18 +87,24 @@
           <img
             src="./Public/IMG1%20(1).png"
             alt="Warm cafe interior with woven pendant lights, backlit arch, wood tables, and geometric flooring"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="brand-story-image">
           <img
             src="./Public/about/about%20(2).png"
             alt="Warm cafe corner with glass block wall, terracotta plaster, and bouclé seating"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="brand-story-image">
           <img
             src="./Public/about/about%20(3).png"
             alt="Mungo coffee and brunch space with concrete, wood tables, and lush greenery"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -89,6 +116,8 @@
           <img
             src="./Public/Our_philosophy.png"
             alt="Warm interior with crafted lighting reflecting our design philosophy"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -125,6 +154,8 @@
           <img
             src="./Public/about/Secession%20in%20a%20contemporary%20setting%20optimized%20for%20modern%20living%20style..png"
             alt="Founder portrait seated on a stone ledge, wearing a green blazer"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -146,28 +177,34 @@
               <img
                 src="./Public/about/image%20(1).jpg"
                 alt="Team member portrait in a grey patterned shirt"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div class="teams-grid-item">
               <img
                 src="./Public/about/image%20(2).jpg"
                 alt="Team member portrait, smiling, white top"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div class="teams-grid-item">
               <img
                 src="./Public/about/image%20(3).jpg"
                 alt="Team member portrait with glasses, arms crossed"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div class="teams-grid-item">
-              <img src="./Public/about/image%20(1).jpg" alt="" />
+              <img src="./Public/about/image%20(1).jpg" alt="" loading="lazy" decoding="async" />
             </div>
             <div class="teams-grid-item">
-              <img src="./Public/about/image%20(2).jpg" alt="" />
+              <img src="./Public/about/image%20(2).jpg" alt="" loading="lazy" decoding="async" />
             </div>
             <div class="teams-grid-item">
-              <img src="./Public/about/image%20(3).jpg" alt="" />
+              <img src="./Public/about/image%20(3).jpg" alt="" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -185,7 +222,13 @@
             <a href="./contact.html">Contact</a>
           </nav>
           <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" />
+            <img
+              src="./Public/navbar/logo.png"
+              alt="Stratus logo"
+              class="footer-logo"
+              loading="lazy"
+              decoding="async"
+            />
           </a>
         </div>
 
@@ -219,6 +262,6 @@
       </div>
     </footer>
 
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
   </body>
 </html>

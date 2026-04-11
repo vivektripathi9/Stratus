@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Construction | Stratus</title>
+    <link rel="preload" href="./Public/Construction_page_hero_section.png" as="image" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -11,7 +26,13 @@
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="./index.html" class="brand" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="brand-logo" />
+            <img
+              src="./Public/navbar/logo.png"
+              alt="Stratus logo"
+              class="brand-logo"
+              fetchpriority="high"
+              decoding="async"
+            />
           </a>
           <button
             type="button"
@@ -58,8 +79,7 @@
         <div class="architecture-intro-media">
           <img
             src="./Public/AAsection__3%20(2).jpg"
-            alt="Large construction site at golden hour with concrete frame, scaffolding, and orange tower cranes"
-          />
+            alt="Large construction site at golden hour with concrete frame, scaffolding, and orange tower cranes" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
@@ -86,8 +106,7 @@
             <div class="architecture-approach-panel architecture-approach-panel--main main-img">
               <img
                 src="./Public/AAsection__3%20(1).jpg"
-                alt="Two engineers in hard hats overlooking a building site with tower cranes and rolled blueprints at sunset"
-              />
+                alt="Two engineers in hard hats overlooking a building site with tower cranes and rolled blueprints at sunset" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -112,8 +131,7 @@
               <img
                 data-latest-img="left"
                 src="./Public/about/our_ongoing.jpg"
-                alt="Brutalist waterside building at dusk with warm interior light and reflective plaza"
-              />
+                alt="Brutalist waterside building at dusk with warm interior light and reflective plaza" loading="lazy" decoding="async" />
               <span class="architecture-latest-media-label" data-latest-label="left">Coastal Retreat &copy;2019</span>
             </div>
             <div class="architecture-latest-meta" data-latest-meta="left">
@@ -128,8 +146,7 @@
               <img
                 data-latest-img="right"
                 src="./Public/about/on_going.jpg"
-                alt="Contemporary interior lounge with concrete walls, patterned tile, and staircase"
-              />
+                alt="Contemporary interior lounge with concrete walls, patterned tile, and staircase" loading="lazy" decoding="async" />
               <span class="architecture-latest-media-label" data-latest-label="right"
                 >Chic Apartment &copy;2019</span
               >
@@ -179,29 +196,25 @@
           <img
             src="./Public/313fc7585f39b443fe92c3760dff362f65dee332.png"
             alt="Modern cafe interior with glass block partition, circular ceiling panels, and sage upholstered seating"
-            data-gallary-slot="0"
-          />
+            data-gallary-slot="0" loading="lazy" decoding="async" />
         </article>
         <article class="gallary-card">
           <img
             src="./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png"
             alt="Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs"
-            data-gallary-slot="1"
-          />
+            data-gallary-slot="1" loading="lazy" decoding="async" />
         </article>
         <article class="gallary-card">
           <img
             src="./Public/about/IMG1%20(1).png"
             alt="Warm-toned interior with layered materials, soft lighting, and contemporary furnishings"
-            data-gallary-slot="2"
-          />
+            data-gallary-slot="2" loading="lazy" decoding="async" />
         </article>
         <article class="gallary-card">
           <img
             src="./Public/IMG4.png"
             alt="Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants"
-            data-gallary-slot="3"
-          />
+            data-gallary-slot="3" loading="lazy" decoding="async" />
         </article>
       </div>
     </section>
@@ -213,8 +226,7 @@
             <div class="services-cta-banner-frame">
               <img
                 src="./Public/about/f8b6249a1841e23e438602fdc15b81b5879e2e06.png"
-                alt="Warm cafe interior framed by glowing glass block columns, bouclé chairs, and lush greenery"
-              />
+                alt="Warm cafe interior framed by glowing glass block columns, bouclé chairs, and lush greenery" loading="lazy" decoding="async" />
             </div>
           </div>
           <div class="services-cta-banner-content">
@@ -239,7 +251,7 @@
             <a href="./contact.html">Contact</a>
           </nav>
           <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" />
+            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" loading="lazy" decoding="async" />
           </a>
         </div>
 
@@ -273,6 +285,6 @@
       </div>
     </footer>
 
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
   </body>
 </html>

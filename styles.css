@@ -712,6 +712,15 @@ button {
   white-space: nowrap;
 }
 
+/* Hero headlines — wider letter spacing on every page */
+.hero-content h1,
+.about-hero-content h1,
+.contact-hero-content h1,
+.services-hero-content h1,
+.architecture-hero-content h1 {
+  letter-spacing: 0.085em;
+}
+
 .interior-feature-section {
   width: 100%;
   box-sizing: border-box;
@@ -1568,6 +1577,7 @@ button {
 
 .services-feature-header h2 {
   margin: 0;
+  padding-left: clamp(12px, 1.4vw, 20px);
   font-family: var(--heading-font);
   font-size: 56px;
   line-height: 1;
@@ -1613,7 +1623,7 @@ button {
 
 /* Services page — hire CTA (tan field + dark rounded card + curved image) */
 .services-cta-banner {
-  padding: 72px 48px 96px;
+  padding: 48px 48px 64px;
   background-color: #d9c5b2;
   background-image: var(--paper-theme);
   background-size: 4px 4px, 8px 8px, 100% 100%;
@@ -1621,18 +1631,18 @@ button {
 }
 
 .services-cta-banner-inner {
-  max-width: 1136px;
+  max-width: 1020px;
   margin: 0 auto;
 }
 
 .services-cta-banner-card {
   display: flex;
   align-items: stretch;
-  gap: 36px;
+  gap: 28px;
   width: 100%;
-  max-width: 1136px;
-  height: 256px;
-  min-height: 256px;
+  max-width: 1020px;
+  height: 208px;
+  min-height: 208px;
   background: #3e2b23;
   border-radius: 36px;
   overflow: hidden;
@@ -1640,8 +1650,8 @@ button {
 }
 
 .services-cta-banner--architecture .services-cta-banner-card {
-  height: 320px;
-  min-height: 320px;
+  height: 248px;
+  min-height: 248px;
 }
 
 .services-cta-banner-visual {
@@ -1683,8 +1693,8 @@ button {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 16px;
-  padding: 24px 56px 24px 0;
+  gap: 12px;
+  padding: 16px 48px 16px 0;
   position: relative;
   z-index: 0;
 }
@@ -1693,9 +1703,9 @@ button {
   margin: 0;
   max-width: 520px;
   font-family: var(--heading-font);
-  font-size: clamp(22px, 2.2vw, 28px);
+  font-size: clamp(20px, 2vw, 26px);
   font-weight: 500;
-  line-height: 1.22;
+  line-height: 1.16;
   letter-spacing: 0.02em;
   color: #fff;
   font-style: normal;
@@ -1710,7 +1720,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 36px;
+  padding: 8px 28px;
   border: 1px solid #fff;
   border-radius: 999px;
   background: transparent;
@@ -1736,39 +1746,76 @@ button {
 
 @media (max-width: 900px) {
   .services-cta-banner {
-    padding: 48px 20px 64px;
+    padding: 20px 16px 28px;
   }
 
+  /* Match desktop: horizontal pill card, image left with curved seam, copy right */
   .services-cta-banner-card {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
     width: 100%;
     height: auto;
-    min-height: 0;
-    border-radius: 28px;
+    min-height: 118px;
+    border-radius: clamp(18px, 5vw, 32px);
+    gap: 0;
+  }
+
+  .services-cta-banner--architecture .services-cta-banner-card {
+    min-height: 132px;
   }
 
   .services-cta-banner-visual {
-    flex: 0 0 auto;
-    max-width: none;
-    width: 100%;
+    flex: 0 0 33%;
+    width: 33%;
+    min-width: 76px;
+    max-width: 40%;
+    align-self: stretch;
     padding: 0;
-    z-index: 0;
+    z-index: 1;
   }
 
   .services-cta-banner-frame {
-    min-height: 200px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
+    align-self: stretch;
     margin-right: 0;
-    border-radius: 0 0 999px 999px;
+    border-radius: 0 999px 999px 0;
+  }
+
+  .services-cta-banner-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .services-cta-banner-content {
-    padding: 32px 28px 40px;
-    gap: 24px;
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px 6px 6px;
+    gap: clamp(4px, 1.4vw, 8px);
+    justify-content: center;
+    align-items: flex-start;
   }
 
   .services-cta-banner-title {
     max-width: none;
-    font-size: 28px;
+    font-size: clamp(11px, 3vw, 17px);
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+  }
+
+  .services-cta-banner-title-line {
+    margin-top: 0.04em;
+  }
+
+  .services-cta-banner-btn {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 7px;
+    letter-spacing: 0.12em;
   }
 }
 
@@ -2603,10 +2650,17 @@ button {
     width: 100%;
     height: auto;
     min-width: 0;
+    min-height: 0;
+    aspect-ratio: unset;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     position: static;
+  }
+
+  .about-image-collage .about-metrics {
+    grid-column: 1 / -1;
+    margin-top: 8px;
   }
 
   .about-image {
@@ -2632,10 +2686,13 @@ button {
   .about-metrics-column {
     width: 100%;
     padding-top: 0;
+    position: relative;
+    z-index: 1;
   }
 
   .learn-about-btn {
     margin-bottom: 28px;
+    margin-top: 4px;
   }
 
   .about-metrics {
@@ -2789,10 +2846,10 @@ button {
 .projects-header h2 {
   margin: 0;
   font-family: var(--body-font);
-  font-size: 22px;
-  line-height: 1.15;
+  font-size: clamp(26px, 2.8vw, 34px);
+  line-height: 1.12;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--text-muted);
 }
@@ -2811,10 +2868,10 @@ button {
   background: transparent;
   color: rgba(90, 70, 54, 0.58);
   font-family: var(--body-font);
-  font-size: 16px;
+  font-size: clamp(17px, 1.9vw, 21px);
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: 0;
+  letter-spacing: 0.02em;
   border-radius: 0;
   text-transform: none;
   cursor: pointer;
@@ -3707,9 +3764,13 @@ button {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #f6eee5;
-  font-size: 15px;
-  font-weight: 500;
+}
+
+.footer-social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
 }
 
 .footer-middle-divider {
@@ -3833,8 +3894,12 @@ button {
   .footer-social a {
     width: 44px;
     height: 44px;
-    font-size: 16px;
     flex-shrink: 0;
+  }
+
+  .footer-social-icon {
+    width: 22px;
+    height: 22px;
   }
 
   .footer-middle-divider {
@@ -4068,7 +4133,8 @@ button {
   }
 
   .projects-header h2 {
-    font-size: clamp(17px, 4.2vw, 22px);
+    font-size: clamp(22px, 5.2vw, 32px);
+    letter-spacing: 1.4px;
   }
 
   .projects-tabs {
@@ -4081,6 +4147,7 @@ button {
   .project-tab {
     min-height: 44px;
     padding: 6px 2px 8px;
+    font-size: clamp(16px, 4.2vw, 20px);
   }
 
   .architecture-intro-section {

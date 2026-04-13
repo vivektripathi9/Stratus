@@ -613,7 +613,7 @@ if (latestRoot) {
   if (!form) return;
 
   const status = document.getElementById("contact-form-status");
-  const mail = "studio@stratus.example";
+  const mail = "hello@stratus.company";
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();

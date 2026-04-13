@@ -253,6 +253,98 @@ if (galleryCategoryRoot) {
   });
 }
 
+const showcaseRoot = document.querySelector(".gallery-projects-showcase");
+if (showcaseRoot) {
+  const prevBtn = showcaseRoot.querySelector("[data-showcase-prev]");
+  const nextBtn = showcaseRoot.querySelector("[data-showcase-next]");
+  const progressEl = showcaseRoot.querySelector("[data-showcase-progress]");
+  const featureImg = showcaseRoot.querySelector('[data-showcase-slot="feature"]');
+  const collageOne = showcaseRoot.querySelector('[data-showcase-slot="collage-1"]');
+  const collageTwo = showcaseRoot.querySelector('[data-showcase-slot="collage-2"]');
+  const collageThree = showcaseRoot.querySelector('[data-showcase-slot="collage-3"]');
+
+  const showcasePhotos = [
+    {
+      src: "./photos/Mungo/Image.png",
+      alt: "Mungo interior with warm lighting and textured walls",
+    },
+    {
+      src: "./photos/Mungo/Image%20(1).png",
+      alt: "Interior cafe seating with warm materials",
+    },
+    {
+      src: "./photos/Mungo/Image%20(2).png",
+      alt: "Dining space with natural light and wood textures",
+    },
+    {
+      src: "./photos/Mungo/Imagee.png",
+      alt: "Modern dining area with patterned booth and garden view",
+    },
+  ];
+
+  const slots = [featureImg, collageOne, collageTwo, collageThree];
+  let showcaseIndex = 0;
+  let showcaseAnimating = false;
+  const SHOWCASE_FADE_MS = 260;
+
+  function setShowcaseProgress(index) {
+    if (!progressEl) return;
+    const maxTravel = 60;
+    const left = showcasePhotos.length > 1 ? (index / (showcasePhotos.length - 1)) * maxTravel : 0;
+    progressEl.style.setProperty("--showcase-progress-left", `${left}%`);
+  }
+
+  function renderShowcase(index) {
+    slots.forEach((slot, slotIndex) => {
+      if (!slot) return;
+      const item = showcasePhotos[(index + slotIndex) % showcasePhotos.length];
+      slot.src = item.src;
+      slot.alt = item.alt;
+    });
+    setShowcaseProgress(index);
+  }
+
+  function preloadImage(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    });
+  }
+
+  function preloadShowcaseBatch(index) {
+    const nextBatch = slots.map((_, slotIndex) => showcasePhotos[(index + slotIndex) % showcasePhotos.length].src);
+    return Promise.all(nextBatch.map((src) => preloadImage(src)));
+  }
+
+  async function moveShowcase(step) {
+    if (showcaseAnimating) return;
+    showcaseAnimating = true;
+    if (prevBtn) prevBtn.disabled = true;
+    if (nextBtn) nextBtn.disabled = true;
+
+    slots.forEach((slot) => slot?.classList.add("is-showcase-fading"));
+    showcaseIndex = (showcaseIndex + step + showcasePhotos.length) % showcasePhotos.length;
+    await preloadShowcaseBatch(showcaseIndex);
+    await new Promise((resolve) => setTimeout(resolve, SHOWCASE_FADE_MS));
+
+    renderShowcase(showcaseIndex);
+
+    requestAnimationFrame(() => {
+      slots.forEach((slot) => slot?.classList.remove("is-showcase-fading"));
+    });
+
+    showcaseAnimating = false;
+    if (prevBtn) prevBtn.disabled = false;
+    if (nextBtn) nextBtn.disabled = false;
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", () => moveShowcase(-1));
+  if (nextBtn) nextBtn.addEventListener("click", () => moveShowcase(1));
+  renderShowcase(showcaseIndex);
+}
+
 // Projects that Inspire — six projects rotate two at a time: main (left) + next (right) only
 const latestWorksSubtitleVariants = [
   "A curated selection of projects that reflect our design thinking and execution.",

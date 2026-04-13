@@ -1018,6 +1018,61 @@ button {
   text-align: center;
 }
 
+.legal-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  color: #5a4a40;
+}
+
+.legal-content h2 {
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.legal-content .architecture-intro-lede {
+  max-width: 760px;
+  margin: 0 auto 26px;
+}
+
+.legal-meta {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(62, 46, 38, 0.86);
+}
+
+.legal-section {
+  margin: 0 0 22px;
+}
+
+.legal-section h3 {
+  margin: 0 0 8px;
+  font-family: var(--body-font);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #3e2e26;
+}
+
+.legal-section p {
+  margin: 0 0 10px;
+  font-size: 16px;
+  line-height: 1.58;
+}
+
+.legal-section ul {
+  margin: 0 0 8px;
+  padding-left: 20px;
+}
+
+.legal-section li {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 1.58;
+}
+
 .architecture-intro-media {
   width: 100%;
   height: 340px;
@@ -3318,6 +3373,262 @@ button {
     min-width: 0;
     height: auto;
     aspect-ratio: 480 / 420;
+  }
+}
+
+/* Gallery page (gallary.html) — projects showcase */
+.gallery-projects-showcase {
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(56px, 6vw, 84px) clamp(20px, 6vw, 72px) clamp(48px, 5vw, 64px);
+  background: #684a3b;
+}
+
+.gallery-projects-showcase-inner {
+  max-width: min(100%, 1080px);
+  margin: 0 auto;
+}
+
+.gallery-projects-showcase-inner h2 {
+  margin: 0 0 clamp(20px, 2.4vw, 28px);
+  text-align: center;
+  color: #e7ddd2;
+  font-size: clamp(20px, 1.8vw, 30px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gallery-projects-showcase-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: stretch;
+  background: #cfbba5;
+  min-height: clamp(420px, 44vw, 520px);
+  overflow: hidden;
+}
+
+.gallery-projects-showcase-feature {
+  margin: 0;
+  position: relative;
+  min-height: 0;
+  height: 100%;
+}
+
+.gallery-projects-showcase-feature img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.26s ease, transform 0.26s ease;
+}
+
+.gallery-projects-showcase-feature-meta {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  color: #f5eee6;
+}
+
+.gallery-projects-showcase-label {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.84;
+}
+
+.gallery-projects-showcase-name {
+  margin: 2px 0 0;
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+.gallery-projects-showcase-collage {
+  margin: 0;
+  padding: clamp(30px, 4vw, 44px) clamp(22px, 3.2vw, 38px);
+}
+
+.gallery-projects-showcase-collage h3 {
+  margin: 0 0 clamp(16px, 2vw, 24px);
+  text-align: center;
+  color: #5d4639;
+  font-size: clamp(22px, 2.2vw, 32px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gallery-projects-showcase-collage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(8px, 0.9vw, 10px);
+}
+
+.gallery-projects-showcase-collage-grid img {
+  width: 100%;
+  height: clamp(120px, 11.8vw, 152px);
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.26s ease, transform 0.26s ease;
+}
+
+.gallery-projects-showcase-collage-grid img:last-child {
+  grid-column: 1 / -1;
+  height: clamp(88px, 8.6vw, 118px);
+}
+
+.gallery-projects-showcase img.is-showcase-fading {
+  opacity: 0;
+  transform: scale(1.015);
+}
+
+.gallery-projects-showcase-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 34px);
+  margin-top: clamp(16px, 2.3vw, 24px);
+}
+
+.gallery-projects-showcase-arrow {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(231, 221, 210, 0.45);
+  border-radius: 999px;
+  background: transparent;
+  color: #e7ddd2;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.gallery-projects-showcase-arrow:disabled {
+  opacity: 0.55;
+}
+
+.gallery-projects-showcase-progress {
+  width: clamp(92px, 12vw, 132px);
+  height: 2px;
+  background: rgba(231, 221, 210, 0.28);
+  position: relative;
+}
+
+.gallery-projects-showcase-progress::after {
+  content: "";
+  position: absolute;
+  left: var(--showcase-progress-left, 30%);
+  width: 40%;
+  top: 0;
+  bottom: 0;
+  background: #f0e7dd;
+}
+
+/* Gallery projects: desktop tuning to match showcase mockup */
+@media (min-width: 1200px) {
+  .gallery-projects-showcase {
+    padding-top: 48px;
+    padding-bottom: 30px;
+  }
+
+  .gallery-projects-showcase-inner {
+    max-width: 980px;
+  }
+
+  .gallery-projects-showcase-inner h2 {
+    margin-bottom: 18px;
+    font-size: 32px;
+    letter-spacing: 0.1em;
+  }
+
+  .gallery-projects-showcase-frame {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 460px;
+  }
+
+  .gallery-projects-showcase-feature {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .gallery-projects-showcase-feature-meta {
+    left: 12px;
+    bottom: 10px;
+  }
+
+  .gallery-projects-showcase-collage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 14px 20px 12px;
+  }
+
+  .gallery-projects-showcase-collage h3 {
+    margin-bottom: 10px;
+    font-size: 46px;
+    letter-spacing: 0.05em;
+  }
+
+  .gallery-projects-showcase-collage-grid {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0 auto;
+    gap: 8px;
+  }
+
+  .gallery-projects-showcase-collage-grid img {
+    width: 100%;
+    height: 220px;
+  }
+
+  .gallery-projects-showcase-collage-grid img:last-child {
+    width: 100%;
+    height: 134px;
+  }
+
+  .gallery-projects-showcase-controls {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .gallery-projects-showcase {
+    padding: 36px 16px 36px;
+  }
+
+  .gallery-projects-showcase-inner {
+    max-width: 100%;
+  }
+
+  .gallery-projects-showcase-inner h2 {
+    font-size: clamp(18px, 4.8vw, 24px);
+    margin-bottom: 14px;
+  }
+
+  .gallery-projects-showcase-frame {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .gallery-projects-showcase-feature {
+    min-height: clamp(240px, 62vw, 360px);
+  }
+
+  .gallery-projects-showcase-collage {
+    padding: 18px 14px 16px;
+  }
+
+  .gallery-projects-showcase-collage h3 {
+    margin-bottom: 12px;
+    font-size: clamp(18px, 4vw, 24px);
+  }
+
+  .gallery-projects-showcase-collage-grid img {
+    height: clamp(110px, 28vw, 160px);
+  }
+
+  .gallery-projects-showcase-collage-grid img:last-child {
+    height: clamp(96px, 24vw, 132px);
   }
 }
 

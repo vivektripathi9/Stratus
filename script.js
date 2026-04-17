@@ -345,6 +345,77 @@ if (showcaseRoot) {
   renderShowcase(showcaseIndex);
 }
 
+const eachProjectRoot = document.querySelector(".home-each-project-section");
+if (eachProjectRoot) {
+  const cards = Array.from(eachProjectRoot.querySelectorAll("[data-each-card]"));
+  const steps = Array.from(eachProjectRoot.querySelectorAll("[data-each-step]"));
+  const prevBtn = eachProjectRoot.querySelector("[data-each-prev]");
+  const nextBtn = eachProjectRoot.querySelector("[data-each-next]");
+  let eachIndex = Math.max(
+    0,
+    cards.findIndex((card) => card.classList.contains("is-active"))
+  );
+
+  function renderEachProject(index) {
+    cards.forEach((card, cardIndex) => {
+      card.classList.toggle("is-active", cardIndex === index);
+      card.setAttribute("aria-hidden", String(cardIndex !== index));
+    });
+    steps.forEach((step, stepIndex) => {
+      const isActive = stepIndex === index;
+      step.classList.toggle("is-active", isActive);
+      step.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  }
+
+  function moveEachProject(step) {
+    if (!cards.length) return;
+    eachIndex = (eachIndex + step + cards.length) % cards.length;
+    renderEachProject(eachIndex);
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", () => moveEachProject(-1));
+  if (nextBtn) nextBtn.addEventListener("click", () => moveEachProject(1));
+  steps.forEach((step, stepIndex) => {
+    step.addEventListener("click", () => {
+      eachIndex = stepIndex;
+      renderEachProject(eachIndex);
+    });
+  });
+  renderEachProject(eachIndex);
+}
+
+const homeFaqRoot = document.querySelector("[data-home-faq]");
+if (homeFaqRoot) {
+  const faqItems = Array.from(homeFaqRoot.querySelectorAll("[data-faq-item]"));
+
+  function setFaqState(activeItem) {
+    faqItems.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const panel = item.querySelector("[data-faq-panel]");
+      const icon = item.querySelector(".home-faq-icon");
+      const isOpen = item === activeItem;
+
+      item.classList.toggle("is-open", isOpen);
+      if (trigger) trigger.setAttribute("aria-expanded", String(isOpen));
+      if (panel) panel.hidden = !isOpen;
+      if (icon) icon.textContent = isOpen ? "\u2212" : "+";
+    });
+  }
+
+  faqItems.forEach((item) => {
+    const trigger = item.querySelector("[data-faq-trigger]");
+    if (!trigger) return;
+    trigger.addEventListener("click", () => {
+      const isAlreadyOpen = item.classList.contains("is-open");
+      setFaqState(isAlreadyOpen ? null : item);
+    });
+  });
+
+  const initiallyOpenItem = faqItems.find((item) => item.classList.contains("is-open")) || null;
+  setFaqState(initiallyOpenItem);
+}
+
 // Projects that Inspire — six projects rotate two at a time: main (left) + next (right) only
 const latestWorksSubtitleVariants = [
   "A curated selection of projects that reflect our design thinking and execution.",
@@ -605,6 +676,62 @@ if (latestRoot) {
     });
 
     applyState();
+  });
+})();
+
+(function initInteriorTestimonials() {
+  const root = document.querySelector("[data-interior-testimonials]");
+  if (!root) return;
+
+  const quoteEl = root.querySelector("[data-t-quote]");
+  const contextEl = root.querySelector("[data-t-context]");
+  const prevBtn = root.querySelector("[data-t-prev]");
+  const nextBtn = root.querySelector("[data-t-next]");
+  if (!quoteEl || !contextEl || !prevBtn || !nextBtn) return;
+
+  const slides = [
+    {
+      quote:
+        "From concept to reality, the team turned my vision into a stunning, livable space. I couldn\u2019t be happier with this!",
+      context:
+        "Morgan wanted a modern, functional office. We delivered a bright, stylish space with smart design solutions, perfectly tailored to his company style.",
+    },
+    {
+      quote:
+        "Our living room was completely transformed! The team captured our vision perfectly and exceeded our expectations.",
+      context:
+        "John Carter asked for a warm, contemporary family room. We layered light, texture, and practical storage without losing the home\u2019s character.",
+    },
+    {
+      quote:
+        "Professional and creative! The design process was smooth, and the results are stunning. Highly recommend their services.",
+      context:
+        "Sophie Moore\u2019s brief balanced hospitality and calm. The finished interiors feel polished yet easy to live in every day.",
+    },
+    {
+      quote:
+        "Their attention to detail and commitment to quality turned our house into a home we love. Outstanding work!",
+      context:
+        "Matt Cannon prioritized durability and quiet luxury. We refined each junction so the space feels composed and enduring.",
+    },
+  ];
+
+  let index = 0;
+
+  function render() {
+    const s = slides[index];
+    quoteEl.textContent = s.quote;
+    contextEl.textContent = s.context;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    render();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    render();
   });
 })();
 

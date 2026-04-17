@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Architecture | Stratus</title>
-    <link rel="preload" href="./Public/Articture__page_hero_section.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="./Font/New_images/architecture.png" as="image" fetchpriority="high" />
     <link
       rel="preload"
       href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
@@ -21,13 +21,16 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="top-hero-page">
     <header>
+      <a href="./index.html" class="top-corner-logo" aria-label="Stratus Home">
+        <img src="./Public/navbar/logo.png" alt="Stratus logo" class="top-corner-logo-img" fetchpriority="high" decoding="async" />
+      </a>
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="./index.html" class="brand" aria-label="Stratus Home">
             <img
-              src="./Public/navbar/logo.png"
+              src="./Font/New_images/BG (2).png"
               alt="Stratus logo"
               class="brand-logo"
               fetchpriority="high"
@@ -51,22 +54,25 @@
         <div class="nav-backdrop" aria-hidden="true"></div>
         <div class="nav-right" id="site-navigation">
           <ul class="nav-links">
-            <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./interior.html">Interior</a></li>
-            <li><a href="./gallary.html">Gallery</a></li>
-            <li><a href="./index.html#latest-article">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./index.html#projects">Projects</a></li>
           </ul>
-          <button type="button" class="btn-primary">Get Started</button>
+          <a href="./contact.html" class="hero-contact-btn"
+            >Contact <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
+          >
         </div>
       </nav>
     </header>
 
-    <section class="architecture-hero architecture-hero--architecture">
-      <div class="architecture-hero-content">
-        <h1>Design shaped through purpose and precision</h1>
+    <section class="architecture-hero architecture-hero--architecture page-hero">
+      <div class="page-hero-content">
+        <div class="page-hero-meta">
+          <a href="./contact.html" class="hero-start-btn">Start a Project</a>
+          <p>Spaces designed with clarity and built for the long term</p>
+        </div>
+        <h1>ARCHITECTURE</h1>
       </div>
     </section>
 
@@ -123,7 +129,7 @@
       <div class="architecture-latest-inner">
         <header class="architecture-latest-header">
           <div class="architecture-latest-header-left">
-            <p class="architecture-latest-eyebrow">Latest works</p>
+            <p class="architecture-latest-eyebrow">Latest Works</p>
             <h2 id="architecture-latest-heading">Projects that Inspire</h2>
           </div>
           <p class="architecture-latest-header-right" data-latest-subtitle>
@@ -145,7 +151,7 @@
             </div>
             <div class="architecture-latest-meta" data-latest-meta="left">
               <span>Coastal Retreat</span>
-              <span>Paris, France</span>
+              <span>Indiranagar, Bangalore</span>
               <span>LH-103</span>
             </div>
           </article>
@@ -243,8 +249,7 @@
           </div>
           <div class="services-cta-banner-content">
             <h2 id="services-cta-heading" class="services-cta-banner-title">
-              Spaces that balance sustainability and practicality
-              <span class="services-cta-banner-title-line">with clarity and purpose.</span>
+              Blending creativity and functionality in every design
             </h2>
             <a href="#" class="services-cta-banner-btn">Hire us now</a>
           </div>
@@ -252,47 +257,57 @@
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="footer-main">
-        <div class="footer-top">
-          <nav class="footer-nav" aria-label="Footer">
-            <a href="./index.html">Home</a>
-            <a href="./about.html">About</a>
-            <a href="./services.html">Services</a>
+    <section class="footer-quote-strip" aria-label="Quote">
+      <p>Let&rsquo;s build your dream spaces...</p>
+    </section>
+
+    <footer class="site-footer footer-v2">
+      <div class="footer-v2-inner">
+        <div class="footer-v2-top">
+          <div class="footer-v2-brand">
+            <a href="./index.html" class="footer-v2-logo-link" aria-label="Stratus Home">
+              <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-v2-logo" loading="lazy" decoding="async" />
+            </a>
+            <p>
+              We design interiors that balance comfort and clarity, crafting spaces defined by
+              purpose, proportion, and lasting character.
+            </p>
+            <div class="footer-v2-social">
+              <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+            </div>
+          </div>
+          <div class="footer-v2-links">
+            <h3>Site</h3>
+            <a href="./index.html#projects">Projects</a>
             <a href="./index.html#latest-article">Blog</a>
+            <a href="./about.html">About</a>
             <a href="./contact.html">Contact</a>
-          </nav>
-          <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" loading="lazy" decoding="async" />
-          </a>
-        </div>
-
-        <div class="footer-divider" aria-hidden="true"></div>
-
-        <div class="footer-middle">
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook"><img src="./Public/services/facebook-f.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
           </div>
-
-          <div class="footer-middle-divider" aria-hidden="true"></div>
-
-          <p class="footer-note">
-            Posuere urna nec tincidunt praesent egestas maecenas pharetra convallis posuere ipsum
-            nunc.
-          </p>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-          <p class="footer-copy">&copy; Copyright by Stratus - All right reserved.</p>
-          <div class="footer-legal">
-            <a href="./terms.html">Terms</a>
-            <a href="./privacy.html">Privacy</a>
+          <div class="footer-v2-links">
+            <h3>Legal</h3>
+            <a href="./privacy.html">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="./terms.html">Terms and Conditions</a>
           </div>
+          <form class="footer-v2-subscribe" action="#" method="post">
+            <label for="footer-email-architecture" class="sr-only">Email</label>
+            <input id="footer-email-architecture" type="email" placeholder="hello@gmail.com" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <img
+          src="./Font/New_images/STRATUS.png"
+          alt=""
+          class="footer-v2-wordmark-image"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+        <div class="footer-v2-bottom">
+          <p>&copy; 2026, Stratus. All Rights Reserved</p>
+          <p>Site by PINAKKAA</p>
         </div>
       </div>
     </footer>

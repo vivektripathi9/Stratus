@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About | Stratus</title>
-    <link rel="preload" href="./Public/about_hero_section.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="./Font/New_images/about.png" as="image" fetchpriority="high" />
     <link
       rel="preload"
       href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
@@ -21,13 +21,16 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="top-hero-page">
     <header>
+      <a href="./index.html" class="top-corner-logo" aria-label="Stratus Home">
+        <img src="./Public/navbar/logo.png" alt="Stratus logo" class="top-corner-logo-img" fetchpriority="high" decoding="async" />
+      </a>
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="./index.html" class="brand" aria-label="Stratus Home">
             <img
-              src="./Public/navbar/logo.png"
+              src="./Font/New_images/BG (2).png"
               alt="Stratus logo"
               class="brand-logo"
               fetchpriority="high"
@@ -51,58 +54,44 @@
         <div class="nav-backdrop" aria-hidden="true"></div>
         <div class="nav-right" id="site-navigation">
           <ul class="nav-links">
-            <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./interior.html">Interior</a></li>
-            <li><a href="./gallary.html">Gallery</a></li>
-            <li><a href="./index.html#latest-article">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./index.html#projects">Projects</a></li>
           </ul>
-          <button type="button" class="btn-primary">Get Started</button>
+          <a href="./contact.html" class="hero-contact-btn"
+            >Contact <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
+          >
         </div>
       </nav>
     </header>
 
-    <section class="about-hero">
-      <div class="about-hero-content">
-        <h1>Minimal thinking. Lasting design.</h1>
+    <section class="about-hero page-hero">
+      <div class="page-hero-content">
+        <div class="page-hero-meta">
+          <a href="./contact.html" class="hero-start-btn">Start a Project</a>
+          <p>Spaces designed with clarity and built for the long term</p>
+        </div>
+        <h1>ABOUTUS</h1>
       </div>
     </section>
 
     <section class="brand-story-section">
       <div class="brand-story-header">
+        <p class="brand-story-kicker">About Us</p>
         <h2>Brand Story</h2>
         <p>
-          STRATUS was founded on the belief that architecture should feel honest and inevitable.
-          <br />
-          We do not design for trends. We design for longevity.
-          <br />
-          Every decision is guided by context, climate, material, and human experience.
+          STRATUS was founded on the belief that architecture should feel honest and inevitable. We
+          do not design for trends. We design for longevity. Every decision is guided by context,
+          climate, material, and human experience.
         </p>
       </div>
 
       <div class="brand-story-images">
         <div class="brand-story-image">
           <img
-            src="./Public/IMG1%20(1).png"
-            alt="Warm cafe interior with woven pendant lights, backlit arch, wood tables, and geometric flooring"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <div class="brand-story-image">
-          <img
-            src="./Public/about/about%20(2).png"
-            alt="Warm cafe corner with glass block wall, terracotta plaster, and bouclé seating"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <div class="brand-story-image">
-          <img
-            src="./Public/about/about%20(3).png"
-            alt="Mungo coffee and brunch space with concrete, wood tables, and lush greenery"
+            src="./Font/New_images/interior design (1).png"
+            alt="Warm dining interior with wood ceiling and patterned seating"
             loading="lazy"
             decoding="async"
           />
@@ -112,27 +101,23 @@
 
     <section class="philosophy-section" id="philosophy">
       <div class="philosophy-layout">
-        <div class="philosophy-collage philosophy-collage--single">
-          <img
-            src="./Public/Our_philosophy.png"
-            alt="Warm interior with crafted lighting reflecting our design philosophy"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-
-        <div class="philosophy-content">
-          <h2>OUR PHILOSOPHY</h2>
-          <h3>Sustainable Core (75%)</h3>
-          <p>
-            We prioritize natural, renewable materials to minimize environmental impact and ensure
-            lasting beauty and durability.
-          </p>
-          <h3>Commercial Edge (25%)</h3>
-          <p>
-            We balance sustainability with market realities to ensure financially viable, efficient,
-            and appealing projects.
-          </p>
+        <div class="philosophy-cards">
+          <article class="philosophy-card">
+            <h3>75%</h3>
+            <h4>Sustainable Core</h4>
+            <p>
+              We prioritize natural, renewable materials to minimize environmental impact and ensure
+              lasting beauty and durability.
+            </p>
+          </article>
+          <article class="philosophy-card">
+            <h3>25%</h3>
+            <h4>Commercial Edge</h4>
+            <p>
+              We balance sustainability with market realities to ensure financially viable, efficient,
+              and appealing projects.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -140,14 +125,20 @@
     <section class="founder-note-section">
       <div class="founder-note-layout">
         <div class="founder-note-content">
-          <h2>Founder Note</h2>
-          <p>We believe simplicity carries depth.</p>
+          <p class="founder-note-kicker">
+            <img src="./Font/New_images/Arrow.png" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+            Our Founder
+          </p>
+          <h2>Principal Architect Note</h2>
           <p>
+            We believe simplicity carries depth.
+            <br />
             When design is resolved correctly, it does not seek attention.
             <br />
             It feels natural, intuitive, and complete.
+            <br />
+            Our goal is to create spaces that people connect with over time.
           </p>
-          <p>Our goal is to create spaces that people connect with over time.</p>
         </div>
 
         <div class="founder-note-image-placeholder">
@@ -164,100 +155,107 @@
     <section class="teams-section" id="teams" aria-labelledby="teams-heading">
       <div class="teams-inner">
         <div class="teams-copy">
-          <span class="teams-kicker">TEAMS</span>
-          <h2 id="teams-heading">
-            A team of architects, designers, and specialists working with precision, collaboration, and a
-            shared design philosophy.
-          </h2>
+          <span class="teams-kicker">The Team</span>
+          <h2 id="teams-heading">The Dedicated Team Behind The Craft</h2>
+          <p class="teams-subcopy">
+            A dedicated group of professionals working collaboratively to shape interior environments
+            with clarity, purpose, and lasting quality.
+          </p>
         </div>
 
         <div class="teams-grid-shell">
           <div class="teams-grid">
-            <div class="teams-grid-item">
-              <img
-                src="./Public/about/image%20(1).jpg"
-                alt="Team member portrait in a grey patterned shirt"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="teams-grid-item">
-              <img
-                src="./Public/about/image%20(2).jpg"
-                alt="Team member portrait, smiling, white top"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="teams-grid-item">
-              <img
-                src="./Public/about/image%20(3).jpg"
-                alt="Team member portrait with glasses, arms crossed"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="teams-grid-item">
-              <img src="./Public/about/image%20(1).jpg" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="teams-grid-item">
-              <img src="./Public/about/image%20(2).jpg" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="teams-grid-item">
-              <img src="./Public/about/image%20(3).jpg" alt="" loading="lazy" decoding="async" />
-            </div>
+            <article class="teams-member-card">
+              <div class="teams-grid-item" aria-hidden="true"></div>
+              <h3>Marco Bellini</h3>
+              <p>Founder &amp; Creative Director</p>
+            </article>
+            <article class="teams-member-card">
+              <div class="teams-grid-item" aria-hidden="true"></div>
+              <h3>Thomas Keller</h3>
+              <p>Interior Designer</p>
+            </article>
+            <article class="teams-member-card">
+              <div class="teams-grid-item" aria-hidden="true"></div>
+              <h3>Luca Moretti</h3>
+              <p>Senior Interior Designer</p>
+            </article>
+            <article class="teams-member-card">
+              <div class="teams-grid-item" aria-hidden="true"></div>
+              <h3>Ethan Collins</h3>
+              <p>Studio Coordinator</p>
+            </article>
+            <article class="teams-member-card">
+              <div class="teams-grid-item" aria-hidden="true"></div>
+              <h3>Daniel Foster</h3>
+              <p>Design Lead</p>
+            </article>
+            <article class="teams-member-card">
+              <div class="teams-grid-item" aria-hidden="true"></div>
+              <h3>Alexander Reed</h3>
+              <p>Project Manager</p>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="footer-main">
-        <div class="footer-top">
-          <nav class="footer-nav" aria-label="Footer">
-            <a href="./index.html">Home</a>
-            <a href="./about.html">About</a>
-            <a href="./services.html">Services</a>
+    <section class="footer-quote-strip" aria-label="Quote">
+      <p>Let&rsquo;s build your dream spaces...</p>
+    </section>
+
+    <footer class="site-footer footer-v2">
+      <div class="footer-v2-inner">
+        <div class="footer-v2-top">
+          <div class="footer-v2-brand">
+            <a href="./index.html" class="footer-v2-logo-link" aria-label="Stratus Home">
+              <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-v2-logo" loading="lazy" decoding="async" />
+            </a>
+            <p>
+              We design interiors that balance comfort and clarity, crafting spaces defined by
+              purpose, proportion, and lasting character.
+            </p>
+            <div class="footer-v2-social">
+              <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+            </div>
+          </div>
+
+          <div class="footer-v2-links">
+            <h3>Site</h3>
+            <a href="./index.html#projects">Projects</a>
             <a href="./index.html#latest-article">Blog</a>
+            <a href="./about.html">About</a>
             <a href="./contact.html">Contact</a>
-          </nav>
-          <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
-            <img
-              src="./Public/navbar/logo.png"
-              alt="Stratus logo"
-              class="footer-logo"
-              loading="lazy"
-              decoding="async"
-            />
-          </a>
-        </div>
-
-        <div class="footer-divider" aria-hidden="true"></div>
-
-        <div class="footer-middle">
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook"><img src="./Public/services/facebook-f.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
           </div>
 
-          <div class="footer-middle-divider" aria-hidden="true"></div>
-
-          <p class="footer-note">
-            Posuere urna nec tincidunt praesent egestas maecenas pharetra convallis posuere ipsum
-            nunc.
-          </p>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-          <p class="footer-copy">&copy; Copyright by Stratus - All right reserved.</p>
-          <div class="footer-legal">
-            <a href="./terms.html">Terms</a>
-            <a href="./privacy.html">Privacy</a>
+          <div class="footer-v2-links">
+            <h3>Legal</h3>
+            <a href="./privacy.html">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="./terms.html">Terms and Conditions</a>
           </div>
+
+          <form class="footer-v2-subscribe" action="#" method="post">
+            <label for="footer-email-about" class="sr-only">Email</label>
+            <input id="footer-email-about" type="email" placeholder="hello@gmail.com" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <img
+          src="./Font/New_images/STRATUS.png"
+          alt=""
+          class="footer-v2-wordmark-image"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+
+        <div class="footer-v2-bottom">
+          <p>&copy; 2026, Stratus. All Rights Reserved</p>
+          <p>Site by PINAKKAA</p>
         </div>
       </div>
     </footer>

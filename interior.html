@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interior | Stratus</title>
-    <link rel="preload" href="./Public/interior__page_hero_section_1.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="./Font/New_images/interior.png" as="image" fetchpriority="high" />
     <link
       rel="preload"
       href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
@@ -21,13 +21,16 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="top-hero-page interior-page">
     <header>
+      <a href="./index.html" class="top-corner-logo" aria-label="Stratus Home">
+        <img src="./Public/navbar/logo.png" alt="Stratus logo" class="top-corner-logo-img" fetchpriority="high" decoding="async" />
+      </a>
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="./index.html" class="brand" aria-label="Stratus Home">
             <img
-              src="./Public/navbar/logo.png"
+              src="./Font/New_images/BG (2).png"
               alt="Stratus logo"
               class="brand-logo"
               fetchpriority="high"
@@ -51,29 +54,32 @@
         <div class="nav-backdrop" aria-hidden="true"></div>
         <div class="nav-right" id="site-navigation">
           <ul class="nav-links">
-            <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./services.html">Services</a></li>
-            <li><a href="./interior.html">Interior</a></li>
-            <li><a href="./gallary.html">Gallery</a></li>
-            <li><a href="./index.html#latest-article">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./interior.html" aria-current="page">Interior</a></li>
+            <li><a href="./index.html#projects">Projects</a></li>
           </ul>
-          <button type="button" class="btn-primary">Get Started</button>
+          <a href="./contact.html" class="hero-contact-btn"
+            >Contact <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
+          >
         </div>
       </nav>
     </header>
 
-    <section class="architecture-hero architecture-hero--interior">
-      <div class="architecture-hero-content">
-        <h1>Interiors shaped with intention</h1>
+    <section class="architecture-hero architecture-hero--interior page-hero">
+      <div class="page-hero-content">
+        <div class="page-hero-meta">
+          <a href="./contact.html" class="hero-start-btn">Start a Project</a>
+          <p>Spaces designed with clarity and built for the long term</p>
+        </div>
+        <h1>INTERIOR</h1>
       </div>
     </section>
 
     <section class="interior-feature-section" aria-labelledby="interior-feature-heading">
       <div class="interior-feature-inner">
         <div class="interior-feature-copy">
-          <p class="interior-feature-kicker">• De Atelier</p>
+          <p class="interior-feature-kicker">De Atelier</p>
           <div class="interior-feature-rule" aria-hidden="true"></div>
           <h2 id="interior-feature-heading">Expert Design Solutions for Your Unique Needs</h2>
           <p class="interior-feature-lede">
@@ -90,197 +96,353 @@
       </div>
     </section>
 
-    <section class="philosophy-section" id="philosophy">
-      <div class="philosophy-layout">
-        <div class="philosophy-collage philosophy-collage--single">
-          <img
-            src="./Public/Our_philosophy.png"
-            alt="Warm interior with crafted lighting reflecting our design philosophy" loading="lazy" decoding="async" />
+    <section
+      class="philosophy-section philosophy-section--interior-wide"
+      id="philosophy"
+      aria-labelledby="interior-philosophy-heading"
+    >
+      <div class="philosophy-layout philosophy-layout--interior-split">
+        <div class="philosophy-split-left">
+          <h2 id="interior-philosophy-heading" class="philosophy-section-title">Our Philosophy</h2>
+          <div class="philosophy-cards">
+            <article class="philosophy-card">
+              <h3>75%</h3>
+              <h4>Sustainable Core</h4>
+              <p>
+                We prioritize natural, renewable materials to minimize environmental impact and ensure
+                lasting beauty and durability.
+              </p>
+            </article>
+            <article class="philosophy-card">
+              <h3>25%</h3>
+              <h4>Commercial Edge</h4>
+              <p>
+                We balance sustainability with market realities to ensure financially viable, efficient,
+                and appealing projects.
+              </p>
+            </article>
+          </div>
         </div>
-
-        <div class="philosophy-content">
-          <h2>OUR PHILOSOPHY</h2>
-          <h3>Sustainable Core (75%)</h3>
-          <p>
-            We prioritize natural, renewable materials to minimize environmental impact and ensure
-            lasting beauty and durability.
-          </p>
-          <h3>Commercial Edge (25%)</h3>
-          <p>
-            We balance sustainability with market realities to ensure financially viable, efficient,
-            and appealing projects.
-          </p>
+        <div class="philosophy-split-media">
+          <img
+            src="./Font/New_images/interior%20design.png"
+            alt="Warm contemporary café interior with wood tables, chairs, and tall windows"
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="600"
+          />
         </div>
       </div>
     </section>
 
-    <section class="architecture-latest-section" aria-labelledby="architecture-latest-heading" data-latest-works>
-      <div class="architecture-latest-inner">
-        <header class="architecture-latest-header">
-          <div class="architecture-latest-header-left">
-            <p class="architecture-latest-eyebrow">Latest works</p>
-            <h2 id="architecture-latest-heading">Projects that Inspire</h2>
+    <section class="interior-portfolio-section" aria-labelledby="interior-portfolio-heading">
+      <div class="interior-portfolio-inner">
+        <header class="interior-portfolio-header">
+          <div class="interior-portfolio-header-left">
+            <p class="interior-portfolio-kicker">
+              <span class="interior-portfolio-kicker-icon" aria-hidden="true"></span>
+              Case Study
+            </p>
+            <h2 id="interior-portfolio-heading">Projects that Inspire</h2>
           </div>
-          <p class="architecture-latest-header-right" data-latest-subtitle>
-            A curated selection of projects that reflect our design thinking and execution.
+          <p class="interior-portfolio-lede">
+            A curated collection of interior spaces shaped through detail and material understanding.
           </p>
         </header>
 
-        <div class="architecture-latest-grid">
-          <article class="architecture-latest-card architecture-latest-card--primary">
-            <div class="architecture-latest-media">
-              <img
-                data-latest-img="left"
-                src="./Public/about/our_ongoing.jpg"
-                alt="Brutalist waterside building at dusk with warm interior light and reflective plaza" loading="lazy" decoding="async" />
-              <span class="architecture-latest-media-label" data-latest-label="left">Coastal Retreat &copy;2019</span>
-            </div>
-            <div class="architecture-latest-meta" data-latest-meta="left">
-              <span>Coastal Retreat</span>
-              <span>Paris, France</span>
-              <span>LH-103</span>
-            </div>
-          </article>
-
-          <article class="architecture-latest-card architecture-latest-card--secondary">
-            <div class="architecture-latest-media">
-              <img
-                data-latest-img="right"
-                src="./Public/about/on_going.jpg"
-                alt="Contemporary interior lounge with concrete walls, patterned tile, and staircase" loading="lazy" decoding="async" />
-              <span class="architecture-latest-media-label" data-latest-label="right"
-                >Chic Apartment &copy;2019</span
-              >
-            </div>
-            <div class="architecture-latest-meta" data-latest-meta="right">
-              <span>Chic Apartment</span>
-              <span>Indiranagar, Bangalore</span>
-              <span>LH-001</span>
-            </div>
-          </article>
-        </div>
-
-        <div class="architecture-latest-controls" aria-label="Latest works controls">
-          <button
-            type="button"
-            class="architecture-latest-arrow"
-            data-latest-prev
-            aria-label="Previous projects"
-          >
-            &#8592;
-          </button>
-          <div class="architecture-latest-progress" aria-hidden="true">
-            <span class="architecture-latest-progress-track"></span>
-            <span class="architecture-latest-progress-fill" data-latest-progress></span>
-          </div>
-          <button
-            type="button"
-            class="architecture-latest-arrow"
-            data-latest-next
-            aria-label="Next projects"
-          >
-            &#8594;
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="interior-design-space-section" aria-labelledby="interior-design-space-heading">
-      <div class="interior-design-space-inner">
-        <h2 id="interior-design-space-heading">Take A Look on Our Design Space</h2>
-
-        <div class="interior-design-space-grid">
-          <div class="interior-design-space-col interior-design-space-col--left">
-            <figure class="interior-design-space-figure interior-design-space-figure--sq">
-              <img
-                src="./Public/navbar/interior%20(4).png"
-                alt="Open-plan office with teal accents, wood workstations, concrete ceiling, and windows to greenery" loading="lazy" decoding="async" />
-            </figure>
-            <figure class="interior-design-space-figure interior-design-space-figure--sq">
-              <img
-                src="./Public/navbar/interior%20(1).png"
-                alt="Modern multi-storey building at twilight with brick jaali, glass, palm trees, and illuminated signage" loading="lazy" decoding="async" />
-            </figure>
-            <div class="interior-design-space-meta">
-              <p class="interior-design-space-title">Dongle Desk</p>
-              <div class="interior-design-space-meta-row">
-                <p class="interior-design-space-subtitle">Type — Commercial</p>
-                <a
-                  href="./gallary.html"
-                  class="interior-design-space-next"
-                  aria-label="Explore Stratus gallery"
-                >
-                  &#8594;
-                </a>
+        <ul class="interior-portfolio-list">
+          <li class="interior-portfolio-item">
+            <a class="interior-portfolio-media-link" href="./index.html#projects">
+              <div class="interior-portfolio-media">
+                <img
+                  src="./Font/New_images/Ax%20(1).png"
+                  alt="Cafe Grey — panoramic café interior with wood tables, yellow chairs, brick wall, and outdoor terrace views"
+                  loading="lazy"
+                  decoding="async"
+                  width="1836"
+                  height="403"
+                />
+                <span class="interior-portfolio-link-badge" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+            <div class="interior-portfolio-meta">
+              <time class="interior-portfolio-date" datetime="2025-06-10">Jun 10, 2025</time>
+              <div class="interior-portfolio-center">
+                <span class="interior-portfolio-title">Cafe Grey</span>
+                <span class="interior-portfolio-place">Bangalore, India</span>
               </div>
             </div>
-          </div>
+          </li>
 
-          <div class="interior-design-space-col interior-design-space-col--right">
-            <figure class="interior-design-space-figure interior-design-space-figure--wide">
+          <li class="interior-portfolio-item">
+            <a class="interior-portfolio-media-link" href="./index.html#projects">
+              <div class="interior-portfolio-media">
+                <img
+                  src="./Font/New_images/Ax%20(2).png"
+                  alt="Dongle Desk — open coworking space with wood desks, privacy screens, teal accent wall, and garden views"
+                  loading="lazy"
+                  decoding="async"
+                  width="1836"
+                  height="403"
+                />
+                <span class="interior-portfolio-link-badge" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+            <div class="interior-portfolio-meta">
+              <time class="interior-portfolio-date" datetime="2025-08-06">Aug 6, 2025</time>
+              <div class="interior-portfolio-center">
+                <span class="interior-portfolio-title">Dongle Desk</span>
+                <span class="interior-portfolio-place">Bangalore, India</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="interior-portfolio-item">
+            <a class="interior-portfolio-media-link" href="./index.html#projects">
+              <div class="interior-portfolio-media">
+                <img
+                  src="./Font/New_images/Ax%20(3).png"
+                  alt="Northern Lights — modern villa with pool, wood deck, lounge seating, and landscaped surroundings"
+                  loading="lazy"
+                  decoding="async"
+                  width="1836"
+                  height="403"
+                />
+                <span class="interior-portfolio-link-badge" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+            <div class="interior-portfolio-meta">
+              <time class="interior-portfolio-date" datetime="2018-10-01">Oct 1, 2018</time>
+              <div class="interior-portfolio-center">
+                <span class="interior-portfolio-title">Northern Lights</span>
+                <span class="interior-portfolio-place">Bangalore, India</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="interior-journal-section" aria-labelledby="interior-journal-heading">
+      <div class="interior-journal-inner">
+        <header class="interior-journal-header">
+          <div class="interior-journal-header-main">
+            <p class="interior-journal-eyebrow">
+              <span class="interior-journal-eyebrow-icon" aria-hidden="true"></span>
+              Recent Articles
+            </p>
+            <h2 id="interior-journal-heading">Design Stories &amp; Studio Journal</h2>
+            <p class="interior-journal-dek">
+              Insights and reflections on interior design, architecture, and the evolving relationship between
+              space and everyday life.
+            </p>
+          </div>
+          <a class="interior-journal-see-all" href="./index.html#latest-article">
+            <span class="interior-journal-see-all-icon" aria-hidden="true">&#8594;</span>
+            See All Articles
+          </a>
+        </header>
+
+        <div class="interior-journal-grid">
+          <article class="interior-journal-card">
+            <a class="interior-journal-card-link" href="./index.html#latest-article">
+              <div class="interior-journal-card-media">
+                <img
+                  src="./Public/the_largest_article%20(1).jpg"
+                  alt="Dramatic interior with layered copper pendant lighting over a dining setting"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="480"
+                />
+                <span class="interior-journal-card-tag">Architectural Design</span>
+                <span class="interior-journal-card-gradient" aria-hidden="true"></span>
+                <div class="interior-journal-card-bottom">
+                  <time datetime="2025-12-17">Dec 17, 2025</time>
+                  <h3>The Language of Light in Contemporary Homes</h3>
+                </div>
+                <span class="interior-journal-card-arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7 17L17 7M17 7H9M17 7v8"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+
+          <article class="interior-journal-card">
+            <a class="interior-journal-card-link" href="./index.html#latest-article">
+              <div class="interior-journal-card-media">
+                <img
+                  src="./Public/the_largest_article%20(2).jpg"
+                  alt="Bright double-height interior with staircase and sculptural seating"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="480"
+                />
+                <span class="interior-journal-card-tag">Residential Architecture</span>
+                <span class="interior-journal-card-gradient" aria-hidden="true"></span>
+                <div class="interior-journal-card-bottom">
+                  <time datetime="2025-11-04">Nov 4, 2025</time>
+                  <h3>Material Palettes That Age With Grace</h3>
+                </div>
+                <span class="interior-journal-card-arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7 17L17 7M17 7H9M17 7v8"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+
+          <article class="interior-journal-card">
+            <a class="interior-journal-card-link" href="./index.html#latest-article">
+              <div class="interior-journal-card-media">
+                <img
+                  src="./Public/the_largest_article%20(3).jpg"
+                  alt="Warm living room with sectional sofa, artwork, and soft natural light"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="480"
+                />
+                <span class="interior-journal-card-tag">Interior Narratives</span>
+                <span class="interior-journal-card-gradient" aria-hidden="true"></span>
+                <div class="interior-journal-card-bottom">
+                  <time datetime="2025-09-22">Sep 22, 2025</time>
+                  <h3>Quiet Rooms, Loud Character</h3>
+                </div>
+                <span class="interior-journal-card-arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7 17L17 7M17 7H9M17 7v8"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="testimonials-section testimonials-section--interior"
+      id="testimonials"
+      aria-labelledby="interior-testimonials-heading"
+      data-interior-testimonials
+    >
+      <div class="interior-testimonials-inner">
+        <header class="interior-testimonials-top">
+          <div class="interior-testimonials-top-left">
+            <p class="interior-testimonials-badge">
+              <span class="interior-testimonials-badge-icon" aria-hidden="true"></span>
+              Testimonials
+            </p>
+            <h2 id="interior-testimonials-heading">Our Clients Say</h2>
+            <p class="interior-testimonials-sub">The warm words of our clients let us achieve more</p>
+          </div>
+          <a class="interior-testimonials-see-all" href="./contact.html">
+            <span class="interior-testimonials-see-all-icon" aria-hidden="true">
               <img
-                src="./Public/navbar/interior%20(3).png"
-                alt="Exterior of a modern multi-storey building at dusk with decorative brick lattice facade, large windows with warm interior light, and palm trees against a twilight sky" loading="lazy" decoding="async" />
-            </figure>
-            <figure class="interior-design-space-figure interior-design-space-figure--tall">
+                src="./Font/New_images/A/Container%20(3).png"
+                alt=""
+                width="20"
+                height="20"
+                decoding="async"
+              />
+            </span>
+            See All Testimonials
+          </a>
+        </header>
+
+        <div class="interior-testimonials-body">
+          <div class="interior-testimonials-quote-block" aria-live="polite">
+            <span class="interior-testimonials-quote-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote class="interior-testimonials-blockquote">
+              <p class="interior-testimonials-quote" data-t-quote>
+                From concept to reality, the team turned my vision into a stunning, livable space. I
+                couldn&rsquo;t be happier with this!
+              </p>
+              <p class="interior-testimonials-context" data-t-context>
+                Morgan wanted a modern, functional office. We delivered a bright, stylish space with smart
+                design solutions, perfectly tailored to his company style.
+              </p>
+            </blockquote>
+          </div>
+          <div class="interior-testimonials-nav" role="group" aria-label="Browse testimonials">
+            <button type="button" class="interior-testimonials-nav-btn" data-t-prev aria-label="Previous testimonial">
               <img
-                src="./Public/navbar/interior%20(2).png"
-                alt="Commercial building at dusk with glowing Dongle Design and Dongle Cafe signage, concrete entrance, and large glass windows" loading="lazy" decoding="async" />
-            </figure>
+                src="./Font/New_images/A/Grey%20-%20L.png"
+                alt=""
+                width="44"
+                height="44"
+                decoding="async"
+              />
+            </button>
+            <button type="button" class="interior-testimonials-nav-btn" data-t-next aria-label="Next testimonial">
+              <img
+                src="./Font/New_images/A/Container%20(3).png"
+                alt=""
+                width="44"
+                height="44"
+                decoding="async"
+              />
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="testimonials-section testimonials-section--interior" id="testimonials" aria-labelledby="interior-testimonials-heading">
-      <div class="testimonials-header">
-        <h2 id="interior-testimonials-heading">WHAT OUR CLIENTS SAY</h2>
-        <p>
-          Feedback from people who lived through our interior process—from first concept to the final
-          layer of detail.
-        </p>
-      </div>
-
-      <div class="testimonials-grid">
-        <article class="testimonial-card">
-          <img
-            class="testimonial-avatar"
-            src="./Public/navbar/testomonial%20(1).png"
-            alt="John Carter" loading="lazy" decoding="async" />
-          <h3>John Carter</h3>
-          <p>
-            Our living room was completely transformed! The team captured our vision perfectly and
-            exceeded our expectations.
-          </p>
-        </article>
-
-        <article class="testimonial-card">
-          <img
-            class="testimonial-avatar"
-            src="./Public/navbar/testomonial%20(2).png"
-            alt="Sophie Moore" loading="lazy" decoding="async" />
-          <h3>Sophie Moore</h3>
-          <p>
-            Professional and creative! The design process was smooth, and the results are stunning.
-            Highly recommend their services.
-          </p>
-        </article>
-
-        <article class="testimonial-card">
-          <img
-            class="testimonial-avatar"
-            src="./Public/navbar/testomonial%20(3).png"
-            alt="Matt Cannon" loading="lazy" decoding="async" />
-          <h3>Matt Cannon</h3>
-          <p>
-            Their attention to detail and commitment to quality turned our house into a home we love.
-            Outstanding work!
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="latest-article-section" id="latest-article">
+    <section class="latest-article-section" id="latest-article" hidden>
       <div class="container">
         <div class="latest-article-header">
           <h2>THE LATEST ARTICLE</h2>
@@ -322,7 +484,7 @@
       </div>
     </section>
 
-    <section class="services-cta-banner services-cta-banner--architecture" aria-labelledby="interior-cta-heading">
+    <section class="services-cta-banner services-cta-banner--architecture" aria-labelledby="interior-cta-heading" hidden>
       <div class="services-cta-banner-inner">
         <div class="services-cta-banner-card">
           <div class="services-cta-banner-visual">
@@ -334,8 +496,7 @@
           </div>
           <div class="services-cta-banner-content">
             <h2 id="interior-cta-heading" class="services-cta-banner-title">
-              Blending creativity and functionality
-              <span class="services-cta-banner-title-line">in every design.</span>
+              Blending creativity and functionality in every design
             </h2>
             <a href="#" class="services-cta-banner-btn">Hire us now</a>
           </div>
@@ -343,47 +504,57 @@
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="footer-main">
-        <div class="footer-top">
-          <nav class="footer-nav" aria-label="Footer">
-            <a href="./index.html">Home</a>
-            <a href="./about.html">About</a>
-            <a href="./services.html">Services</a>
+    <section class="footer-quote-strip" aria-label="Quote">
+      <p>Let&rsquo;s build your dream spaces...</p>
+    </section>
+
+    <footer class="site-footer footer-v2">
+      <div class="footer-v2-inner">
+        <div class="footer-v2-top">
+          <div class="footer-v2-brand">
+            <a href="./index.html" class="footer-v2-logo-link" aria-label="Stratus Home">
+              <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-v2-logo" loading="lazy" decoding="async" />
+            </a>
+            <p>
+              We design interiors that balance comfort and clarity, crafting spaces defined by
+              purpose, proportion, and lasting character.
+            </p>
+            <div class="footer-v2-social">
+              <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+            </div>
+          </div>
+          <div class="footer-v2-links">
+            <h3>Site</h3>
+            <a href="./index.html#projects">Projects</a>
             <a href="./index.html#latest-article">Blog</a>
+            <a href="./about.html">About</a>
             <a href="./contact.html">Contact</a>
-          </nav>
-          <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" loading="lazy" decoding="async" />
-          </a>
-        </div>
-
-        <div class="footer-divider" aria-hidden="true"></div>
-
-        <div class="footer-middle">
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook"><img src="./Public/services/facebook-f.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
           </div>
-
-          <div class="footer-middle-divider" aria-hidden="true"></div>
-
-          <p class="footer-note">
-            Posuere urna nec tincidunt praesent egestas maecenas pharetra convallis posuere ipsum
-            nunc.
-          </p>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-          <p class="footer-copy">&copy; Copyright by Stratus - All right reserved.</p>
-          <div class="footer-legal">
-            <a href="./terms.html">Terms</a>
-            <a href="./privacy.html">Privacy</a>
+          <div class="footer-v2-links">
+            <h3>Legal</h3>
+            <a href="./privacy.html">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="./terms.html">Terms and Conditions</a>
           </div>
+          <form class="footer-v2-subscribe" action="#" method="post">
+            <label for="footer-email-interior" class="sr-only">Email</label>
+            <input id="footer-email-interior" type="email" placeholder="hello@gmail.com" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <img
+          src="./Font/New_images/STRATUS.png"
+          alt=""
+          class="footer-v2-wordmark-image"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+        <div class="footer-v2-bottom">
+          <p>&copy; 2026, Stratus. All Rights Reserved</p>
+          <p>Site by PINAKKAA</p>
         </div>
       </div>
     </footer>

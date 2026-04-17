@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gallery | Stratus</title>
-    <link rel="preload" href="./Public/hero/Rectangle%2043%20(2).png" as="image" fetchpriority="high" />
+    <link rel="preload" href="./Font/New_images/gallary.png" as="image" fetchpriority="high" />
     <link
       rel="preload"
       href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
@@ -20,14 +20,376 @@
       crossorigin
     />
     <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* Gallery page only — ideas-to-life showcase (full-width band) */
+      .gallery-ideas-life {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: clamp(28px, 3.5vw, 52px) clamp(20px, 4vw, 40px) clamp(32px, 4vw, 60px);
+        background-color: #f0e9e1;
+        color: #3e2e26;
+      }
+
+      .gallery-ideas-life-inner {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .gallery-ideas-life-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto 12px;
+        padding: 5px 14px 5px 9px;
+        border-radius: 999px;
+        font-family: var(--body-font);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 248, 240, 0.95);
+        background: #4d3a31;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .gallery-ideas-life-badge-icon {
+        flex: 0 0 22px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        position: relative;
+      }
+
+      .gallery-ideas-life-badge-icon::after {
+        content: "\21BB";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        line-height: 1;
+        color: rgba(255, 248, 240, 0.95);
+      }
+
+      .gallery-ideas-life-heading {
+        margin: 0 auto clamp(8px, 1.4vw, 14px);
+        max-width: 920px;
+        font-family: var(--heading-font);
+        font-size: clamp(22px, 2.6vw, 34px);
+        line-height: 1.1;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-align: center;
+        color: #3e2e26;
+      }
+
+      .gallery-ideas-life-lede {
+        margin: 0 auto;
+        max-width: 720px;
+        font-family: var(--body-font);
+        font-size: clamp(13px, 1.05vw, 16px);
+        line-height: 1.5;
+        text-align: center;
+        color: rgba(62, 46, 38, 0.82);
+      }
+
+      .gallery-ideas-life-media-link {
+        display: block;
+        width: min(100%, 960px);
+        margin: clamp(14px, 2.2vw, 28px) auto 0;
+        text-decoration: none;
+        color: inherit;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 22px 50px rgba(62, 46, 38, 0.14);
+      }
+
+      .gallery-ideas-life-media-link:focus-visible {
+        outline: 2px solid #4d3a31;
+        outline-offset: 4px;
+      }
+
+      .gallery-ideas-life-media {
+        width: 100%;
+        aspect-ratio: 960 / 360;
+      }
+
+      .gallery-ideas-life-media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .gallery-ideas-life-footer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: clamp(10px, 1.6vw, 18px);
+        text-align: left;
+        width: 100%;
+      }
+
+      .gallery-ideas-life-project {
+        margin: 0 0 4px;
+        font-family: var(--body-font);
+        font-size: clamp(20px, 2vw, 26px);
+        font-weight: 600;
+        line-height: 1.15;
+        color: #3e2e26;
+      }
+
+      .gallery-ideas-life-tagline {
+        margin: 0;
+        font-family: var(--body-font);
+        font-size: 14px;
+        line-height: 1.45;
+        color: rgba(62, 46, 38, 0.72);
+        max-width: 420px;
+      }
+
+      .gallery-ideas-life-arrow-btn {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(62, 46, 38, 0.35);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .gallery-ideas-life-arrow-btn:hover {
+        background: #fff;
+        border-color: rgba(62, 46, 38, 0.5);
+      }
+
+      .gallery-ideas-life-arrow-btn:focus-visible {
+        outline: 2px solid #4d3a31;
+        outline-offset: 2px;
+      }
+
+      .gallery-ideas-life-arrow-btn img {
+        width: 28px;
+        height: 28px;
+        display: block;
+        object-fit: contain;
+      }
+
+      @media (max-width: 640px) {
+        .gallery-ideas-life-footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      /* Gallery page — Explore Recent Projects (masonry two-column) */
+      .gallery-recent-projects {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 40px 20px;
+        background-color: #e5d3c2;
+        color: #2c3238;
+      }
+
+      .gallery-recent-projects-inner {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .gallery-recent-projects-heading {
+        margin: 0 auto 40px;
+        font-family: var(--heading-font);
+        font-size: clamp(20px, 2.2vw, 28px);
+        font-weight: 600;
+        line-height: 1.2;
+        text-align: center;
+        letter-spacing: 0.02em;
+        color: #4d3a31;
+      }
+
+      .gallery-recent-masonry {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px;
+        align-items: start;
+      }
+
+      .gallery-recent-col {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .gallery-recent-col--stagger {
+        padding-top: 60px;
+      }
+
+      .gallery-recent-card {
+        width: 100%;
+      }
+
+      .gallery-recent-card-inner {
+        background: transparent;
+      }
+
+      .gallery-recent-card-media {
+        display: block;
+        width: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #4d3a31;
+        box-shadow: 0 8px 22px rgba(45, 36, 30, 0.1);
+      }
+
+      .gallery-recent-card-media--tall {
+        height: 380px;
+      }
+
+      .gallery-recent-card-media--landscape {
+        height: 200px;
+      }
+
+      .gallery-recent-card-media--wide {
+        height: 200px;
+      }
+
+      .gallery-recent-card-media--square {
+        height: 380px;
+      }
+
+      .gallery-recent-card-media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .gallery-recent-card-body {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 12px;
+        min-height: 48px;
+        text-align: left;
+      }
+
+      .gallery-recent-card-copy {
+        min-width: 0;
+        flex: 1;
+        min-height: 48px;
+      }
+
+      .gallery-recent-card-title {
+        margin: 0 0 4px;
+        font-family: var(--body-font);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #1f2933;
+      }
+
+      .gallery-recent-card-desc {
+        margin: 0;
+        font-family: var(--body-font);
+        font-size: 11px;
+        line-height: 1.4;
+        color: rgba(31, 41, 51, 0.78);
+        max-width: 28ch;
+      }
+
+      .gallery-recent-card-next {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        margin-top: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid rgba(31, 41, 51, 0.35);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.55);
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .gallery-recent-card-next:hover {
+        background: #fff;
+        border-color: rgba(31, 41, 51, 0.5);
+      }
+
+      .gallery-recent-card-next:focus-visible {
+        outline: 2px solid #4d3a31;
+        outline-offset: 2px;
+      }
+
+      .gallery-recent-card-next img {
+        width: 18px;
+        height: 18px;
+        display: block;
+        object-fit: contain;
+      }
+
+      @media (max-width: 720px) {
+        .gallery-recent-masonry {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .gallery-recent-col {
+          gap: 20px;
+        }
+
+        .gallery-recent-col--stagger {
+          padding-top: 0;
+        }
+
+        .gallery-recent-card-media--tall,
+        .gallery-recent-card-media--square {
+          height: 320px;
+        }
+
+        .gallery-recent-card-media--landscape,
+        .gallery-recent-card-media--wide {
+          height: 190px;
+        }
+
+        .gallery-recent-card-desc {
+          max-width: none;
+        }
+
+        .gallery-recent-card-body,
+        .gallery-recent-card-copy {
+          min-height: auto;
+        }
+      }
+    </style>
   </head>
-  <body>
+  <body class="top-hero-page">
     <header>
+      <a href="./index.html" class="top-corner-logo" aria-label="Stratus Home">
+        <img src="./Public/navbar/logo.png" alt="Stratus logo" class="top-corner-logo-img" fetchpriority="high" decoding="async" />
+      </a>
       <nav class="navbar" aria-label="Primary">
         <div class="navbar-leading">
           <a href="./index.html" class="brand" aria-label="Stratus Home">
             <img
-              src="./Public/navbar/logo.png"
+              src="./Font/New_images/BG (2).png"
               alt="Stratus logo"
               class="brand-logo"
               fetchpriority="high"
@@ -51,91 +413,269 @@
         <div class="nav-backdrop" aria-hidden="true"></div>
         <div class="nav-right" id="site-navigation">
           <ul class="nav-links">
-            <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./interior.html">Interior</a></li>
-            <li><a href="./gallary.html" aria-current="page">Gallery</a></li>
-            <li><a href="./index.html#latest-article">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./index.html#projects">Projects</a></li>
           </ul>
-          <button type="button" class="btn-primary">Get Started</button>
+          <a href="./contact.html" class="hero-contact-btn"
+            >Contact <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
+          >
         </div>
       </nav>
     </header>
 
     <main>
-      <section class="architecture-hero architecture-hero--gallery" aria-labelledby="gallery-hero-heading">
-        <div class="architecture-hero-content">
-          <h1 id="gallery-hero-heading">Minimal thinking. Lasting design.</h1>
+      <section class="architecture-hero architecture-hero--gallery page-hero" aria-labelledby="gallery-hero-heading">
+        <div class="page-hero-content">
+          <div class="page-hero-meta">
+            <a href="./contact.html" class="hero-start-btn">Start a Project</a>
+            <p>Spaces designed with clarity and built for the long term</p>
+          </div>
+          <h1 id="gallery-hero-heading">GALLERY</h1>
         </div>
       </section>
 
-      <section class="gallery-projects-showcase" aria-labelledby="gallery-projects-showcase-heading">
-        <div class="gallery-projects-showcase-inner">
-          <h2 id="gallery-projects-showcase-heading">OUR PROJECTS</h2>
-
-          <div class="gallery-projects-showcase-frame">
-            <article class="gallery-projects-showcase-feature">
+      <section class="gallery-ideas-life" aria-labelledby="gallery-ideas-life-heading" data-gallery-ideas-life>
+        <div class="gallery-ideas-life-inner">
+          <p class="gallery-ideas-life-badge">
+            <span class="gallery-ideas-life-badge-icon" aria-hidden="true"></span>
+            Gallery
+          </p>
+          <h2 id="gallery-ideas-life-heading" class="gallery-ideas-life-heading">
+            We Bring Ideas To Life From Design To Creation
+          </h2>
+          <p class="gallery-ideas-life-lede" data-ideas-lede>
+            Our work embodies our vision by transforming innovative ideas into reality. From concept to final
+            creation, we craft each project with meticulous attention to detail, reflecting our commitment to
+            excellence and creativity.
+          </p>
+          <a class="gallery-ideas-life-media-link" href="#gallery-projects-showcase-heading">
+            <div class="gallery-ideas-life-media">
               <img
-                src="./photos/Mungo/Image.png"
-                data-showcase-slot="feature"
-                alt="Mungo interior with warm lighting and textured walls"
+                data-ideas-image
+                src="./Font/New_images/A/Image%20Wrap.png"
+                alt="Mungo cafe counter with warm orange tile front, illuminated signage, and curated retail shelving"
                 loading="lazy"
                 decoding="async"
+                width="960"
+                height="360"
               />
-              <div class="gallery-projects-showcase-feature-meta">
-                <p class="gallery-projects-showcase-label">PROJECT</p>
-                <p class="gallery-projects-showcase-name">MUNGO <span aria-hidden="true">&#8594;</span></p>
-              </div>
-            </article>
-
-            <article class="gallery-projects-showcase-collage">
-              <h3>INTERIOR DESIGN</h3>
-              <div class="gallery-projects-showcase-collage-grid">
-                <img
-                  src="./photos/Mungo/Image%20(1).png"
-                  data-showcase-slot="collage-1"
-                  alt="Interior cafe seating with warm materials"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <img
-                  src="./photos/Mungo/Image%20(2).png"
-                  data-showcase-slot="collage-2"
-                  alt="Dining space with natural light and wood textures"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <img
-                  src="./photos/Mungo/Imagee.png"
-                  data-showcase-slot="collage-3"
-                  alt="Modern dining area with patterned booth and garden view"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </article>
+            </div>
+          </a>
+          <div class="gallery-ideas-life-footer">
+            <div>
+              <p class="gallery-ideas-life-project" data-ideas-project>Mungo</p>
+              <p class="gallery-ideas-life-tagline" data-ideas-tagline>Modern cafe redesigned for cozy city</p>
+            </div>
+            <button
+              type="button"
+              class="gallery-ideas-life-arrow-btn"
+              data-ideas-next
+              aria-label="Show next featured image"
+            >
+              <img
+                src="./Font/New_images/A/Container%20(3).png"
+                alt=""
+                width="28"
+                height="28"
+                decoding="async"
+              />
+            </button>
           </div>
+        </div>
+      </section>
 
-          <div class="gallery-projects-showcase-controls">
-            <button
-              type="button"
-              class="gallery-projects-showcase-arrow"
-              data-showcase-prev
-              aria-label="Previous project photos"
-            >
-              &#8592;
-            </button>
-            <span class="gallery-projects-showcase-progress" data-showcase-progress></span>
-            <button
-              type="button"
-              class="gallery-projects-showcase-arrow"
-              data-showcase-next
-              aria-label="Next project photos"
-            >
-              &#8594;
-            </button>
+      <section class="gallery-recent-projects" aria-labelledby="gallery-projects-showcase-heading">
+        <div class="gallery-recent-projects-inner">
+          <h2 id="gallery-projects-showcase-heading" class="gallery-recent-projects-heading">
+            Explore Our Recent Projects
+          </h2>
+
+          <div class="gallery-recent-masonry">
+            <div class="gallery-recent-col">
+              <article class="gallery-recent-card" data-recent-project-card data-recent-set="0">
+                <div class="gallery-recent-card-inner">
+                  <div class="gallery-recent-card-media gallery-recent-card-media--tall">
+                    <img
+                      data-recent-img
+                      src="./Font/New_images/interior%20design.png"
+                      alt="Warm café interior with wood seating and soft daylight"
+                      loading="lazy"
+                      decoding="async"
+                      width="600"
+                      height="800"
+                    />
+                  </div>
+                  <div class="gallery-recent-card-body">
+                    <div class="gallery-recent-card-copy">
+                      <h3 class="gallery-recent-card-title" data-recent-title>Café Aura</h3>
+                      <p class="gallery-recent-card-desc" data-recent-desc>A cozy café filled with warm textures</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="gallery-recent-card-next"
+                      data-recent-next
+                      aria-label="Show next photo for Café Aura"
+                    >
+                      <img src="./Font/New_images/A/Container%20(3).png" alt="" width="18" height="18" decoding="async" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="gallery-recent-card" data-recent-project-card data-recent-set="2">
+                <div class="gallery-recent-card-inner">
+                  <div class="gallery-recent-card-media gallery-recent-card-media--wide">
+                    <img
+                      data-recent-img
+                      src="./Public/hero/Rectangle%20(4).png"
+                      alt="Open office with teal walls and natural light"
+                      loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="400"
+                    />
+                  </div>
+                  <div class="gallery-recent-card-body">
+                    <div class="gallery-recent-card-copy">
+                      <h3 class="gallery-recent-card-title" data-recent-title>The Minimal HQ</h3>
+                      <p class="gallery-recent-card-desc" data-recent-desc>A sleek, all-white tech workspace</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="gallery-recent-card-next"
+                      data-recent-next
+                      aria-label="Show next photo for The Minimal HQ"
+                    >
+                      <img src="./Font/New_images/A/Container%20(3).png" alt="" width="18" height="18" decoding="async" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="gallery-recent-card" data-recent-project-card data-recent-set="4">
+                <div class="gallery-recent-card-inner">
+                  <div class="gallery-recent-card-media gallery-recent-card-media--tall">
+                    <img
+                      data-recent-img
+                      src="./Font/New_images/Mask%20Group.png"
+                      alt="Boutique retail display with refined materials"
+                      loading="lazy"
+                      decoding="async"
+                      width="600"
+                      height="800"
+                    />
+                  </div>
+                  <div class="gallery-recent-card-body">
+                    <div class="gallery-recent-card-copy">
+                      <h3 class="gallery-recent-card-title" data-recent-title>Maison Flora</h3>
+                      <p class="gallery-recent-card-desc" data-recent-desc>Boutique store styled with elegance</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="gallery-recent-card-next"
+                      data-recent-next
+                      aria-label="Show next photo for Maison Flora"
+                    >
+                      <img src="./Font/New_images/A/Container%20(3).png" alt="" width="18" height="18" decoding="async" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="gallery-recent-col gallery-recent-col--stagger">
+              <article class="gallery-recent-card" data-recent-project-card data-recent-set="1">
+                <div class="gallery-recent-card-inner">
+                  <div class="gallery-recent-card-media gallery-recent-card-media--landscape">
+                    <img
+                      data-recent-img
+                      src="./Font/New_images/Ax%20(1).png"
+                      alt="Calm interior with soft wood tones and layered lighting"
+                      loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="480"
+                    />
+                  </div>
+                  <div class="gallery-recent-card-body">
+                    <div class="gallery-recent-card-copy">
+                      <h3 class="gallery-recent-card-title" data-recent-title>Scandi Haven</h3>
+                      <p class="gallery-recent-card-desc" data-recent-desc>Clean lines, soft wood, and muted tones</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="gallery-recent-card-next"
+                      data-recent-next
+                      aria-label="Show next photo for Scandi Haven"
+                    >
+                      <img src="./Font/New_images/A/Container%20(3).png" alt="" width="18" height="18" decoding="async" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="gallery-recent-card" data-recent-project-card data-recent-set="3">
+                <div class="gallery-recent-card-inner">
+                  <div class="gallery-recent-card-media gallery-recent-card-media--tall">
+                    <img
+                      data-recent-img
+                      src="./Public/the_largest_article%20(1).jpg"
+                      alt="Editorial interior vignette with sculptural furniture"
+                      loading="lazy"
+                      decoding="async"
+                      width="600"
+                      height="800"
+                    />
+                  </div>
+                  <div class="gallery-recent-card-body">
+                    <div class="gallery-recent-card-copy">
+                      <h3 class="gallery-recent-card-title" data-recent-title>Studio Sync</h3>
+                      <p class="gallery-recent-card-desc" data-recent-desc>A vibrant creative office</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="gallery-recent-card-next"
+                      data-recent-next
+                      aria-label="Show next photo for Studio Sync"
+                    >
+                      <img src="./Font/New_images/A/Container%20(3).png" alt="" width="18" height="18" decoding="async" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="gallery-recent-card" data-recent-project-card data-recent-set="5">
+                <div class="gallery-recent-card-inner">
+                  <div class="gallery-recent-card-media gallery-recent-card-media--square">
+                    <img
+                      data-recent-img
+                      src="./Font/New_images/dark%20back%20image%20(1).png"
+                      alt="Minimal living space with calm palette"
+                      loading="lazy"
+                      decoding="async"
+                      width="640"
+                      height="640"
+                    />
+                  </div>
+                  <div class="gallery-recent-card-body">
+                    <div class="gallery-recent-card-copy">
+                      <h3 class="gallery-recent-card-title" data-recent-title>The Zen Retreat</h3>
+                      <p class="gallery-recent-card-desc" data-recent-desc>A minimalist home filled with calming vibes</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="gallery-recent-card-next"
+                      data-recent-next
+                      aria-label="Show next photo for The Zen Retreat"
+                    >
+                      <img src="./Font/New_images/A/Container%20(3).png" alt="" width="18" height="18" decoding="async" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -373,8 +913,7 @@
             </div>
             <div class="services-cta-banner-content">
               <h2 id="gallery-cta-heading" class="services-cta-banner-title">
-                Blending creativity and functionality
-                <span class="services-cta-banner-title-line">in every design.</span>
+                Blending creativity and functionality in every design
               </h2>
               <a href="#" class="services-cta-banner-btn">Hire us now</a>
             </div>
@@ -383,51 +922,258 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-main">
-        <div class="footer-top">
-          <nav class="footer-nav" aria-label="Footer">
-            <a href="./index.html">Home</a>
-            <a href="./about.html">About</a>
-            <a href="./services.html">Services</a>
+    <section class="footer-quote-strip" aria-label="Quote">
+      <p>Let&rsquo;s build your dream spaces...</p>
+    </section>
+
+    <footer class="site-footer footer-v2">
+      <div class="footer-v2-inner">
+        <div class="footer-v2-top">
+          <div class="footer-v2-brand">
+            <a href="./index.html" class="footer-v2-logo-link" aria-label="Stratus Home">
+              <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-v2-logo" loading="lazy" decoding="async" />
+            </a>
+            <p>
+              We design interiors that balance comfort and clarity, crafting spaces defined by
+              purpose, proportion, and lasting character.
+            </p>
+            <div class="footer-v2-social">
+              <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+              <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
+            </div>
+          </div>
+          <div class="footer-v2-links">
+            <h3>Site</h3>
+            <a href="./index.html#projects">Projects</a>
             <a href="./index.html#latest-article">Blog</a>
+            <a href="./about.html">About</a>
             <a href="./contact.html">Contact</a>
-          </nav>
-          <a href="./index.html" class="footer-logo-link" aria-label="Stratus Home">
-            <img src="./Public/navbar/logo.png" alt="Stratus logo" class="footer-logo" loading="lazy" decoding="async" />
-          </a>
-        </div>
-
-        <div class="footer-divider" aria-hidden="true"></div>
-
-        <div class="footer-middle">
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook"><img src="./Public/services/facebook-f.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Twitter"><img src="./Public/services/twitter.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="LinkedIn"><img src="./Public/services/linkedin-in.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
-            <a href="#" aria-label="Instagram"><img src="./Public/services/instagram.png" alt="" class="footer-social-icon" loading="lazy" decoding="async" /></a>
           </div>
-
-          <div class="footer-middle-divider" aria-hidden="true"></div>
-
-          <p class="footer-note">
-            Posuere urna nec tincidunt praesent egestas maecenas pharetra convallis posuere ipsum
-            nunc.
-          </p>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-          <p class="footer-copy">&copy; Copyright by Stratus - All right reserved.</p>
-          <div class="footer-legal">
-            <a href="./terms.html">Terms</a>
-            <a href="./privacy.html">Privacy</a>
+          <div class="footer-v2-links">
+            <h3>Legal</h3>
+            <a href="./privacy.html">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="./terms.html">Terms and Conditions</a>
           </div>
+          <form class="footer-v2-subscribe" action="#" method="post">
+            <label for="footer-email-gallery" class="sr-only">Email</label>
+            <input id="footer-email-gallery" type="email" placeholder="hello@gmail.com" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <img
+          src="./Font/New_images/STRATUS.png"
+          alt=""
+          class="footer-v2-wordmark-image"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+        <div class="footer-v2-bottom">
+          <p>&copy; 2026, Stratus. All Rights Reserved</p>
+          <p>Site by PINAKKAA</p>
         </div>
       </div>
     </footer>
 
     <script src="./script.js" defer></script>
+    <script>
+      (function initGalleryIdeasLifeSlider() {
+        const root = document.querySelector("[data-gallery-ideas-life]");
+        if (!root) return;
+
+        const imageEl = root.querySelector("[data-ideas-image]");
+        const ledeEl = root.querySelector("[data-ideas-lede]");
+        const projectEl = root.querySelector("[data-ideas-project]");
+        const taglineEl = root.querySelector("[data-ideas-tagline]");
+        const nextBtn = root.querySelector("[data-ideas-next]");
+        if (!imageEl || !ledeEl || !projectEl || !taglineEl || !nextBtn) return;
+
+        const slides = [
+          {
+            src: "./Font/New_images/A/Image%20Wrap.png",
+            alt: "Mungo cafe counter with warm orange tile front, illuminated signage, and curated retail shelving",
+            project: "Mungo",
+            tagline: "Modern cafe redesigned for cozy city",
+            lede:
+              "Our work embodies our vision by transforming innovative ideas into reality. From concept to final creation, we craft each project with meticulous attention to detail, reflecting our commitment to excellence and creativity.",
+          },
+          {
+            src: "./photos/Mungo/Image%20(1).png",
+            alt: "Interior cafe seating with warm materials",
+            project: "Mungo Seating",
+            tagline: "Comfort-focused dining crafted for everyday use",
+            lede:
+              "Every layout decision is rooted in functionality and atmosphere. We shape seating, circulation, and lighting to make spaces intuitive, welcoming, and commercially effective.",
+          },
+          {
+            src: "./photos/Mungo/Image%20(2).png",
+            alt: "Dining space with natural light and wood textures",
+            project: "Mungo Dining",
+            tagline: "Natural textures paired with durable detailing",
+            lede:
+              "From materials to finishes, we balance character with long-term performance. The result is a design language that feels warm, refined, and built to last.",
+          },
+          {
+            src: "./photos/Mungo/Imagee.png",
+            alt: "Modern dining area with patterned booth and garden view",
+            project: "Mungo Lounge",
+            tagline: "A relaxed corner for social and daily moments",
+            lede:
+              "We compose each zone with purpose, ensuring visual continuity across the project while tailoring each corner to the way people gather, work, and unwind.",
+          },
+        ];
+
+        let index = 0;
+
+        function render(i) {
+          const slide = slides[i];
+          imageEl.src = slide.src;
+          imageEl.alt = slide.alt;
+          projectEl.textContent = slide.project;
+          taglineEl.textContent = slide.tagline;
+          ledeEl.textContent = slide.lede;
+        }
+
+        nextBtn.addEventListener("click", () => {
+          index = (index + 1) % slides.length;
+          render(index);
+        });
+      })();
+
+      (function initGalleryRecentProjectCards() {
+        const cardSlideSets = [
+          [
+            {
+              src: "./Font/New_images/interior%20design.png",
+              alt: "Warm café interior with wood seating and soft daylight",
+              desc: "A cozy café filled with warm textures",
+            },
+            {
+              src: "./photos/Mungo/Image%20(1).png",
+              alt: "Café seating nook with warm wood and pendant lighting",
+              desc: "Layered seating zones keep the room intimate at every hour.",
+            },
+            {
+              src: "./Font/New_images/Ax%20(2).png",
+              alt: "Contemporary café counter with rich materials",
+              desc: "Material contrast and soft lighting define the serving experience.",
+            },
+          ],
+          [
+            {
+              src: "./Font/New_images/Ax%20(1).png",
+              alt: "Calm interior with soft wood tones and layered lighting",
+              desc: "Clean lines, soft wood, and muted tones",
+            },
+            {
+              src: "./Font/New_images/interior%20design%20(1).png",
+              alt: "Light-filled living space with restrained palette",
+              desc: "Natural daylight and quiet finishes keep the mood airy.",
+            },
+            {
+              src: "./Font/New_images/home.jpg",
+              alt: "Residential lounge with soft neutrals",
+              desc: "Texture-forward surfaces add depth without visual noise.",
+            },
+          ],
+          [
+            {
+              src: "./Public/hero/Rectangle%20(4).png",
+              alt: "Open office with teal walls and natural light",
+              desc: "A sleek, all-white tech workspace",
+            },
+            {
+              src: "./Public/hero/Rectangle%20(5).png",
+              alt: "Workspace with concrete wall and warm wood desks",
+              desc: "Flexible benching supports focus work and quick collaboration.",
+            },
+            {
+              src: "./Public/hero/Rectangle%20(6).png",
+              alt: "Compact kitchen and bar with window views",
+              desc: "Shared amenity zones anchor the floor with hospitality cues.",
+            },
+          ],
+          [
+            {
+              src: "./Public/the_largest_article%20(1).jpg",
+              alt: "Editorial interior vignette with sculptural furniture",
+              desc: "A vibrant creative office",
+            },
+            {
+              src: "./Public/the_largest_article%20(2).jpg",
+              alt: "Studio corner with artful shelving and seating",
+              desc: "Display and storage merge so the studio stays gallery-ready.",
+            },
+            {
+              src: "./Public/the_largest_article%20(3).jpg",
+              alt: "Lounge vignette with bold forms and soft textiles",
+              desc: "Color and form signal energy while acoustics stay controlled.",
+            },
+          ],
+          [
+            {
+              src: "./Font/New_images/Mask%20Group.png",
+              alt: "Boutique retail display with refined materials",
+              desc: "Boutique store styled with elegance",
+            },
+            {
+              src: "./Font/New_images/Mask%20Group%20(1).png",
+              alt: "Retail interior with curated product walls",
+              desc: "Rhythm along the perimeter guides browsing without clutter.",
+            },
+            {
+              src: "./Font/New_images/Container%20(3).png",
+              alt: "Elegant display vignette with layered lighting",
+              desc: "Spotlighting highlights hero pieces while ambient light softens edges.",
+            },
+          ],
+          [
+            {
+              src: "./Font/New_images/dark%20back%20image%20(1).png",
+              alt: "Minimal living space with calm palette",
+              desc: "A minimalist home filled with calming vibes",
+            },
+            {
+              src: "./Font/New_images/Image.png",
+              alt: "Serene interior with deep tones and warm accents",
+              desc: "Contrast between dark shell and warm furnishings feels grounded.",
+            },
+            {
+              src: "./Font/New_images/Secession%20in%20a%20contemporary%20setting%20optimized%20for%20modern.png",
+              alt: "Contemporary living room with sculptural seating",
+              desc: "Open planning keeps circulation clear and sightlines generous.",
+            },
+          ],
+        ];
+
+        const cards = document.querySelectorAll("[data-recent-project-card]");
+        cards.forEach((card) => {
+          const setIndex = Number.parseInt(card.getAttribute("data-recent-set") || "0", 10);
+          const slides = cardSlideSets[setIndex];
+          if (!slides || !slides.length) return;
+
+          const img = card.querySelector("[data-recent-img]");
+          const descEl = card.querySelector("[data-recent-desc]");
+          const btn = card.querySelector("[data-recent-next]");
+          if (!img || !descEl || !btn) return;
+
+          let index = 0;
+
+          function applySlide(idx) {
+            const s = slides[idx];
+            img.src = s.src;
+            img.alt = s.alt;
+            descEl.textContent = s.desc;
+          }
+
+          btn.addEventListener("click", () => {
+            index = (index + 1) % slides.length;
+            applySlide(index);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

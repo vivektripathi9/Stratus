@@ -755,12 +755,13 @@ body.home-page {
 
 .home-services-redesign-cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 10px;
   max-width: 500px;
 }
 
 .home-services-redesign-card {
+  min-width: 0;
   background: rgba(202, 186, 175, 0.36);
   border-radius: 8px;
   padding: 12px 12px 10px;
@@ -780,9 +781,10 @@ body.home-page {
 .home-services-redesign-card h3 {
   margin: 10px 0 6px;
   font-size: 20px;
-  line-height: 1;
+  line-height: 1.15;
   font-weight: 500;
   text-transform: uppercase;
+  overflow-wrap: break-word;
 }
 
 .home-services-redesign-card p {
@@ -1442,7 +1444,8 @@ body.home-page {
 }
 
 /* Inner pages hero + navbar redesign — only the site chrome header (not <header> inside sections) */
-.top-hero-page > header {
+/* Site chrome only — home uses a second <header class="hero"> for the banner */
+.top-hero-page > header:not(.hero) {
   position: absolute;
   top: 0;
   left: 0;
@@ -6601,6 +6604,12 @@ body.home-page {
     padding-bottom: max(var(--space-md), env(safe-area-inset-bottom, 0px));
   }
 
+  /* Override .home-page / .top-hero-page .nav-right { width: 100% } so the drawer is narrow and fully off-screen */
+  .top-hero-page .navbar > .nav-right {
+    width: min(300px, 86vw);
+    max-width: min(300px, 86vw);
+  }
+
   .nav-links a {
     min-height: 44px;
     display: flex;
@@ -6649,6 +6658,7 @@ body.home-page {
     min-height: min(94dvh, 820px);
     padding: 0 max(16px, env(safe-area-inset-left, 0px)) 0
       max(16px, env(safe-area-inset-right, 0px));
+    overflow-x: clip;
   }
 
   .home-page .hero-content {
@@ -6753,10 +6763,14 @@ body.home-page {
 
   .home-services-redesign-cards {
     max-width: none;
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .home-services-redesign-card h3 {
-    font-size: clamp(21px, 5.2vw, 28px);
+    font-size: clamp(18px, 4.8vw, 26px);
+    line-height: 1.18;
   }
 
   .home-services-redesign-card p {

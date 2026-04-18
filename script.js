@@ -166,8 +166,10 @@ if (gallaryImages.length) {
 
   const gallarySection = document.querySelector(".gallary-section");
   function gallaryLikelyInView(el) {
-    if (!el) return true;
+    if (!el) return false;
+    if (el.hasAttribute("hidden")) return false;
     const r = el.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) return false;
     return r.top < window.innerHeight + 120 && r.bottom > -120;
   }
   let gallarySectionVisible = gallaryLikelyInView(gallarySection);
@@ -351,10 +353,49 @@ if (eachProjectRoot) {
   const steps = Array.from(eachProjectRoot.querySelectorAll("[data-each-step]"));
   const prevBtn = eachProjectRoot.querySelector("[data-each-prev]");
   const nextBtn = eachProjectRoot.querySelector("[data-each-next]");
+  const fillEl = eachProjectRoot.querySelector("[data-each-progress-fill]");
+  const currentLabelEl = eachProjectRoot.querySelector("[data-each-current-label]");
+  const totalLabelEl = eachProjectRoot.querySelector("[data-each-count]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let eachIndex = Math.max(
     0,
     cards.findIndex((card) => card.classList.contains("is-active"))
   );
+
+  function resolvedPhotoHref(urlStr) {
+    if (!urlStr) return "";
+    try {
+      return new URL(urlStr, document.baseURI).href;
+    } catch {
+      return urlStr;
+    }
+  }
+
+  const firstThumb = cards[0]?.querySelector("img");
+  let lastBgSrc = firstThumb ? resolvedPhotoHref(firstThumb.currentSrc || firstThumb.src) : "";
+
+  function primeEachProjectImages() {
+    cards.forEach((card) => {
+      const im = card.querySelector("img");
+      if (!im?.src || !im.decode) return;
+      im.decode().catch(() => {});
+    });
+  }
+
+  function applySectionBackgroundFromImg(thumbImg) {
+    const cssUrl = thumbImg.currentSrc || thumbImg.src;
+    const hrefKey = resolvedPhotoHref(cssUrl);
+    if (!hrefKey || hrefKey === lastBgSrc) return;
+    lastBgSrc = hrefKey;
+    const value = `url(${JSON.stringify(cssUrl)})`;
+    const apply = () => eachProjectRoot.style.setProperty("--home-each-project-photo", value);
+    if (reduceMotion) {
+      requestAnimationFrame(apply);
+      return;
+    }
+    const done = thumbImg.decode ? thumbImg.decode().catch(() => {}) : Promise.resolve();
+    done.then(() => requestAnimationFrame(apply));
+  }
 
   function renderEachProject(index) {
     cards.forEach((card, cardIndex) => {
@@ -366,6 +407,25 @@ if (eachProjectRoot) {
       step.classList.toggle("is-active", isActive);
       step.setAttribute("aria-current", isActive ? "true" : "false");
     });
+
+    if (fillEl) {
+      const pct = cards.length > 1 ? (index / (cards.length - 1)) * 100 : 100;
+      fillEl.style.width = `${pct}%`;
+    }
+
+    if (currentLabelEl) {
+      currentLabelEl.textContent = String(index + 1).padStart(2, "0");
+    }
+
+    if (totalLabelEl) {
+      totalLabelEl.textContent = String(cards.length).padStart(2, "0");
+    }
+
+    const activeCard = cards[index];
+    const thumbImg = activeCard?.querySelector("img");
+    if (thumbImg?.src) {
+      applySectionBackgroundFromImg(thumbImg);
+    }
   }
 
   function moveEachProject(step) {
@@ -373,6 +433,8 @@ if (eachProjectRoot) {
     eachIndex = (eachIndex + step + cards.length) % cards.length;
     renderEachProject(eachIndex);
   }
+
+  primeEachProjectImages();
 
   if (prevBtn) prevBtn.addEventListener("click", () => moveEachProject(-1));
   if (nextBtn) nextBtn.addEventListener("click", () => moveEachProject(1));

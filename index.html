@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>Home | Stratus</title>
     <link rel="preload" href="./Font/New_images/home.jpg" as="image" fetchpriority="high" />
     <link
@@ -82,7 +85,7 @@
       </section>
     </header>
 
-    <section class="home-about-redesign" id="about" aria-labelledby="home-about-redesign-heading">
+    <section class="home-about-redesign" id="about" aria-labelledby="home-about-redesign-heading" hidden>
       <div class="home-about-redesign-inner">
         <div class="home-about-redesign-top">
           <div class="home-about-redesign-intro">
@@ -253,105 +256,124 @@
     </section>
 
     <section class="home-each-project-section" aria-labelledby="home-each-project-heading">
-      <div class="home-each-project-overlay">
-        <div class="home-each-project-panel">
-          <h2 id="home-each-project-heading">
-            Each project tells a story through light, material, and carefully considered detail.
-          </h2>
+      <div class="home-each-project-inner">
+        <div class="home-each-project-column">
+          <header class="home-each-project-header">
+            <p class="home-each-project-eyebrow">Selected work</p>
+            <h2 id="home-each-project-heading" class="home-each-project-heading">
+              <span class="home-each-project-heading-line">Each project tells a story</span>
+              <span class="home-each-project-heading-line">through light, material, and</span>
+              <span class="home-each-project-heading-line">carefully considered detail.</span>
+            </h2>
+          </header>
 
-          <div class="home-each-project-meta" role="tablist" aria-label="Project index">
-            <button type="button" class="is-active" data-each-step aria-label="Show project 1">01</button>
-            <button type="button" data-each-step aria-label="Show project 2">02</button>
-            <button type="button" data-each-step aria-label="Show project 3">03</button>
-            <button type="button" data-each-step aria-label="Show project 4">04</button>
-            <button type="button" data-each-step aria-label="Show project 5">05</button>
-          </div>
-
-          <div class="home-each-project-list">
-            <article class="home-each-project-card is-active" data-each-card>
-              <div class="home-each-project-card-copy">
-                <h3>Coastal Retreat</h3>
-                <p>Indiranagar, Bangalore - LH-103</p>
-                <a href="./gallary.html" class="home-each-project-view">
-                  View <span aria-hidden="true">&#8599;</span>
-                </a>
+          <div class="home-each-project-overlay">
+            <div class="home-each-project-panel">
+            <div class="home-each-project-progress" role="tablist" aria-label="Project index">
+              <span class="home-each-project-edge" data-each-current-label aria-hidden="true">01</span>
+              <div class="home-each-project-rail">
+                <div class="home-each-project-rail-line" aria-hidden="true">
+                  <span class="home-each-project-rail-fill" data-each-progress-fill></span>
+                </div>
+                <div class="home-each-project-rail-steps">
+                  <button type="button" class="is-active" data-each-step aria-label="Show project 1">01</button>
+                  <button type="button" class="home-each-project-step-dot" data-each-step aria-label="Show project 2"></button>
+                  <button type="button" class="home-each-project-step-dot" data-each-step aria-label="Show project 3"></button>
+                  <button type="button" class="home-each-project-step-dot" data-each-step aria-label="Show project 4"></button>
+                  <button type="button" data-each-step aria-label="Show project 5">05</button>
+                </div>
               </div>
-              <img
-                src="./Public/about/our_ongoing.jpg"
-                alt="Coastal Retreat project preview"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+              <span class="home-each-project-edge" data-each-count aria-hidden="true">05</span>
+            </div>
 
-            <article class="home-each-project-card" data-each-card>
-              <div class="home-each-project-card-copy">
-                <h3>Chic Apartment</h3>
-                <p>Indiranagar, Bangalore - LH-001</p>
-                <a href="./gallary.html" class="home-each-project-view">
-                  View <span aria-hidden="true">&#8599;</span>
-                </a>
-              </div>
-              <img
-                src="./Public/about/on_going.jpg"
-                alt="Chic Apartment project preview"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+            <div class="home-each-project-list">
+              <article class="home-each-project-card is-active" data-each-card>
+                <div class="home-each-project-card-copy">
+                  <h3>Coastal Retreat</h3>
+                  <p>Indiranagar, Bangalore - LH-103</p>
+                  <a href="./gallary.html" class="home-each-project-view">
+                    View <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+                <img
+                  src="./Public/about/our_ongoing.jpg"
+                  alt="Coastal Retreat project preview"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </article>
 
-            <article class="home-each-project-card" data-each-card>
-              <div class="home-each-project-card-copy">
-                <h3>Cafe Grey</h3>
-                <p>Indiranagar, Bangalore - LH-103</p>
-                <a href="./gallary.html" class="home-each-project-view">
-                  View <span aria-hidden="true">&#8599;</span>
-                </a>
-              </div>
-              <img
-                src="./Public/about/vk.png"
-                alt="Cafe Grey project preview"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+              <article class="home-each-project-card" data-each-card>
+                <div class="home-each-project-card-copy">
+                  <h3>Chic Apartment</h3>
+                  <p>Indiranagar, Bangalore - LH-001</p>
+                  <a href="./gallary.html" class="home-each-project-view">
+                    View <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+                <img
+                  src="./Public/about/on_going.jpg"
+                  alt="Chic Apartment project preview"
+                  loading="eager"
+                  decoding="async"
+                />
+              </article>
 
-            <article class="home-each-project-card" data-each-card>
-              <div class="home-each-project-card-copy">
-                <h3>Dongle Desk</h3>
-                <p>Indiranagar, Bangalore - LH-001</p>
-                <a href="./gallary.html" class="home-each-project-view">
-                  View <span aria-hidden="true">&#8599;</span>
-                </a>
-              </div>
-              <img
-                src="./Public/about/Avk.png"
-                alt="Dongle Desk project preview"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+              <article class="home-each-project-card" data-each-card>
+                <div class="home-each-project-card-copy">
+                  <h3>Cafe Grey</h3>
+                  <p>Indiranagar, Bangalore - LH-103</p>
+                  <a href="./gallary.html" class="home-each-project-view">
+                    View <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+                <img
+                  src="./Public/about/vk.png"
+                  alt="Cafe Grey project preview"
+                  loading="eager"
+                  decoding="async"
+                />
+              </article>
 
-            <article class="home-each-project-card" data-each-card>
-              <div class="home-each-project-card-copy">
-                <h3>Mungo</h3>
-                <p>Indiranagar, Bangalore - LH-001</p>
-                <a href="./gallary.html" class="home-each-project-view">
-                  View <span aria-hidden="true">&#8599;</span>
-                </a>
-              </div>
-              <img
-                src="./Public/about/Dongle.png"
-                alt="Mungo project preview"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
-          </div>
+              <article class="home-each-project-card" data-each-card>
+                <div class="home-each-project-card-copy">
+                  <h3>Dongle Desk</h3>
+                  <p>Indiranagar, Bangalore - LH-001</p>
+                  <a href="./gallary.html" class="home-each-project-view">
+                    View <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+                <img
+                  src="./Public/about/Avk.png"
+                  alt="Dongle Desk project preview"
+                  loading="eager"
+                  decoding="async"
+                />
+              </article>
 
-          <div class="home-each-project-controls">
-            <button type="button" data-each-prev aria-label="Previous project">&#8592;</button>
-            <button type="button" data-each-next aria-label="Next project">&#8594;</button>
+              <article class="home-each-project-card" data-each-card>
+                <div class="home-each-project-card-copy">
+                  <h3>Mungo</h3>
+                  <p>Indiranagar, Bangalore - LH-001</p>
+                  <a href="./gallary.html" class="home-each-project-view">
+                    View <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+                <img
+                  src="./Public/about/Dongle.png"
+                  alt="Mungo project preview"
+                  loading="eager"
+                  decoding="async"
+                />
+              </article>
+            </div>
+
+            <div class="home-each-project-controls">
+              <button type="button" data-each-prev aria-label="Previous project">&#8592;</button>
+              <button type="button" data-each-next aria-label="Next project">&#8594;</button>
+            </div>
+            </div>
           </div>
         </div>
       </div>
@@ -410,7 +432,7 @@
       </div>
     </section>
 
-    <section class="gallary-section" id="gallery">
+    <section class="gallary-section" id="gallery" hidden>
       <div class="gallary-header">
         <h2>GALLERY</h2>
         <p>A closer look at materials, spatial details, and the evolution of design into built form.</p>
@@ -456,7 +478,7 @@
       </div>
     </section>
 
-    <section class="latest-article-section" id="latest-article">
+    <section class="latest-article-section" id="latest-article" hidden>
       <div class="container">
         <div class="latest-article-header">
           <h2>THE LATEST ARTICLE</h2>
@@ -681,8 +703,13 @@
 
           <div class="footer-v2-links">
             <h3>Site</h3>
+            <a href="./index.html">Home</a>
+            <a href="./services.html">Services</a>
+            <a href="./architecture.html">Architecture</a>
+            <a href="./Construction.html">Construction</a>
+            <a href="./interior.html">Interior</a>
+            <a href="./gallary.html">Gallery</a>
             <a href="./index.html#projects">Projects</a>
-            <a href="./index.html#latest-article">Blog</a>
             <a href="./about.html">About</a>
             <a href="./contact.html">Contact</a>
           </div>

@@ -40,6 +40,38 @@
 }
 
 @font-face {
+  font-family: "Metropolis";
+  src: url("./Font/avenir-similar-fonts/Metropolis/Metropolis-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Metropolis";
+  src: url("./Font/avenir-similar-fonts/Metropolis/Metropolis-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Metropolis";
+  src: url("./Font/avenir-similar-fonts/Metropolis/Metropolis-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Metropolis";
+  src: url("./Font/avenir-similar-fonts/Metropolis/Metropolis-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Barlow Condensed";
   src:
     url("./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2") format("woff2"),
@@ -112,10 +144,15 @@
 }
 
 :root {
-  --heading-font: "Panigale", serif;
+  /* Large display / hero + exclusions from Metropolis headings */
+  --display-font: "Panigale", serif;
+  /* Avenir-like bundle — section headings site-wide */
+  --heading-font: "Metropolis", sans-serif;
   --body-font: "Barlow Condensed", sans-serif;
   --primary: #d6bfa8;
   --primary-light: #e5d3c2;
+  /* Home “Our Services” band + home page canvas (index.html) */
+  --home-services-surface: #efe4da;
   --primary-dark: #cbb29a;
   --accent-gold: #c6a87d;
   --accent-brown: #8c6e54;
@@ -145,10 +182,28 @@
 
 html {
   background-color: var(--primary-light);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 * {
   box-sizing: border-box;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+a,
+button,
+[role="button"],
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: rgba(198, 168, 125, 0.25);
 }
 
 body {
@@ -231,18 +286,35 @@ h4 {
   font-size: 28px;
   font-weight: 500;
   line-height: 1.3;
+  font-family: var(--heading-font);
+  letter-spacing: 1px;
 }
 
 h5 {
   font-size: 22px;
   font-weight: 400;
   line-height: 1.4;
+  font-family: var(--heading-font);
+  letter-spacing: 1px;
 }
 
 h6 {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.4;
+  font-family: var(--heading-font);
+  letter-spacing: 1px;
+}
+
+/* Hero H1s: MuseoModerno + Panigale (not Metropolis) */
+.home-page .hero-content h1,
+.top-hero-page .page-hero-content h1,
+.hero .hero-content h1,
+.about-hero-content h1,
+.contact-hero-content h1,
+.services-hero-content h1,
+.architecture-hero-content h1 {
+  font-family: "MuseoModerno", var(--display-font);
 }
 
 .hero {
@@ -414,6 +486,12 @@ button {
   padding: var(--space-lg);
 }
 
+/* Home page — page background matches “A complete approach…” services band */
+html:has(body.home-page),
+body.home-page {
+  background-color: var(--home-services-surface);
+}
+
 /* Home page hero + nav redesign */
 .home-page .hero {
   position: relative;
@@ -547,7 +625,7 @@ button {
 
 .home-page .hero-content h1 {
   margin: 0;
-  font-family: "MuseoModerno", var(--heading-font);
+  font-family: "MuseoModerno", var(--display-font);
   font-weight: 700;
   color: #fff;
   font-size: clamp(72px, 12.6vw, 170px);
@@ -640,7 +718,7 @@ button {
 }
 
 .home-services-redesign {
-  background: #efe4da;
+  background: var(--home-services-surface);
   color: #4a3a31;
   padding: 54px clamp(28px, 4vw, 64px) 56px;
 }
@@ -753,13 +831,14 @@ button {
 
 .home-process-header {
   display: grid;
-  grid-template-columns: auto minmax(280px, 520px);
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   justify-content: space-between;
   column-gap: clamp(8px, 1.4vw, 20px);
   row-gap: 0;
   padding-top: 0;
   margin-bottom: 22px;
+  min-width: 0;
 }
 
 .home-process-header h2 {
@@ -775,10 +854,12 @@ button {
   margin: 0;
   justify-self: end;
   text-align: left;
-  font-size: 17px;
+  font-size: clamp(12px, 1.35vw + 0.55rem, 17px);
   line-height: 1.3;
   color: rgba(241, 231, 220, 0.92);
   transform: translateY(0);
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .home-process-grid {
@@ -906,68 +987,212 @@ button {
 }
 
 .home-each-project-section {
+  /* Matches first slide image so first paint matches active card (no placeholder flash) */
+  --home-each-project-photo: url("./Public/about/our_ongoing.jpg");
   background-image:
-    linear-gradient(rgba(43, 28, 20, 0.45), rgba(43, 28, 20, 0.45)),
-    url("./Font/New_images/interior design.png");
+    linear-gradient(105deg, rgba(32, 22, 16, 0.72) 0%, rgba(32, 22, 16, 0.38) 42%, rgba(32, 22, 16, 0.22) 100%),
+    var(--home-each-project-photo);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 54px clamp(28px, 4vw, 64px);
+  padding: 0;
 }
 
-.home-each-project-overlay {
-  max-width: 1240px;
+.home-each-project-inner {
+  max-width: 1480px;
   margin: 0 auto;
+  padding: 54px clamp(28px, 4vw, 72px);
   display: flex;
   justify-content: flex-end;
 }
 
+.home-each-project-column {
+  width: min(640px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+}
+
+.home-each-project-overlay {
+  width: 100%;
+  min-width: 0;
+}
+
 .home-each-project-panel {
-  width: min(520px, 100%);
-  padding: 26px 24px 20px;
-  border-radius: 18px;
-  background: rgba(34, 22, 16, 0.36);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  width: 100%;
+  min-width: 0;
+  padding: clamp(22px, 3vw, 32px) clamp(20px, 3vw, 28px) clamp(18px, 2.5vw, 24px);
+  border-radius: 20px;
+  background: rgba(24, 16, 12, 0.42);
+  border: 1px solid rgba(255, 248, 240, 0.12);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
   color: #f5ebe2;
 }
 
-.home-each-project-panel h2 {
-  margin: 0 0 20px;
+.home-each-project-header {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  text-align: left;
+}
+
+.home-each-project-eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--body-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 235, 226, 0.72);
+}
+
+.home-each-project-section h2.home-each-project-heading {
+  margin: 0;
+  max-width: none;
+  font-family: var(--heading-font);
+  font-style: normal;
+  font-weight: 600;
   font-size: clamp(30px, 2.7vw, 40px);
-  line-height: 1.05;
-  max-width: 20ch;
+  line-height: 1.08;
+  letter-spacing: 0.085em;
+  color: #f5ebe2;
 }
 
-.home-each-project-meta {
-  display: flex;
+.home-each-project-heading-line {
+  display: block;
+}
+
+.home-each-project-progress {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 10px;
-  padding: 4px 0 12px;
-  border-bottom: 1px solid rgba(245, 235, 226, 0.45);
+  gap: clamp(10px, 2vw, 16px);
+  margin-bottom: 16px;
 }
 
-.home-each-project-meta button {
-  border: 0;
-  background: transparent;
-  color: rgba(245, 235, 226, 0.62);
-  font-size: 14px;
+.home-each-project-edge {
+  font-family: var(--body-font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(245, 235, 226, 0.95);
+  min-width: 1.75em;
+  text-align: center;
+}
+
+.home-each-project-rail {
+  position: relative;
+  min-width: 0;
+  padding-top: 10px;
+  padding-bottom: 6px;
+}
+
+.home-each-project-rail-line {
+  position: relative;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(245, 235, 226, 0.22);
+  overflow: hidden;
+}
+
+.home-each-project-rail-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  border-radius: inherit;
+  background: rgba(245, 235, 226, 0.88);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-each-project-rail-steps {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.home-each-project-rail-steps button {
+  pointer-events: auto;
+  position: relative;
+  top: -5px;
+  width: 28px;
+  height: 28px;
+  margin: 0 -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 235, 226, 0.35);
+  background: rgba(20, 14, 10, 0.55);
+  color: rgba(245, 235, 226, 0.55);
+  font-family: var(--body-font);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   line-height: 1;
   padding: 0;
   cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-.home-each-project-meta button.is-active {
-  color: #f5ebe2;
+.home-each-project-rail-steps button:hover {
+  color: rgba(245, 235, 226, 0.92);
+  border-color: rgba(245, 235, 226, 0.55);
+}
+
+.home-each-project-rail-steps button.is-active {
+  color: #1a120e;
+  background: #f3eee7;
+  border-color: #f3eee7;
+  transform: scale(1.05);
+}
+
+/* Middle stops: plain dots on the rail — numbers only at start (01) and end (05) */
+.home-each-project-rail-steps button.home-each-project-step-dot {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  margin: 0 -2px;
+  top: 1px;
+  font-size: 0;
+  color: transparent;
+  border-color: rgba(245, 235, 226, 0.38);
+  background: rgba(20, 14, 10, 0.45);
+}
+
+.home-each-project-rail-steps button.home-each-project-step-dot:hover {
+  border-color: rgba(245, 235, 226, 0.55);
+  background: rgba(20, 14, 10, 0.55);
+}
+
+.home-each-project-rail-steps button.home-each-project-step-dot.is-active {
+  color: transparent;
+  background: #f3eee7;
+  border-color: #f3eee7;
+  transform: scale(1.25);
 }
 
 .home-each-project-card {
   display: none;
-  grid-template-columns: minmax(0, 1fr) 170px;
-  gap: 14px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(245, 235, 226, 0.45);
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 38%);
+  gap: 16px;
+  align-items: center;
+  padding: 16px 16px 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 248, 240, 0.06);
+  border: 1px solid rgba(255, 248, 240, 0.1);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.28s ease, transform 0.28s ease;
@@ -980,21 +1205,26 @@ button {
 }
 
 .home-each-project-list {
-  min-height: 124px;
+  min-height: 132px;
 }
 
 .home-each-project-card h3 {
   margin: 0 0 8px;
-  font-size: 24px;
-  line-height: 1;
+  font-family: var(--body-font);
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fffaf4;
 }
 
 .home-each-project-card p {
   margin: 0 0 14px;
   font-size: 13px;
-  line-height: 1.3;
-  color: rgba(245, 235, 226, 0.9);
-  max-width: 24ch;
+  line-height: 1.45;
+  color: rgba(245, 235, 226, 0.88);
+  max-width: 28ch;
 }
 
 .home-each-project-view {
@@ -1003,35 +1233,54 @@ button {
   gap: 8px;
   text-decoration: none;
   border-radius: 999px;
-  padding: 7px 11px;
+  padding: 8px 14px;
   background: #f3eee7;
   color: #402d22;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.home-each-project-view:hover {
+  background: #fff;
+  color: #2a1d16;
 }
 
 .home-each-project-card img {
   width: 100%;
-  height: 110px;
+  height: 118px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
   display: block;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
 .home-each-project-controls {
-  margin-top: 12px;
+  margin-top: 16px;
   display: flex;
-  gap: 6px;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 .home-each-project-controls button {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 235, 226, 0.55);
-  background: transparent;
+  border: 1px solid rgba(245, 235, 226, 0.45);
+  background: rgba(255, 248, 240, 0.1);
   color: #f5ebe2;
   padding: 0;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.home-each-project-controls button:hover {
+  background: rgba(255, 248, 240, 0.2);
+  border-color: rgba(245, 235, 226, 0.65);
 }
 
 .home-faq-section {
@@ -1159,21 +1408,36 @@ button {
 }
 
 .footer-quote-strip p {
-  margin: 0;
-  font-family: "Panigale", "Brush Script MT", cursive;
-  font-size: clamp(44px, 4.8vw, 78px);
-  line-height: 1.06;
+  margin: 0 auto;
+  max-width: min(22em, 92vw);
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: clamp(28px, 3.2vw, 52px);
+  line-height: 1.12;
   letter-spacing: 0.01em;
   color: #3f2e25;
 }
 
+.footer-quote-strip :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--display-font);
+}
+
 @media (max-width: 740px) {
-  .home-each-project-meta {
-    gap: 10px;
+  .home-each-project-rail-steps button {
+    width: 26px;
+    height: 26px;
+    font-size: 9px;
+    margin: 0 -8px;
   }
 
-  .home-each-project-meta button {
-    font-size: 12px;
+  .home-each-project-rail-steps button.home-each-project-step-dot {
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    margin: 0 -3px;
+    top: 2px;
   }
 }
 
@@ -1236,7 +1500,9 @@ button {
 
 .top-hero-page .page-hero {
   position: relative;
-  min-height: min(94vh, 860px);
+  min-height: 100vh;
+  padding: 0 22px 0;
+  box-sizing: border-box;
 }
 
 .top-hero-page .page-hero-content {
@@ -1270,7 +1536,7 @@ button {
 
 .top-hero-page .page-hero-content h1 {
   margin: 0;
-  font-family: "MuseoModerno", var(--heading-font);
+  font-family: "MuseoModerno", var(--display-font);
   font-weight: 700;
   color: #fff;
   font-size: clamp(72px, 12.6vw, 170px);
@@ -1278,8 +1544,29 @@ button {
   line-height: 0.82;
 }
 
+.top-hero-page .page-hero-content .contact-hero-lede {
+  margin: 0;
+  max-width: min(36rem, 92vw);
+  font-family: var(--body-font);
+  font-size: clamp(14px, 1.85vw, 17px);
+  line-height: 1.55;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Contact + legal (terms / privacy) — one-line hero title */
+.top-hero-page .contact-hero.page-hero .page-hero-content h1,
+.top-hero-page .legal-hero-compact .page-hero-content h1 {
+  white-space: nowrap;
+  max-width: none;
+  line-height: 0.82;
+  font-size: clamp(40px, 11vw, 150px);
+}
+
 .about-hero {
-  min-height: 82vh;
+  min-height: 100vh;
+  padding: 0 22px 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1302,7 +1589,9 @@ button {
 }
 
 .contact-hero {
-  min-height: 72vh;
+  min-height: 100vh;
+  padding: 0 22px 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1520,20 +1809,25 @@ button {
   }
 
   .contact-hero {
-    min-height: 62vh;
+    min-height: min(94dvh, 820px);
+    padding: 0 max(16px, env(safe-area-inset-left, 0px)) 0
+      max(16px, env(safe-area-inset-right, 0px));
   }
 
-  .contact-hero-content h1 {
-    font-size: clamp(32px, 9vw, 52px);
+  .top-hero-page .contact-hero.page-hero .page-hero-content h1,
+  .top-hero-page .legal-hero-compact .page-hero-content h1 {
+    font-size: clamp(32px, 9vw, 56px);
   }
 }
 
 .services-hero {
-  min-height: 82vh;
+  min-height: 100vh;
+  padding: 0 22px 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("./Font/New_images/service.png");
+  background-image: url("./Font/New_images/Service_back.png");
   background-position: left center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1552,7 +1846,9 @@ button {
 }
 
 .architecture-hero {
-  min-height: 82vh;
+  min-height: 100vh;
+  padding: 0 22px 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1679,13 +1975,22 @@ button {
   object-fit: cover;
 }
 
-/* Interior page — Design Stories & Studio Journal (full-width #E5D3C2) */
+/* Interior page — quote strip matches “Expert Design Solutions…” feature band */
+.interior-page .footer-quote-strip {
+  background-color: rgba(255, 248, 240, 0.95);
+  background-image: var(--paper-theme);
+  background-size: 4px 4px, 8px 8px, 100% 100%;
+  background-blend-mode: multiply, soft-light, normal;
+  border-top-color: rgba(63, 46, 37, 0.14);
+}
+
+/* Interior page — Design Stories & Studio Journal */
 .interior-page .interior-journal-section {
   width: 100%;
   box-sizing: border-box;
   margin: 0;
   padding: clamp(52px, 7vw, 96px) clamp(20px, 4vw, 48px) clamp(56px, 8vw, 96px);
-  background-color: #E5D3C2;
+  background-color: #5b453a;
   color: rgba(255, 248, 240, 0.96);
 }
 
@@ -2090,6 +2395,12 @@ button {
   position: relative;
 }
 
+/* architecture.html only — “Designing spaces that are both timeless and intelligent” band */
+.architecture-page .architecture-approach-section {
+  background-color: #5b453a;
+  background-image: none;
+}
+
 @media (max-width: 768px) {
   .architecture-approach-section {
     padding: 80px 16px;
@@ -2369,6 +2680,12 @@ button {
   margin-bottom: 0;
 }
 
+.architecture-page .architecture-approach-eyebrow,
+.architecture-page .architecture-approach-copy h2,
+.architecture-page .architecture-approach-body p {
+  color: #c8bcb0;
+}
+
 .architecture-approach-visuals {
   position: absolute;
   top: 0;
@@ -2559,7 +2876,7 @@ button {
 }
 
 .services-feature-section--dark {
-  background: #E5D3C2;
+  background: #5b453a;
 }
 
 .services-feature-section--dark .services-feature-header span,
@@ -3745,7 +4062,9 @@ button {
     height: 100vh;
     height: 100dvh;
     margin: 0;
-    padding: calc(var(--space-sm) + 52px) var(--space-md) var(--space-md);
+    padding: calc(var(--space-sm) + env(safe-area-inset-top, 0px) + 52px)
+      max(var(--space-md), env(safe-area-inset-right, 0px))
+      max(var(--space-md), env(safe-area-inset-bottom, 0px)) var(--space-md);
     flex-direction: column;
     align-items: stretch;
     flex-wrap: nowrap;
@@ -4273,7 +4592,7 @@ button {
   max-width: none;
   margin: 0;
   box-sizing: border-box;
-  background-color: #E5D3C2;
+  background-color: #5b453a;
   background-image: none;
   aspect-ratio: auto;
   min-height: 0;
@@ -4401,7 +4720,7 @@ button {
   box-sizing: border-box;
   margin: 0;
   padding: clamp(52px, 7vw, 88px) clamp(20px, 5vw, 48px) clamp(60px, 8vw, 96px);
-  background-color: #e5d3c2;
+  background-color: rgba(255, 248, 240, 0.95);
   color: rgba(62, 46, 38, 0.95);
 }
 
@@ -4622,6 +4941,20 @@ button {
   padding: 42px 0 52px;
 }
 
+/* Architecture page — bands match “Our Architecture: Designed for the Future” (sand + paper) */
+.architecture-page .gallary-section,
+.architecture-page .services-cta-banner,
+.architecture-page .footer-quote-strip {
+  background-color: #f5e6d3;
+  background-image: var(--paper-theme);
+  background-size: 4px 4px, 8px 8px, 100% 100%;
+  background-blend-mode: multiply, soft-light, normal;
+}
+
+.architecture-page .footer-quote-strip {
+  border-top-color: rgba(63, 46, 37, 0.18);
+}
+
 .gallary-header {
   text-align: center;
   margin-bottom: 20px;
@@ -4754,7 +5087,7 @@ button {
   width: 100%;
   box-sizing: border-box;
   padding: clamp(56px, 6vw, 84px) clamp(20px, 6vw, 72px) clamp(48px, 5vw, 64px);
-  background: #684a3b;
+  background: rgba(255, 248, 240, 0.95);
 }
 
 .gallery-projects-showcase-inner {
@@ -4765,7 +5098,7 @@ button {
 .gallery-projects-showcase-inner h2 {
   margin: 0 0 clamp(20px, 2.4vw, 28px);
   text-align: center;
-  color: #e7ddd2;
+  color: #3e2e26;
   font-size: clamp(20px, 1.8vw, 30px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4866,10 +5199,10 @@ button {
 .gallery-projects-showcase-arrow {
   width: 30px;
   height: 30px;
-  border: 1px solid rgba(231, 221, 210, 0.45);
+  border: 1px solid rgba(62, 46, 38, 0.35);
   border-radius: 999px;
   background: transparent;
-  color: #e7ddd2;
+  color: #3e2e26;
   font-size: 15px;
   line-height: 1;
   padding: 0;
@@ -4883,7 +5216,7 @@ button {
 .gallery-projects-showcase-progress {
   width: clamp(92px, 12vw, 132px);
   height: 2px;
-  background: rgba(231, 221, 210, 0.28);
+  background: rgba(62, 46, 38, 0.18);
   position: relative;
 }
 
@@ -4894,7 +5227,7 @@ button {
   width: 40%;
   top: 0;
   bottom: 0;
-  background: #f0e7dd;
+  background: #5a4636;
 }
 
 /* Gallery projects: desktop tuning to match showcase mockup */
@@ -5010,7 +5343,7 @@ button {
   width: 100%;
   box-sizing: border-box;
   padding: clamp(40px, 6vw, 72px) clamp(36px, 8vw, 96px) clamp(48px, 7vw, 80px);
-  background: #4b3d33;
+  background: #e5d3c2;
 }
 
 .gallery-page-inner {
@@ -5038,22 +5371,22 @@ button {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(235, 227, 218, 0.55);
+  color: rgba(62, 46, 38, 0.55);
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .gallery-page-tab:hover {
-  color: rgba(235, 227, 218, 0.88);
+  color: rgba(62, 46, 38, 0.88);
 }
 
 .gallery-page-tab.is-active {
-  color: #ebe3da;
-  border-bottom-color: #ebe3da;
+  color: #3e2e26;
+  border-bottom-color: #3e2e26;
 }
 
 .gallery-page-tab:focus-visible {
-  outline: 2px solid #ebe3da;
+  outline: 2px solid #3e2e26;
   outline-offset: 4px;
 }
 
@@ -5281,7 +5614,7 @@ button {
 
 /* Interior page — featured testimonial (light band, single quote + nav) */
 .testimonials-section.testimonials-section--interior {
-  background: #f2e8df;
+  background: rgba(255, 248, 240, 0.95);
   border-top: none;
   padding: clamp(48px, 6vw, 76px) clamp(20px, 4vw, 48px) clamp(52px, 7vw, 84px);
 }
@@ -5805,7 +6138,7 @@ button {
 .footer-v2-wordmark {
   margin: 26px 0 8px;
   text-align: center;
-  font-family: "MuseoModerno", var(--heading-font);
+  font-family: "MuseoModerno", var(--display-font);
   font-size: clamp(84px, 15vw, 250px);
   line-height: 0.9;
   letter-spacing: 0.06em;
@@ -5849,10 +6182,36 @@ button {
   .footer-v2-top {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footer-v2-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-v2-logo-link {
+    margin-inline: auto;
+  }
+
+  .footer-v2-social {
+    justify-content: center;
+  }
+
+  .footer-v2-links {
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-v2-links a {
+    text-align: center;
   }
 
   .footer-v2-subscribe {
-    justify-self: start;
+    justify-self: center;
+    justify-content: center;
   }
 }
 
@@ -5860,21 +6219,59 @@ button {
   .footer-v2-top {
     grid-template-columns: 1fr;
     gap: 16px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footer-v2-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-v2-logo-link {
+    margin-inline: auto;
   }
 
   .footer-v2-brand p {
     max-width: 100%;
     font-size: 15px;
+    margin-inline: auto;
+  }
+
+  .footer-v2-social {
+    justify-content: center;
+  }
+
+  .footer-v2-links {
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .footer-v2-links h3 {
+    text-align: center;
+  }
+
+  .footer-v2-links a {
+    text-align: center;
   }
 
   .footer-v2-subscribe {
     width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
     flex-wrap: wrap;
     gap: 8px;
+    justify-content: center;
+    justify-self: center;
   }
 
   .footer-v2-subscribe input {
     width: min(100%, 280px);
+    text-align: center;
   }
 
   .footer-v2-wordmark {
@@ -5890,8 +6287,13 @@ button {
   .footer-v2-bottom {
     margin-top: 2px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 6px;
+  }
+
+  .footer-v2-bottom p {
+    text-align: center;
   }
 }
 
@@ -6373,17 +6775,39 @@ button {
   }
 
   .home-process-header {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 10px;
     margin-bottom: 16px;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .home-process-header::-webkit-scrollbar {
+    display: none;
   }
 
   .home-process-header h2 {
-    font-size: clamp(40px, 10vw, 56px);
+    font-size: clamp(26px, 7vw, 50px);
+    flex: 0 0 auto;
+    white-space: nowrap;
+    transform: translateY(0);
+    line-height: 1;
   }
 
   .home-process-header p {
-    font-size: 15px;
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-self: unset;
+    text-align: right;
+    font-size: clamp(11px, 2.9vw, 15px);
+    white-space: nowrap;
   }
 
   .home-process-grid {
@@ -6437,9 +6861,15 @@ button {
     border-radius: 12px;
   }
 
-  .home-each-project-section {
+  .home-each-project-inner {
     padding: 34px max(20px, env(safe-area-inset-left, 0px)) 36px
       max(20px, env(safe-area-inset-right, 0px));
+    justify-content: stretch;
+  }
+
+  .home-each-project-column {
+    width: 100%;
+    gap: 12px;
   }
 
   .home-each-project-panel {
@@ -6448,10 +6878,9 @@ button {
     border-radius: 14px;
   }
 
-  .home-each-project-panel h2 {
+  .home-each-project-section h2.home-each-project-heading {
     font-size: clamp(26px, 7vw, 34px);
     max-width: none;
-    margin-bottom: 14px;
   }
 
   .home-each-project-card {
@@ -6502,8 +6931,9 @@ button {
   }
 
   .footer-quote-strip p {
-    font-size: clamp(34px, 9vw, 46px);
-    line-height: 1.08;
+    max-width: min(18em, 94vw);
+    font-size: clamp(22px, 5.5vw, 34px);
+    line-height: 1.12;
   }
 
   .top-hero-page .navbar {
@@ -6523,7 +6953,9 @@ button {
   }
 
   .top-hero-page .page-hero {
-    min-height: min(88dvh, 780px);
+    min-height: min(94dvh, 820px);
+    padding: 0 max(16px, env(safe-area-inset-left, 0px)) 0
+      max(16px, env(safe-area-inset-right, 0px));
   }
 
   .top-hero-page .page-hero-content {
@@ -6551,6 +6983,13 @@ button {
     line-height: 0.9;
   }
 
+  .top-hero-page .contact-hero.page-hero .page-hero-content h1,
+  .top-hero-page .legal-hero-compact .page-hero-content h1 {
+    font-size: clamp(36px, 12vw, 72px);
+    white-space: nowrap;
+    line-height: 0.9;
+  }
+
   .top-hero-page .nav-right .hero-contact-btn {
     width: 100%;
     justify-content: center;
@@ -6561,7 +7000,9 @@ button {
   .about-hero,
   .services-hero,
   .architecture-hero {
-    min-height: min(68dvh, 520px);
+    min-height: min(94dvh, 820px);
+    padding: 0 max(16px, env(safe-area-inset-left, 0px)) 0
+      max(16px, env(safe-area-inset-right, 0px));
     background-position: center;
   }
 
@@ -6619,6 +7060,20 @@ button {
   .btn-primary {
     min-height: 44px;
     padding-block: 12px;
+  }
+
+  .contact-field input,
+  .contact-field select,
+  .contact-field textarea {
+    font-size: 16px;
+  }
+
+  .footer-v2-subscribe input {
+    font-size: 16px;
+  }
+
+  .footer-v2-subscribe button {
+    min-height: 44px;
   }
 }
 

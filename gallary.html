@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Gallery | Stratus</title>
     <link rel="preload" href="./Font/New_images/gallary.png" as="image" fetchpriority="high" />
     <link
@@ -23,17 +23,19 @@
     <style>
       /* Gallery page only — ideas-to-life showcase (full-width band) */
       .gallery-ideas-life {
+        --gallery-ideas-surface: #e5d3c2;
+        --gallery-ideas-inner-max: 960px;
         width: 100%;
         box-sizing: border-box;
         margin: 0;
         padding: clamp(28px, 3.5vw, 52px) clamp(20px, 4vw, 40px) clamp(32px, 4vw, 60px);
-        background-color: #f0e9e1;
+        background-color: var(--gallery-ideas-surface);
         color: #3e2e26;
       }
 
       .gallery-ideas-life-inner {
         width: 100%;
-        max-width: 960px;
+        max-width: var(--gallery-ideas-inner-max);
         margin: 0 auto;
         text-align: center;
       }
@@ -100,7 +102,7 @@
 
       .gallery-ideas-life-media-link {
         display: block;
-        width: min(100%, 960px);
+        width: min(100%, var(--gallery-ideas-inner-max));
         margin: clamp(14px, 2.2vw, 28px) auto 0;
         text-decoration: none;
         color: inherit;
@@ -117,6 +119,7 @@
       .gallery-ideas-life-media {
         width: 100%;
         aspect-ratio: 960 / 360;
+        background-color: var(--gallery-ideas-surface);
       }
 
       .gallery-ideas-life-media img {
@@ -194,11 +197,12 @@
 
       /* Gallery page — Explore Recent Projects (masonry two-column) */
       .gallery-recent-projects {
+        --gallery-recent-surface: #e5d3c2;
         width: 100%;
         box-sizing: border-box;
         margin: 0;
         padding: 40px 20px;
-        background-color: #e5d3c2;
+        background-color: var(--gallery-recent-surface);
         color: #2c3238;
       }
 
@@ -251,7 +255,7 @@
         width: 100%;
         border-radius: 6px;
         overflow: hidden;
-        background: #4d3a31;
+        background: var(--gallery-recent-surface);
         box-shadow: 0 8px 22px rgba(45, 36, 30, 0.1);
       }
 
@@ -428,10 +432,6 @@
     <main>
       <section class="architecture-hero architecture-hero--gallery page-hero" aria-labelledby="gallery-hero-heading">
         <div class="page-hero-content">
-          <div class="page-hero-meta">
-            <a href="./contact.html" class="hero-start-btn">Start a Project</a>
-            <p>Spaces designed with clarity and built for the long term</p>
-          </div>
           <h1 id="gallery-hero-heading">GALLERY</h1>
         </div>
       </section>
@@ -945,8 +945,13 @@
           </div>
           <div class="footer-v2-links">
             <h3>Site</h3>
+            <a href="./index.html">Home</a>
+            <a href="./services.html">Services</a>
+            <a href="./architecture.html">Architecture</a>
+            <a href="./Construction.html">Construction</a>
+            <a href="./interior.html">Interior</a>
+            <a href="./gallary.html">Gallery</a>
             <a href="./index.html#projects">Projects</a>
-            <a href="./index.html#latest-article">Blog</a>
             <a href="./about.html">About</a>
             <a href="./contact.html">Contact</a>
           </div>

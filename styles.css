@@ -6997,6 +6997,29 @@ body.home-page {
     line-height: 0.9;
   }
 
+  /* Architecture / Construction / Interior / Gallery — keep bottom-aligned hero; scale type so long titles fit */
+  .top-hero-page .architecture-hero.page-hero .page-hero-content {
+    top: auto;
+    bottom: 0;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    padding: 0 max(16px, env(safe-area-inset-left, 0px))
+      max(40px, calc(env(safe-area-inset-bottom, 0px) + 28px))
+      max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .top-hero-page .architecture-hero.page-hero .page-hero-content h1 {
+    font-size: clamp(38px, 10.2vw, 64px);
+    line-height: 1.06;
+    white-space: normal;
+    max-width: min(100%, 96vw);
+    margin-inline: auto;
+    letter-spacing: 0.07em;
+    overflow-wrap: break-word;
+  }
+
   .top-hero-page .contact-hero.page-hero .page-hero-content h1,
   .top-hero-page .legal-hero-compact .page-hero-content h1 {
     font-size: clamp(36px, 12vw, 72px);

@@ -48,7 +48,7 @@
         padding: 5px 14px 5px 9px;
         border-radius: 999px;
         font-family: var(--body-font);
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 500;
         letter-spacing: 0.1em;
         text-transform: uppercase;
@@ -73,7 +73,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 11px;
+        font-size: 13px;
         line-height: 1;
         color: rgba(255, 248, 240, 0.95);
       }
@@ -94,7 +94,7 @@
         margin: 0 auto;
         max-width: 720px;
         font-family: var(--body-font);
-        font-size: clamp(13px, 1.05vw, 16px);
+        font-size: clamp(15px, 1.05vw, 18px);
         line-height: 1.5;
         text-align: center;
         color: rgba(62, 46, 38, 0.82);
@@ -151,7 +151,7 @@
       .gallery-ideas-life-tagline {
         margin: 0;
         font-family: var(--body-font);
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.45;
         color: rgba(62, 46, 38, 0.72);
         max-width: 420px;
@@ -246,10 +246,6 @@
         gap: 40px;
       }
 
-      .gallery-recent-col--stagger {
-        padding-top: 60px;
-      }
-
       .gallery-recent-card {
         width: 100%;
       }
@@ -309,7 +305,7 @@
       .gallery-recent-card-title {
         margin: 0 0 4px;
         font-family: var(--body-font);
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.2;
         color: #1f2933;
@@ -318,7 +314,7 @@
       .gallery-recent-card-desc {
         margin: 0;
         font-family: var(--body-font);
-        font-size: 11px;
+        font-size: 13px;
         line-height: 1.4;
         color: rgba(31, 41, 51, 0.78);
         max-width: 28ch;
@@ -371,10 +367,6 @@
 
         .gallery-recent-col {
           gap: 20px;
-        }
-
-        .gallery-recent-col--stagger {
-          padding-top: 0;
         }
 
         .gallery-recent-card-media--tall,
@@ -444,10 +436,8 @@
     </header>
 
     <main>
-      <section class="architecture-hero architecture-hero--gallery page-hero" aria-labelledby="gallery-hero-heading">
-        <div class="page-hero-content">
-          <h1 id="gallery-hero-heading">GALLERY</h1>
-        </div>
+      <section class="architecture-hero architecture-hero--gallery page-hero">
+        <div class="page-hero-content"></div>
       </section>
 
       <section class="gallery-ideas-life" aria-labelledby="gallery-ideas-life-heading" data-gallery-ideas-life>
@@ -599,7 +589,7 @@
               </article>
             </div>
 
-            <div class="gallery-recent-col gallery-recent-col--stagger">
+            <div class="gallery-recent-col">
               <article class="gallery-recent-card" data-recent-project-card data-recent-set="1">
                 <div class="gallery-recent-card-inner">
                   <div class="gallery-recent-card-media gallery-recent-card-media--landscape">
@@ -936,10 +926,6 @@
       </section>
     </main>
 
-    <section class="footer-quote-strip" aria-label="Quote">
-      <p>Let&rsquo;s build your dream spaces...</p>
-    </section>
-
     <footer class="site-footer footer-v2">
       <div class="footer-v2-inner">
         <div class="footer-v2-top">
@@ -982,7 +968,7 @@
           </form>
         </div>
         <img
-          src="./Font/New_images/STRATUS.png"
+          src="./photos/BG (3).png"
           alt=""
           class="footer-v2-wordmark-image"
           loading="lazy"

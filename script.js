@@ -79,6 +79,7 @@ const projectLinks = document.querySelectorAll(".projects-frame [data-project-li
 const projectPageLinks = {
   architecture: "./architecture.html",
   construction: "./Construction.html",
+  atelier: "./de-atelier.html",
 };
 
 const projectAltText = {
@@ -91,6 +92,11 @@ const projectAltText = {
     "Construction project 1",
     "Construction project 2",
     "Construction project 3",
+  ],
+  atelier: [
+    "Interior vignette with layered materials and warm daylight",
+    "Residential interior with refined furnishings and soft tones",
+    "Spatial detail highlighting texture, lighting, and composition",
   ],
 };
 

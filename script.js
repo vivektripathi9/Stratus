@@ -132,6 +132,10 @@ const gallaryImagePool = [
   "./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png",
   "./Public/about/IMG1%20(1).png",
   "./Public/IMG4.png",
+  "./photos/PROJECTS/IMG1.png",
+  "./photos/PROJECTS/IMG2.png",
+  "./photos/PROJECTS/IMG3.png",
+  "./photos/PROJECTS/IMG4.png",
 ];
 
 const gallaryAltPool = [
@@ -139,6 +143,10 @@ const gallaryAltPool = [
   "Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs",
   "Warm-toned interior with layered materials, soft lighting, and contemporary furnishings",
   "Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants",
+  "Modern multi-storey residence with glass facade, concrete volumes, and landscaped setting",
+  "Contemporary house exterior with brick, concrete, climbing greenery, and reflective driveway",
+  "Minimalist bedroom with wood slat feature wall, herringbone floor, and garden windows",
+  "Bright living room with tan sectional, curved wood coffee table, and tall windows to greenery",
 ];
 
 if (gallaryImages.length) {
@@ -484,7 +492,7 @@ if (homeFaqRoot) {
   setFaqState(initiallyOpenItem);
 }
 
-// Projects that Inspire — six projects rotate two at a time: main (left) + next (right) only
+// Projects Under Gargi De Portfolio — projects rotate two at a time: main (left) + next (right)
 const latestWorksSubtitleVariants = [
   "A curated selection of projects that reflect our design thinking and execution.",
   "Commercial and hospitality interiors shaped by light, texture, and material craft.",
@@ -493,40 +501,40 @@ const latestWorksSubtitleVariants = [
 
 const latestWorksProjects = [
   {
-    src: "./Public/about/our_ongoing.jpg",
-    alt: "Brutalist waterside building at dusk with warm interior light and reflective plaza",
-    label: "Coastal Retreat ©2019",
-    meta: ["Coastal Retreat", "Indiranagar, Bangalore", "LH-103"],
+    src: "./photos/PROJECTS/Mahadev_Residence.png",
+    alt: "Project image: Mahadev_Residence",
+    label: "Mahadev_Residence",
+    meta: ["Mahadev_Residence", "", ""],
   },
   {
-    src: "./Public/about/on_going.jpg",
-    alt: "Contemporary interior lounge with concrete walls, patterned tile, and staircase",
-    label: "Chic Apartment ©2019",
-    meta: ["Chic Apartment", "Indiranagar, Bangalore", "LH-001"],
+    src: "./photos/PROJECTS/Chic Apartment @2019.png",
+    alt: "Project image: Chic Apartment @2019",
+    label: "Chic Apartment @2019",
+    meta: ["Chic Apartment @2019", "", ""],
   },
   {
-    src: "./Public/about/vk.png",
-    alt: "Modern cafe with bar seating, brick wall, patterned tile, and palm views",
-    label: "CAFE GREY",
-    meta: ["Cafe Grey", "Indiranagar, Bangalore", "LH-103"],
-  },
-  {
-    src: "./Public/about/Avk.png",
-    alt: "Bright cafe and workspace with varied seating and warm accent lighting",
+    src: "./photos/PROJECTS/DONGLE DESK.png",
+    alt: "Project image: DONGLE DESK",
     label: "DONGLE DESK",
-    meta: ["Dongle Desk", "Indiranagar, Bangalore", "LH-001"],
+    meta: ["DONGLE DESK", "", ""],
   },
   {
-    src: "./Public/about/cafe_grey.png",
-    alt: "Industrial chic cafe with wood tables, Edison bulbs, and red brick bar wall",
-    label: "CAFE GREY",
-    meta: ["Cafe Grey", "Indiranagar, Bangalore", "LH-103"],
+    src: "./photos/PROJECTS/SMOOR.png",
+    alt: "Project image: SMOOR",
+    label: "SMOOR",
+    meta: ["SMOOR", "", ""],
   },
   {
-    src: "./Public/about/Dongle.png",
-    alt: "Collaborative workspace and dining interior with refined detailing",
-    label: "MUNGO",
-    meta: ["Mungo", "Indiranagar, Bangalore", "LH-001"],
+    src: "./photos/PROJECTS/KUNAL TANDON.png",
+    alt: "Project image: KUNAL TANDON",
+    label: "KUNAL TANDON",
+    meta: ["KUNAL TANDON", "", ""],
+  },
+  {
+    src: "./photos/PROJECTS/INK_ARCHITECTURE.png",
+    alt: "Project image: INK_ARCHITECTURE",
+    label: "INK_ARCHITECTURE",
+    meta: ["INK_ARCHITECTURE", "", ""],
   },
 ];
 
@@ -841,4 +849,40 @@ if (latestRoot) {
         "If your email app did not open, send the same details to " + mail + ".";
     }
   });
+})();
+
+(function initHomeProcessReveal() {
+  const section = document.querySelector(".home-process-section");
+  if (!section) return;
+
+  const cards = Array.from(section.querySelectorAll(".home-process-card"));
+  if (!cards.length) return;
+
+  try {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  } catch {
+    return;
+  }
+
+  section.classList.add("home-process-section--observe");
+
+  cards.forEach((card, i) => {
+    card.style.setProperty("--process-reveal-i", String(i));
+  });
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("home-process-card--visible");
+        io.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -10% 0px",
+    }
+  );
+
+  cards.forEach((card) => io.observe(card));
 })();

@@ -130,7 +130,88 @@
       </div>
     </section>
 
-    <section class="interior-portfolio-section" aria-labelledby="interior-portfolio-heading">
+    <section
+      class="architecture-latest-section"
+      aria-labelledby="architecture-latest-heading"
+      data-latest-works
+    >
+      <div class="architecture-latest-inner">
+        <header class="architecture-latest-header">
+          <div class="architecture-latest-header-left">
+            <p class="architecture-latest-eyebrow">Latest Works</p>
+            <h2 id="architecture-latest-heading">Projects Under Gargi De<br />Portfolio</h2>
+          </div>
+          <p class="architecture-latest-header-right" data-latest-subtitle>
+            A curated selection of projects that reflect our design thinking and execution.
+          </p>
+        </header>
+
+        <div class="architecture-latest-grid">
+          <article class="architecture-latest-card architecture-latest-card--primary">
+            <div class="architecture-latest-media">
+              <img
+                data-latest-img="left"
+                src="./photos/PROJECTS/Mahadev_Residence.png"
+                alt="Project image: Mahadev_Residence"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <span class="architecture-latest-media-label" data-latest-label="left">Mahadev_Residence</span>
+            </div>
+            <div class="architecture-latest-meta" data-latest-meta="left">
+              <span>Mahadev_Residence</span>
+              <span></span>
+              <span></span>
+            </div>
+          </article>
+
+          <article class="architecture-latest-card architecture-latest-card--secondary">
+            <div class="architecture-latest-media">
+              <img
+                data-latest-img="right"
+                src="./photos/PROJECTS/Chic Apartment @2019.png"
+                alt="Project image: Chic Apartment @2019"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <span class="architecture-latest-media-label" data-latest-label="right"
+                >Chic Apartment @2019</span
+              >
+            </div>
+            <div class="architecture-latest-meta" data-latest-meta="right">
+              <span>Chic Apartment @2019</span>
+              <span></span>
+              <span></span>
+            </div>
+          </article>
+        </div>
+
+        <div class="architecture-latest-controls" aria-label="Latest works controls">
+          <button
+            type="button"
+            class="architecture-latest-arrow"
+            data-latest-prev
+            aria-label="Previous projects"
+          >
+            &#8592;
+          </button>
+          <div class="architecture-latest-progress" aria-hidden="true">
+            <span class="architecture-latest-progress-track"></span>
+            <span class="architecture-latest-progress-fill" data-latest-progress></span>
+          </div>
+          <button
+            type="button"
+            class="architecture-latest-arrow"
+            data-latest-next
+            aria-label="Next projects"
+          >
+            &#8594;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="interior-portfolio-section" aria-labelledby="interior-portfolio-heading" hidden>
       <div class="interior-portfolio-inner">
         <header class="interior-portfolio-header">
           <div class="interior-portfolio-header-left">
@@ -138,7 +219,7 @@
               <span class="interior-portfolio-kicker-icon" aria-hidden="true"></span>
               Case Study
             </p>
-            <h2 id="interior-portfolio-heading">Projects that Inspire</h2>
+            <h2 id="interior-portfolio-heading">Projects Under Gargi De<br />Portfolio</h2>
           </div>
           <p class="interior-portfolio-lede">
             A curated collection of interior spaces shaped through detail and material understanding.
@@ -368,71 +449,56 @@
       </div>
     </section>
 
-    <section
-      class="testimonials-section testimonials-section--interior"
-      id="testimonials"
-      aria-labelledby="interior-testimonials-heading"
-      data-interior-testimonials
-    >
-      <div class="interior-testimonials-inner">
-        <header class="interior-testimonials-top">
-          <div class="interior-testimonials-top-left">
-            <p class="interior-testimonials-badge">
-              <span class="interior-testimonials-badge-icon" aria-hidden="true"></span>
-              Testimonials
-            </p>
-            <h2 id="interior-testimonials-heading">Our Clients Say</h2>
-            <p class="interior-testimonials-sub">The warm words of our clients let us achieve more</p>
-          </div>
-          <a class="interior-testimonials-see-all" href="./contact.html">
-            <span class="interior-testimonials-see-all-icon" aria-hidden="true">
-              <img
-                src="./Font/New_images/A/Container%20(3).png"
-                alt=""
-                width="20"
-                height="20"
-                decoding="async"
-              />
-            </span>
-            See All Testimonials
-          </a>
-        </header>
+    <section class="testimonials-section testimonials-section--interior-cards" id="testimonials">
+      <div class="testimonials-header">
+        <h2>What our clients say</h2>
+      </div>
 
-        <div class="interior-testimonials-body">
-          <div class="interior-testimonials-quote-block" aria-live="polite">
-            <span class="interior-testimonials-quote-mark" aria-hidden="true">&ldquo;</span>
-            <blockquote class="interior-testimonials-blockquote">
-              <p class="interior-testimonials-quote" data-t-quote>
-                From concept to reality, the team turned my vision into a stunning, livable space. I
-                couldn&rsquo;t be happier with this!
-              </p>
-              <p class="interior-testimonials-context" data-t-context>
-                Morgan wanted a modern, functional office. We delivered a bright, stylish space with smart
-                design solutions, perfectly tailored to his company style.
-              </p>
-            </blockquote>
-          </div>
-          <div class="interior-testimonials-nav" role="group" aria-label="Browse testimonials">
-            <button type="button" class="interior-testimonials-nav-btn" data-t-prev aria-label="Previous testimonial">
-              <img
-                src="./Font/New_images/A/Grey%20-%20L.png"
-                alt=""
-                width="44"
-                height="44"
-                decoding="async"
-              />
-            </button>
-            <button type="button" class="interior-testimonials-nav-btn" data-t-next aria-label="Next testimonial">
-              <img
-                src="./Font/New_images/A/Container%20(3).png"
-                alt=""
-                width="44"
-                height="44"
-                decoding="async"
-              />
-            </button>
-          </div>
-        </div>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <img
+            class="testimonial-avatar"
+            src="./Public/navbar/testomonial%20(1).png"
+            alt="John Carter"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>John Carter</h3>
+          <p>
+            Our living room was completely transformed! The team captured our vision perfectly and
+            exceeded our expectations.
+          </p>
+        </article>
+
+        <article class="testimonial-card">
+          <img
+            class="testimonial-avatar"
+            src="./Public/navbar/testomonial%20(2).png"
+            alt="Sophie Moore"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>Sophie Moore</h3>
+          <p>
+            Professional and creative! The design process was smooth, and the results are stunning.
+            Highly recommend their services.
+          </p>
+        </article>
+
+        <article class="testimonial-card">
+          <img
+            class="testimonial-avatar"
+            src="./Public/navbar/testomonial%20(3).png"
+            alt="Matt Cannon"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>Matt Cannon</h3>
+          <p>
+            Their attention to detail and commitment to quality turned our house into a home we love.
+            Outstanding work!
+          </p>
+        </article>
       </div>
     </section>
 
@@ -518,13 +584,8 @@
           <div class="footer-v2-links">
             <h3>Site</h3>
             <a href="./index.html">Home</a>
-            <a href="./services.html">Services</a>
-            <a href="./architecture.html">Architecture</a>
-            <a href="./Construction.html">Construction</a>
-            <a href="./de-atelier.html">De Atelier</a>
-            <a href="./gallary.html">Gallery</a>
-            <a href="./index.html#projects">Projects</a>
             <a href="./about.html">About</a>
+            <a href="./services.html">Services</a>
             <a href="./contact.html">Contact</a>
           </div>
           <div class="footer-v2-links">
@@ -540,7 +601,7 @@
           </form>
         </div>
         <img
-          src="./photos/BG (3).png"
+          src="./photos/gallary/footter_image.png"
           alt=""
           class="footer-v2-wordmark-image"
           loading="lazy"

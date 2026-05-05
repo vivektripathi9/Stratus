@@ -7,7 +7,12 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <title>Home | Stratus</title>
-    <link rel="preload" href="./Font/New_images/home.jpg" as="image" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="./photos/Mungo/Banner%20Video%20-%20Stratus.mp4"
+      as="video"
+      type="video/mp4"
+    />
     <link
       rel="preload"
       href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
@@ -76,12 +81,23 @@
     </header>
 
     <header class="hero">
+      <video
+        class="home-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="./Font/updated_images/home_banner.png"
+        aria-hidden="true"
+      >
+        <source src="./photos/Mungo/Banner%20Video%20-%20Stratus.mp4" type="video/mp4" />
+      </video>
       <section class="hero-content">
         <div class="hero-content-bottom"></div>
       </section>
     </header>
 
-    <section class="home-about-redesign" id="about" aria-labelledby="home-about-redesign-heading" hidden>
+    <section class="home-about-redesign" id="about" aria-labelledby="home-about-redesign-heading">
       <div class="home-about-redesign-inner">
         <div class="home-about-redesign-top">
           <div class="home-about-redesign-intro">
@@ -89,7 +105,10 @@
               <span aria-hidden="true">&#10038;</span>
               About Us
             </p>
-            <h2 id="home-about-redesign-heading">A more considered way of<br />creating spaces</h2>
+            <h2 id="home-about-redesign-heading">
+              <span class="home-about-heading-line">A more considered way of</span>
+              <span class="home-about-heading-line">creating spaces</span>
+            </h2>
           </div>
           <p class="home-about-redesign-copy">
             We approach design with intention. Every line, material, and decision is guided by how the
@@ -247,8 +266,8 @@
 
         <div class="home-why-right">
           <img
-            src="./photos/interior%20design.png"
-            alt="Contemporary interior with staircase and warm daylight"
+            src="./photos/Mungo/interior%20design%20(1).png"
+            alt="Modern bedroom interior with wood slat feature wall, natural light, and garden view"
             loading="lazy"
             decoding="async"
           />
@@ -380,7 +399,7 @@
       </div>
     </section>
 
-    <section class="projects-section" id="projects">
+    <section class="projects-section" id="projects" hidden>
       <div class="projects-header">
         <h2>PROJECTS</h2>
         <div class="projects-tabs">
@@ -703,13 +722,8 @@
           <div class="footer-v2-links">
             <h3>Site</h3>
             <a href="./index.html">Home</a>
-            <a href="./services.html">Services</a>
-            <a href="./architecture.html">Architecture</a>
-            <a href="./Construction.html">Construction</a>
-            <a href="./de-atelier.html">De Atelier</a>
-            <a href="./gallary.html">Gallery</a>
-            <a href="./index.html#projects">Projects</a>
             <a href="./about.html">About</a>
+            <a href="./services.html">Services</a>
             <a href="./contact.html">Contact</a>
         </div>
 
@@ -728,7 +742,7 @@
         </div>
 
         <img
-          src="./photos/BG (3).png"
+          src="./photos/gallary/footter_image.png"
           alt=""
           class="footer-v2-wordmark-image"
           loading="lazy"

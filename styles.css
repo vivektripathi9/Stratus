@@ -131,6 +131,28 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Bebas Neue";
+  src:
+    url("./Font/Bebas_Neue/BebasNeue-Regular.ttf") format("truetype"),
+    local("Bebas Neue"),
+    local("BebasNeue-Regular");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src:
+    url("./Font/Bebas_Neue/BebasNeue-Regular.ttf") format("truetype"),
+    local("Bebas Neue"),
+    local("BebasNeue-Regular");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @keyframes stratus-page-in {
   from {
     opacity: 0;
@@ -146,8 +168,8 @@
 :root {
   /* Large display / hero + exclusions from Metropolis headings */
   --display-font: "Panigale", serif;
-  /* Avenir-like bundle — section headings site-wide */
-  --heading-font: "Metropolis", sans-serif;
+  /* Display headings site-wide */
+  --heading-font: "Bebas Neue", "Metropolis", sans-serif;
   --body-font: "Barlow Condensed", sans-serif;
   --primary: #d6bfa8;
   --primary-light: #e5d3c2;
@@ -216,6 +238,10 @@ body {
   line-height: var(--site-body-line-height);
   letter-spacing: 0.3px;
   color: #fff;
+}
+
+.about-page {
+  background: #ffffff;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -309,7 +335,7 @@ h6 {
   letter-spacing: 1px;
 }
 
-/* Hero H1s: MuseoModerno + Panigale (not Metropolis) */
+/* Hero H1s — Bebas Neue */
 .home-page .hero-content h1,
 .top-hero-page .page-hero-content h1,
 .hero .hero-content h1,
@@ -317,7 +343,7 @@ h6 {
 .contact-hero-content h1,
 .services-hero-content h1,
 .architecture-hero-content h1 {
-  font-family: "MuseoModerno", var(--display-font);
+  font-family: var(--heading-font);
 }
 
 .hero {
@@ -500,8 +526,32 @@ body.home-page {
   position: relative;
   min-height: 100vh;
   padding: 0 22px 0;
-  background-image: url("./Font/updated_images/home_banner.png");
-  background-position: center;
+  overflow: hidden;
+  background-color: #2a1f18;
+}
+
+.home-page .home-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-hero-video {
+    display: none;
+  }
+
+  .home-page .hero {
+    background-image: url("./Font/updated_images/home_banner.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 .home-page .navbar {
@@ -628,7 +678,7 @@ body.home-page {
 
 .home-page .hero-content h1 {
   margin: 0;
-  font-family: "MuseoModerno", var(--display-font);
+  font-family: var(--heading-font);
   font-weight: 700;
   color: #fff;
   font-size: clamp(72px, 12.6vw, 170px);
@@ -637,9 +687,9 @@ body.home-page {
 }
 
 .home-about-redesign {
-  background: #efe4da;
-  color: #4a3a31;
-  padding: 72px clamp(24px, 3.6vw, 56px) 52px clamp(54px, 6.4vw, 108px);
+  background: #ffffff;
+  color: #4a3c31;
+  padding: 80px clamp(28px, 5vw, 72px) 64px clamp(96px, 12vw, 180px);
 }
 
 .home-about-redesign-inner {
@@ -650,55 +700,79 @@ body.home-page {
 .home-about-redesign-top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: 28px;
+  gap: clamp(24px, 4vw, 48px);
   align-items: start;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 }
 
 .home-about-redesign-tag {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(74, 58, 49, 0.22);
+  gap: 10px;
+  border: none;
   border-radius: 999px;
-  padding: 5px 10px;
-  font-size: 15px;
+  padding: 8px 14px 8px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1;
+  color: #ffffff;
+  background: #4a3c31;
+}
+
+.home-about-redesign .home-about-redesign-tag::before {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.22);
+  background-image: url("./Font/New_images/Arrow.png");
+  background-size: 11px 11px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .home-about-redesign-intro h2 {
   margin: 0;
-  max-width: 16ch;
-  font-family: var(--body-font);
-  font-size: clamp(28px, 3.2vw, 40px);
-  font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: 0.005em;
-  white-space: nowrap;
-  padding: 6px 0 8px;
+  font-family: var(--heading-font);
+  font-size: clamp(22px, 2.5vw, 34px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  color: #4a3c31;
+  padding: 4px 0 0;
+}
+
+.home-about-redesign-intro h2 .home-about-heading-line {
+  display: block;
 }
 
 .home-about-redesign-copy {
-  margin: 8px 0 0;
-  max-width: 54ch;
-  font-size: clamp(16px, 1.75vw, 20px);
-  line-height: 1.34;
+  margin: 0;
+  max-width: 48ch;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.55;
   letter-spacing: 0.01em;
-  color: rgba(74, 58, 49, 0.9);
+  color: #4a3c31;
+}
+
+@media (min-width: 769px) {
+  .home-about-redesign-copy {
+    padding-top: 44px;
+  }
 }
 
 .home-about-redesign-stats {
-  border-top: 1px solid rgba(74, 58, 49, 0.12);
+  border-top: 1px solid #e5e5e5;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 4px;
+  margin-top: 0;
 }
 
 .home-about-redesign-stat {
-  padding: 12px 10px 24px;
-  border-right: 1px solid rgba(74, 58, 49, 0.1);
-  min-height: 110px;
+  padding: 28px 20px 8px 0;
+  border-right: 1px solid #e5e5e5;
+  min-height: 120px;
 }
 
 .home-about-redesign-stat:last-child {
@@ -706,24 +780,27 @@ body.home-page {
 }
 
 .home-about-redesign-stat h3 {
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   font-family: var(--body-font);
-  font-size: clamp(28px, 3.2vw, 42px);
-  font-weight: 500;
-  line-height: 0.96;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #4a3c31;
 }
 
 .home-about-redesign-stat p {
   margin: 0;
-  font-size: clamp(16px, 1.2vw, 19px);
-  line-height: 1.25;
-  color: rgba(74, 58, 49, 0.95);
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.35;
+  font-weight: 500;
+  color: #4a3c31;
 }
 
 .home-services-redesign {
-  background: var(--home-services-surface);
-  color: #4a3a31;
-  padding: 62px clamp(28px, 4vw, 64px) 72px;
+  background: #ffffff;
+  color: #4a3c31;
+  padding: 80px clamp(28px, 5vw, 72px) 80px;
 }
 
 .home-services-redesign-inner {
@@ -733,34 +810,37 @@ body.home-page {
 }
 
 .home-services-redesign-tag {
-  margin: 0 auto 20px;
+  margin: 0 auto 18px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  border: 1px solid rgba(74, 58, 49, 0.18);
+  gap: 8px;
+  border: none;
   border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 8px 16px 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1;
-  color: rgba(74, 58, 49, 0.78);
-  background: rgba(255, 255, 255, 0.32);
+  color: #4a3c31;
+  background: #eaddcf;
 }
 
 .home-services-redesign h2 {
-  margin: 0 auto 34px;
-  max-width: none;
-  font-family: var(--body-font);
-  font-size: clamp(34px, 3.5vw, 50px);
-  font-weight: 600;
-  line-height: 0.98;
-  white-space: nowrap;
+  margin: 0 auto 40px;
+  max-width: min(100%, 20em);
+  font-family: var(--heading-font);
+  font-size: clamp(26px, 3.1vw, 42px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  color: #4a3c31;
+  white-space: normal;
 }
 
 .home-services-redesign-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(14px, 1.4vw, 20px);
+  gap: clamp(18px, 2vw, 28px);
 }
 
 .home-services-redesign-card {
@@ -769,15 +849,19 @@ body.home-page {
 
 .home-services-redesign-card-link {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   aspect-ratio: 1 / 1;
-  border-radius: 12px;
+  border-radius: 28px;
   overflow: hidden;
   text-decoration: none;
   isolation: isolate;
 }
 
 .home-services-redesign-card-link img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -789,21 +873,24 @@ body.home-page {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(44, 29, 20, 0.36) 0%, rgba(44, 29, 20, 0.72) 100%);
+  background: linear-gradient(145deg, rgba(32, 22, 16, 0.45) 0%, rgba(24, 16, 12, 0.62) 100%);
   z-index: 1;
 }
 
 .home-services-redesign-card h3 {
-  position: absolute;
-  inset: auto 16px 18px;
-  margin: 0;
+  position: relative;
   z-index: 2;
+  margin: 0;
+  padding: clamp(16px, 4vw, 28px);
+  max-width: 95%;
+  text-align: center;
   font-family: "Barlow Condensed", var(--heading-font);
-  font-size: clamp(26px, 2vw, 34px);
-  line-height: 1.05;
-  letter-spacing: 0.01em;
+  font-size: clamp(24px, 2.1vw, 34px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0.03em;
   text-transform: none;
-  color: #f3e9de;
+  color: #ffffff;
   text-wrap: balance;
 }
 
@@ -813,8 +900,8 @@ body.home-page {
 }
 
 .home-process-section {
-  background-image: url("./Font/New_images/dark back image (1).png");
-  background-color: #5a3b2f;
+  background-image: url("./photos/Mungo/e738450881bcaf543d02154aa9ed886aa15eec5e.png");
+  background-color: #2a1f1c;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -868,8 +955,53 @@ body.home-page {
   min-width: 0;
 }
 
+/* The Process — calm ease-out, no snap (shared with scroll + hover) */
 .home-process-card {
+  --home-process-ease: cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    box-shadow 0.55s var(--home-process-ease),
+    background-color 0.55s var(--home-process-ease);
+}
+
+.home-process-card:hover {
+  background-color: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-process-section--observe .home-process-card {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 0.85s var(--home-process-ease) calc(var(--process-reveal-i, 0) * 45ms),
+      transform 0.85s var(--home-process-ease) calc(var(--process-reveal-i, 0) * 45ms),
+      box-shadow 0.55s var(--home-process-ease),
+      background-color 0.55s var(--home-process-ease);
+  }
+
+  .home-process-section--observe .home-process-card.home-process-card--visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .home-process-card:hover img {
+    transform: scale3d(1.038, 1.038, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-process-card,
+  .home-process-card img {
+    transition: none;
+  }
+
+  .home-process-card:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+  }
 }
 
 @media (min-width: 769px) {
@@ -929,6 +1061,8 @@ body.home-page {
   border-radius: 8px;
   display: block;
   margin-bottom: 10px;
+  transform-origin: center center;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .home-process-card h3 {
@@ -947,8 +1081,8 @@ body.home-page {
 }
 
 .home-why-section {
-  background: #efe4da;
-  color: #4a3a31;
+  background: #ffffff;
+  color: #4a3c31;
   padding: 54px clamp(34px, 4.8vw, 86px) 58px;
 }
 
@@ -1324,7 +1458,7 @@ body.home-page {
 }
 
 .home-faq-section {
-  background: #e5d3c2;
+  background: #ffffff;
   padding: 62px clamp(28px, 4vw, 64px);
 }
 
@@ -1347,7 +1481,8 @@ body.home-page {
   font-size: 14px;
   line-height: 1;
   color: #4a372d;
-  background: rgba(255, 255, 255, 0.32);
+  background: #eaddcf;
+  border: 1px solid rgba(74, 58, 49, 0.12);
 }
 
 .home-faq-eyebrow::before {
@@ -1577,7 +1712,7 @@ body.home-page {
 
 .top-hero-page .page-hero-content h1 {
   margin: 0;
-  font-family: "MuseoModerno", var(--display-font);
+  font-family: var(--heading-font);
   font-weight: 700;
   color: #fff;
   font-size: clamp(72px, 12.6vw, 170px);
@@ -1611,7 +1746,7 @@ body.home-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("./Font/updated_images/about_banner.png");
+  background-image: url("./photos/Mungo/aboutbanner.jpg");
   background-position: left center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1900,7 +2035,8 @@ body.home-page {
 }
 
 .architecture-hero--architecture {
-  background-image: url("./Font/updated_images/architecture_banner.png");
+  background-image: url("./photos/PROJECTS/6c563f4e6262be778d9c242a760194b77730a2b9.png");
+  background-position: center;
 }
 
 .architecture-hero--construction {
@@ -1948,10 +2084,8 @@ body.home-page {
   width: 100%;
   box-sizing: border-box;
   padding: 64px 24px 72px;
-  background-color: #f5e6d3;
-  background-image: var(--paper-theme);
-  background-size: 4px 4px, 8px 8px, 100% 100%;
-  background-blend-mode: multiply, soft-light, normal;
+  background-color: #ffffff;
+  background-image: none;
 }
 
 .interior-feature-inner {
@@ -2317,10 +2451,8 @@ body.home-page {
   width: 100%;
   box-sizing: border-box;
   padding: 84px 24px;
-  background-color: #f5e6d3;
-  background-image: var(--paper-theme);
-  background-size: 4px 4px, 8px 8px, 100% 100%;
-  background-blend-mode: multiply, soft-light, normal;
+  background-color: #ffffff;
+  background-image: none;
 }
 
 .architecture-intro-inner {
@@ -2452,10 +2584,8 @@ body.home-page {
   width: 100%;
   box-sizing: border-box;
   padding: 84px 0 72px;
-  background-color: #f5e6d3;
-  background-image: var(--paper-theme);
-  background-size: 4px 4px, 8px 8px, 100% 100%;
-  background-blend-mode: multiply, soft-light, normal;
+  background-color: #ffffff;
+  background-image: none;
   color: var(--text-muted);
 }
 
@@ -2923,8 +3053,22 @@ body.home-page {
   padding: 0;
 }
 
+/* Services page: keep non-construction feature blocks white */
+.services-page .services-feature-section {
+  background: #ffffff;
+}
+
 .services-feature-section--dark {
   background: #5b453a;
+}
+
+/* Construction section stays dark */
+.services-page .services-feature-section.services-feature-section--dark {
+  background: #5b453a;
+}
+
+.services-page .services-cta-banner {
+  background: #ffffff;
 }
 
 .services-feature-section--dark .services-feature-header span,
@@ -3318,7 +3462,7 @@ body.home-page {
 }
 
 .brand-story-section {
-  background: #e5d3c2;
+  background: #ffffff;
   background-image: none;
   padding: 58px 24px 66px;
 }
@@ -4682,33 +4826,33 @@ body.home-page {
   max-width: none;
   margin: 0;
   box-sizing: border-box;
-  background-color: #5b453a;
-  background-image: none;
+  background-color: #2c1f18;
+  background-image: url("./photos/Mungo/e738450881bcaf543d02154aa9ed886aa15eec5e.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   aspect-ratio: auto;
-  min-height: 0;
-  padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 72px);
+  min-height: clamp(440px, 52vw, 620px);
+  padding: clamp(64px, 8vw, 104px) clamp(24px, 5vw, 56px);
   display: block;
 }
 
 .interior-page .philosophy-section--interior-wide .philosophy-layout--interior-split {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1120px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
-  gap: clamp(28px, 4.5vw, 56px);
-  align-items: center;
-  justify-content: stretch;
+  display: block;
 }
 
 .interior-page .philosophy-section--interior-wide .philosophy-section-title {
-  margin: 0 0 clamp(22px, 3vw, 36px);
+  margin: 0 0 clamp(28px, 3.2vw, 40px);
   font-family: var(--body-font);
-  font-size: clamp(26px, 2.2vw, 36px);
-  font-weight: 500;
-  line-height: 1.15;
+  font-size: clamp(42px, 4.3vw, 58px);
+  font-weight: 600;
+  line-height: 1.05;
   color: #fff;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  text-align: center;
 }
 
 .interior-page .philosophy-section--interior-wide .philosophy-split-left {
@@ -4717,34 +4861,81 @@ body.home-page {
 
 .interior-page .philosophy-section--interior-wide .philosophy-cards {
   width: 100%;
-  max-width: none;
+  max-width: 1040px;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  justify-content: stretch;
-  gap: clamp(14px, 2vw, 28px);
+  justify-content: center;
+  gap: clamp(24px, 3.4vw, 40px);
+  margin-inline: auto;
 }
 
 .interior-page .philosophy-section--interior-wide .philosophy-card {
   width: auto;
   height: auto;
-  min-height: 200px;
-  border-radius: 16px;
+  min-height: clamp(170px, 18vw, 230px);
+  border-radius: 18px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(
     155deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.05) 42%,
-    rgba(30, 20, 14, 0.35) 100%
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.08) 44%,
+    rgba(30, 20, 14, 0.22) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.26);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 18px 48px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(22px) saturate(165%);
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  padding: clamp(24px, 2.8vw, 34px);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.interior-page .philosophy-section--interior-wide .philosophy-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 44%,
+    rgba(30, 20, 14, 0.2) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
     inset 0 -1px 0 rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(175%);
+  -webkit-backdrop-filter: blur(24px) saturate(175%);
+}
+
+.interior-page .philosophy-section--interior-wide .philosophy-card h3 {
+  margin: 0 0 8px;
+  font-size: clamp(34px, 3.1vw, 44px);
+  line-height: 1;
+  color: #ffffff;
+}
+
+.interior-page .philosophy-section--interior-wide .philosophy-card h4 {
+  margin: 0 0 12px;
+  font-size: clamp(20px, 1.8vw, 28px);
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.interior-page .philosophy-section--interior-wide .philosophy-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: clamp(13px, 1.15vw, 16px);
+  line-height: 1.4;
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -4754,49 +4945,32 @@ body.home-page {
 }
 
 .interior-page .philosophy-section--interior-wide .philosophy-split-media {
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
-  min-height: 0;
-  width: 100%;
-  max-width: min(100%, 420px);
-  justify-self: end;
+  display: none;
 }
 
 .interior-page .philosophy-section--interior-wide .philosophy-split-media img {
-  width: 100%;
-  height: 100%;
-  min-height: clamp(220px, 28vw, 360px);
-  display: block;
-  object-fit: cover;
-  aspect-ratio: 4 / 3;
+  display: none;
 }
 
 @media (max-width: 900px) {
-  .interior-page .philosophy-section--interior-wide .philosophy-layout--interior-split {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .interior-page .philosophy-section--interior-wide .philosophy-split-media {
-    order: -1;
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
-    justify-self: center;
+  .interior-page .philosophy-section--interior-wide {
+    min-height: clamp(380px, 72vw, 560px);
+    padding: clamp(46px, 8vw, 76px) clamp(18px, 5vw, 28px);
   }
 
   .interior-page .philosophy-section--interior-wide .philosophy-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 640px;
-    margin: 0 auto;
+    gap: 16px;
   }
 }
 
 @media (max-width: 640px) {
+  .interior-page .philosophy-section--interior-wide .philosophy-section-title {
+    font-size: clamp(34px, 9vw, 48px);
+  }
+
   .interior-page .philosophy-section--interior-wide .philosophy-cards {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    max-width: 520px;
   }
 
   .interior-page .philosophy-section--interior-wide .philosophy-card {
@@ -4804,13 +4978,23 @@ body.home-page {
   }
 }
 
-/* Interior page — stacked “Projects that Inspire” (full-width band, light sand) */
+@media (prefers-reduced-motion: reduce) {
+  .interior-page .philosophy-section--interior-wide .philosophy-card {
+    transition: none;
+  }
+
+  .interior-page .philosophy-section--interior-wide .philosophy-card:hover {
+    transform: none;
+  }
+}
+
+/* Interior page — stacked projects band (full-width, white) */
 .interior-page .interior-portfolio-section {
   width: 100%;
   box-sizing: border-box;
   margin: 0;
   padding: clamp(52px, 7vw, 88px) clamp(20px, 5vw, 48px) clamp(60px, 8vw, 96px);
-  background-color: rgba(255, 248, 240, 0.95);
+  background-color: #ffffff;
   color: rgba(62, 46, 38, 0.95);
 }
 
@@ -5033,12 +5217,18 @@ body.home-page {
 
 /* Architecture page — bands match “Our Architecture: Designed for the Future” (sand + paper) */
 .architecture-page .gallary-section,
+.construction-page .gallary-section,
 .architecture-page .services-cta-banner,
+.construction-page .services-cta-banner,
+.gallery-page .services-cta-banner,
 .architecture-page .footer-quote-strip {
-  background-color: #f5e6d3;
-  background-image: var(--paper-theme);
-  background-size: 4px 4px, 8px 8px, 100% 100%;
-  background-blend-mode: multiply, soft-light, normal;
+  background-color: #ffffff;
+  background-image: none;
+}
+
+.architecture-page .gallary-section,
+.construction-page .gallary-section {
+  padding-bottom: 0;
 }
 
 .architecture-page .footer-quote-strip {
@@ -5160,8 +5350,9 @@ body.home-page {
     font-size: 15px;
   }
 
+  /* Single row of four tiles; smaller columns on narrow screens */
   .gallary-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .gallary-card {
@@ -5949,6 +6140,58 @@ body.home-page {
   font-size: 16px;
   line-height: 1.45;
   color: rgba(90, 70, 54, 0.85);
+}
+
+/* De Atelier page — simple 3-card testimonial layout */
+.interior-page .testimonials-section--interior-cards {
+  background: #ffffff;
+  padding: clamp(64px, 8vw, 104px) clamp(22px, 5vw, 56px) clamp(72px, 9vw, 118px);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonials-header {
+  margin-bottom: clamp(30px, 4vw, 44px);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonials-header h2 {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: clamp(38px, 4vw, 56px);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonials-grid {
+  max-width: 1140px;
+  gap: clamp(20px, 2.4vw, 30px);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonial-card {
+  position: relative;
+  min-height: 380px;
+  border-radius: 22px;
+  padding: 34px 28px 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background:
+    radial-gradient(140% 90% at 50% 0%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(180deg, #6d4d3d 0%, #5a3f33 100%);
+  box-shadow:
+    0 20px 44px rgba(60, 40, 30, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonial-avatar {
+  width: 108px;
+  height: 108px;
+  margin-bottom: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.28);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonial-card h3 {
+  margin-bottom: 12px;
+  font-size: clamp(28px, 2.3vw, 36px);
+}
+
+.interior-page .testimonials-section--interior-cards .testimonial-card p {
+  font-size: 16px;
+  line-height: 1.62;
 }
 
 .testimonials-grid {
@@ -6745,7 +6988,7 @@ body.home-page {
     min-height: min(94dvh, 820px);
     padding: 0 max(16px, env(safe-area-inset-left, 0px)) 0
       max(16px, env(safe-area-inset-right, 0px));
-    overflow-x: clip;
+    overflow: hidden;
   }
 
   .home-page .hero-content {
@@ -6791,7 +7034,7 @@ body.home-page {
 
   .home-about-redesign {
     padding: 44px max(20px, env(safe-area-inset-left, 0px)) 34px
-      max(20px, env(safe-area-inset-right, 0px));
+      max(32px, calc(12px + env(safe-area-inset-right, 0px)));
   }
 
   .home-about-redesign-top {
@@ -6802,8 +7045,8 @@ body.home-page {
 
   .home-about-redesign-intro h2 {
     max-width: none;
-    font-size: clamp(34px, 9vw, 48px);
-    line-height: 1.03;
+    font-size: clamp(22px, 5.5vw, 32px);
+    line-height: 1.1;
   }
 
   .home-about-redesign-copy {
@@ -6834,7 +7077,7 @@ body.home-page {
   }
 
   .home-services-redesign {
-    padding: 34px max(20px, env(safe-area-inset-left, 0px)) 42px
+    padding: 48px max(20px, env(safe-area-inset-left, 0px)) 52px
       max(20px, env(safe-area-inset-right, 0px));
   }
 
@@ -6844,19 +7087,23 @@ body.home-page {
 
   .home-services-redesign h2 {
     max-width: none;
-    font-size: clamp(34px, 8vw, 48px);
-    margin-bottom: 22px;
+    font-size: clamp(24px, 6.5vw, 34px);
+    margin-bottom: 28px;
     white-space: normal;
   }
 
   .home-services-redesign-cards {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
+  }
+
+  .home-services-redesign-card-link {
+    border-radius: 22px;
   }
 
   .home-services-redesign-card h3 {
-    inset: auto 14px 14px;
     font-size: clamp(26px, 7vw, 36px);
+    padding: 20px 16px;
   }
 
   .home-process-section {

@@ -350,7 +350,6 @@ h6 {
   min-height: 110vh;
   display: flex;
   flex-direction: column;
-  background-image: url("./Font/updated_images/home_banner.png");
   background-position: left center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -547,10 +546,7 @@ body.home-page {
   }
 
   .home-page .hero {
-    background-image: url("./Font/updated_images/home_banner.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image: none;
   }
 }
 
@@ -1718,6 +1714,14 @@ body.home-page {
   font-size: clamp(72px, 12.6vw, 170px);
   letter-spacing: 0.02em;
   line-height: 0.82;
+}
+
+.top-hero-page .about-hero .page-hero-content .about-hero-title {
+  font-family: "MuseoModerno", sans-serif;
+  white-space: nowrap;
+  max-width: none;
+  font-size: clamp(36px, 7.4vw, 110px);
+  line-height: 0.95;
 }
 
 .top-hero-page .page-hero-content .contact-hero-lede {

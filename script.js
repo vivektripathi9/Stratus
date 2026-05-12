@@ -125,34 +125,131 @@ projectTabs.forEach((tab) => {
   });
 });
 
-const gallaryImages = document.querySelectorAll("[data-gallary-slot]");
+/** Triple-strip infinite horizontal gallery (clone | original | clone). */
+(function initGallaryInfiniteScroll() {
+  const viewports = document.querySelectorAll(".gallary-scroll-viewport--infinite");
+  if (!viewports.length) return;
 
-const gallaryImagePool = [
-  "./Public/313fc7585f39b443fe92c3760dff362f65dee332.png",
-  "./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png",
-  "./Public/about/IMG1%20(1).png",
-  "./Public/IMG4.png",
-  "./photos/PROJECTS/IMG1.png",
-  "./photos/PROJECTS/IMG2.png",
-  "./photos/PROJECTS/IMG3.png",
-  "./photos/PROJECTS/IMG4.png",
-];
+  viewports.forEach((vp) => {
+    if (vp.dataset.gallaryInfiniteDone) return;
+    const grid = vp.querySelector(":scope > .gallary-grid");
+    if (!grid || !grid.querySelector(".gallary-card")) return;
 
-const gallaryAltPool = [
-  "Modern cafe interior with glass block partition, circular ceiling panels, and sage upholstered seating",
-  "Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs",
-  "Warm-toned interior with layered materials, soft lighting, and contemporary furnishings",
-  "Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants",
-  "Modern multi-storey residence with glass facade, concrete volumes, and landscaped setting",
-  "Contemporary house exterior with brick, concrete, climbing greenery, and reflective driveway",
-  "Minimalist bedroom with wood slat feature wall, herringbone floor, and garden windows",
-  "Bright living room with tan sectional, curved wood coffee table, and tall windows to greenery",
-];
+    const track = document.createElement("div");
+    track.className = "gallary-infinite-track";
+    vp.insertBefore(track, grid);
+    track.appendChild(grid);
 
-if (gallaryImages.length) {
-  const gallaryCards = document.querySelectorAll(".gallary-card");
+    const before = grid.cloneNode(true);
+    const after = grid.cloneNode(true);
+    before.setAttribute("aria-hidden", "true");
+    after.setAttribute("aria-hidden", "true");
+    track.insertBefore(before, grid);
+    track.appendChild(after);
 
-  if ("IntersectionObserver" in window && gallaryCards.length) {
+    vp.dataset.gallaryInfiniteDone = "1";
+
+    function segmentWidth() {
+      return grid.offsetWidth;
+    }
+
+    function normalize() {
+      const S = segmentWidth();
+      if (S < 8) return;
+      if (vp._gallaryNormalizing) return;
+
+      const prevS = Number(vp._gallaryPrevS) || 0;
+      if (prevS > 8 && Math.abs(S - prevS) > 5) {
+        vp._gallaryNormalizing = true;
+        vp.style.scrollBehavior = "auto";
+        const le = vp.scrollLeft;
+        vp.scrollLeft = (le / prevS) * S;
+        vp._gallaryPrevS = String(S);
+        requestAnimationFrame(() => {
+          vp._gallaryNormalizing = false;
+          vp.style.scrollBehavior = "";
+        });
+        return;
+      }
+
+      const le = vp.scrollLeft;
+      if (le < S - 8) {
+        vp._gallaryNormalizing = true;
+        vp.style.scrollBehavior = "auto";
+        vp.scrollLeft = le + S;
+        vp._gallaryPrevS = String(S);
+        requestAnimationFrame(() => {
+          vp._gallaryNormalizing = false;
+          vp.style.scrollBehavior = "";
+        });
+      } else if (le > 2 * S - vp.clientWidth + 8) {
+        vp._gallaryNormalizing = true;
+        vp.style.scrollBehavior = "auto";
+        vp.scrollLeft = le - S;
+        vp._gallaryPrevS = String(S);
+        requestAnimationFrame(() => {
+          vp._gallaryNormalizing = false;
+          vp.style.scrollBehavior = "";
+        });
+      } else {
+        vp._gallaryPrevS = String(S);
+      }
+    }
+
+    function initScrollPos() {
+      const S = segmentWidth();
+      if (S < 8) return;
+      vp.style.scrollBehavior = "auto";
+      vp.scrollLeft = S;
+      vp._gallaryPrevS = String(S);
+      requestAnimationFrame(() => {
+        vp.style.scrollBehavior = "";
+      });
+    }
+
+    vp._gallaryNormalize = normalize;
+
+    let scrollTick = false;
+    vp.addEventListener(
+      "scroll",
+      () => {
+        if (scrollTick) return;
+        scrollTick = true;
+        requestAnimationFrame(() => {
+          scrollTick = false;
+          normalize();
+        });
+      },
+      { passive: true }
+    );
+
+    let resizeTimer = null;
+    function onWindowResize() {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(initScrollPos, 120);
+    }
+
+    if ("ResizeObserver" in window) {
+      const ro = new ResizeObserver(() => {
+        normalize();
+      });
+      ro.observe(track);
+      ro.observe(grid);
+    }
+
+    window.addEventListener("resize", onWindowResize, { passive: true });
+    window.addEventListener("load", initScrollPos, { once: true });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(initScrollPos);
+    });
+  });
+})();
+
+(function initGallarySectionReveal() {
+  const gallaryCards = document.querySelectorAll(".gallary-section .gallary-card");
+  if (!gallaryCards.length) return;
+
+  if ("IntersectionObserver" in window) {
     const gallaryObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -163,87 +260,56 @@ if (gallaryImages.length) {
       },
       { threshold: 0.22 }
     );
-
-    gallaryCards.forEach((card) => gallaryObserver.observe(card));
+    gallaryCards.forEach((card) => {
+      if (card.closest("[aria-hidden='true']")) return;
+      gallaryObserver.observe(card);
+    });
   } else {
-    gallaryCards.forEach((card) => card.classList.add("is-inview"));
-  }
-
-  gallaryImages.forEach((img, slotIndex) => {
-    const src = gallaryImagePool[slotIndex % gallaryImagePool.length];
-    img.src = src;
-    img.alt = gallaryAltPool[slotIndex % gallaryAltPool.length] || `Gallery image ${slotIndex + 1}`;
-  });
-
-  let gallaryStep = 0;
-  let gallaryTimer = null;
-
-  const gallarySection = document.querySelector(".gallary-section");
-  function gallaryLikelyInView(el) {
-    if (!el) return false;
-    if (el.hasAttribute("hidden")) return false;
-    const r = el.getBoundingClientRect();
-    if (r.width <= 0 || r.height <= 0) return false;
-    return r.top < window.innerHeight + 120 && r.bottom > -120;
-  }
-  let gallarySectionVisible = gallaryLikelyInView(gallarySection);
-
-  function gallaryTick() {
-    gallaryStep += 1;
-    gallaryImages.forEach((img, slotIndex) => {
-      img.classList.remove("is-sliding-in");
-      img.classList.add("is-sliding-out");
-      const nextIndex = (slotIndex + gallaryStep) % gallaryImagePool.length;
-      setTimeout(() => {
-        img.classList.remove("is-sliding-out");
-        img.classList.add("is-sliding-in");
-        img.src = gallaryImagePool[nextIndex];
-        img.alt = gallaryAltPool[nextIndex] || `Gallery image ${nextIndex + 1}`;
-        requestAnimationFrame(() => {
-          img.classList.remove("is-sliding-in");
-        });
-      }, 220);
+    gallaryCards.forEach((card) => {
+      if (!card.closest("[aria-hidden='true']")) card.classList.add("is-inview");
     });
   }
+})();
 
-  function startGallaryRotation() {
-    if (gallaryTimer || !gallarySectionVisible || document.visibilityState === "hidden") return;
-    gallaryTimer = setInterval(gallaryTick, 2600);
+/** Map vertical mouse wheel to horizontal scroll (laptops rarely use shift+wheel). */
+(function initGallaryScrollViewportWheel() {
+  const viewports = document.querySelectorAll(".gallary-scroll-viewport");
+  if (!viewports.length) return;
+
+  function maxScrollX(vp) {
+    return Math.max(0, vp.scrollWidth - vp.clientWidth);
   }
 
-  function stopGallaryRotation() {
-    if (!gallaryTimer) return;
-    clearInterval(gallaryTimer);
-    gallaryTimer = null;
-  }
+  viewports.forEach((vp) => {
+    const infinite = vp.classList.contains("gallary-scroll-viewport--infinite");
 
-  function syncGallaryRotation() {
-    if (gallarySectionVisible && document.visibilityState === "visible") {
-      startGallaryRotation();
-    } else {
-      stopGallaryRotation();
-    }
-  }
+    vp.addEventListener(
+      "wheel",
+      (e) => {
+        const max = maxScrollX(vp);
+        if (max <= 1) return;
+        if (e.deltaY === 0) return;
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
-  document.addEventListener("visibilitychange", () => {
-    syncGallaryRotation();
-  });
+        const left = vp.scrollLeft;
+        const dy = e.deltaY;
+        if (!infinite) {
+          if (dy < 0 && left <= 0) return;
+          if (dy > 0 && left >= max - 1) return;
+        }
 
-  if (gallarySection && "IntersectionObserver" in window) {
-    const rotObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          gallarySectionVisible = entry.isIntersecting;
-          syncGallaryRotation();
-        });
+        e.preventDefault();
+        vp.scrollLeft += dy;
+        if (infinite && typeof vp._gallaryNormalize === "function") {
+          requestAnimationFrame(() => {
+            vp._gallaryNormalize();
+          });
+        }
       },
-      { root: null, rootMargin: "80px 0px", threshold: 0 }
+      { passive: false }
     );
-    rotObserver.observe(gallarySection);
-  }
-
-  syncGallaryRotation();
-}
+  });
+})();
 
 const galleryCategoryRoot = document.querySelector("[data-gallery-categories]");
 if (galleryCategoryRoot) {
@@ -885,4 +951,32 @@ if (latestRoot) {
   );
 
   cards.forEach((card) => io.observe(card));
+})();
+
+(function initWhatsAppFloat() {
+  if (document.querySelector(".stratus-whatsapp-float")) return;
+
+  /* Match primary studio line on contact.html (+91 90350 44622) — digits only for wa.me */
+  const phone = "919035044622";
+  const preset = encodeURIComponent("Hello, I'd like to connect with Stratus.");
+  const href = `https://wa.me/${phone}?text=${preset}`;
+
+  const a = document.createElement("a");
+  a.className = "stratus-whatsapp-float";
+  a.href = href;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.setAttribute("aria-label", "Connect through WhatsApp");
+
+  a.innerHTML = `
+    <span class="stratus-whatsapp-float__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </span>
+  `;
+
+  /* Append to <html> so the FAB is not a descendant of <body>. Body uses opacity/transform
+     animations for page transitions; any transform on body makes fixed children scroll with the page. */
+  document.documentElement.appendChild(a);
 })();

@@ -153,15 +153,15 @@
   font-display: swap;
 }
 
+/* Opacity only — never put `transform` on `body` for page-in, or `position: fixed`
+   children of body attach to body and scroll with the page (e.g. WhatsApp FAB). */
 @keyframes stratus-page-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -256,15 +256,13 @@ body {
   html.stratus-exit-prep body {
     animation: none;
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 
   html.stratus-exit-prep body.stratus-is-leaving {
     opacity: 0;
-    transform: translateY(-10px);
-    transition:
-      opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    /* no transform — keeps fixed UI (e.g. WhatsApp) viewport-anchored during exit */
+    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -911,7 +909,7 @@ body.home-page {
   --home-process-gap-x: 24px;
 }
 
-/* Header is the first grid item in row 1 col 1 so it aligns with card 01 (col 3) without extra section height */
+/* Header spans row 1; rule row 2; six cards in rows 3–4 */
 .home-process-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -926,8 +924,19 @@ body.home-page {
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
+  text-align: center;
+}
+
+.home-process-rule {
+  grid-column: 1 / -1;
+  box-sizing: border-box;
+  margin: clamp(10px, 2.5vw, 16px) 0 clamp(14px, 3vw, 20px);
+  height: 0;
+  border: 0;
+  border-top: 1px solid rgba(241, 231, 220, 0.28);
+  align-self: stretch;
 }
 
 .home-process-header h2 {
@@ -943,7 +952,8 @@ body.home-page {
 .home-process-header p {
   margin: 0;
   width: 100%;
-  text-align: left;
+  max-width: 36rem;
+  text-align: center;
   font-size: clamp(14px, 1.35vw + 0.55rem, 19px);
   line-height: 1.3;
   color: rgba(241, 231, 220, 0.92);
@@ -1002,52 +1012,46 @@ body.home-page {
 
 @media (min-width: 769px) {
   .home-process-header {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 1;
-    align-self: start;
+    align-self: center;
   }
 
-  .home-process-card--offset {
-    grid-column: 3;
-    grid-row: 1;
+  .home-process-rule {
+    grid-row: 2;
+    margin: clamp(12px, 2vw, 20px) 0 clamp(18px, 2.5vw, 28px);
   }
 
-  /* Keep 02–07 off row 1 so column 2 stays empty beside the title */
+  /* Six cards in two rows below full-width rule */
   .home-process-grid > .home-process-card:nth-child(3) {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   .home-process-grid > .home-process-card:nth-child(4) {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   .home-process-grid > .home-process-card:nth-child(5) {
     grid-column: 3;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   .home-process-grid > .home-process-card:nth-child(6) {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: 4;
   }
 
   .home-process-grid > .home-process-card:nth-child(7) {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 4;
   }
 
   .home-process-grid > .home-process-card:nth-child(8) {
     grid-column: 3;
-    grid-row: 3;
+    grid-row: 4;
   }
-}
-
-.home-process-index {
-  margin: 0 0 6px;
-  font-size: 16px;
-  color: rgba(241, 231, 220, 0.7);
 }
 
 .home-process-card img {
@@ -4687,6 +4691,11 @@ body.home-page {
   align-items: center;
 }
 
+/* Author `display` on .philosophy-section otherwise overrides HTML `hidden` */
+.philosophy-section[hidden] {
+  display: none !important;
+}
+
 .philosophy-layout {
   width: 100%;
   max-width: 1120px;
@@ -4992,6 +5001,264 @@ body.home-page {
   }
 }
 
+/* De Atelier — Ar Gargi De portfolio grid (de-atelier.html) */
+.interior-page .de-atelier-gargi-portfolio {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: clamp(48px, 6vw, 80px) clamp(20px, 4vw, 48px) clamp(56px, 7vw, 88px);
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+.interior-page .de-atelier-gargi-portfolio__inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.interior-page .de-atelier-gargi-portfolio__title {
+  margin: 0 0 clamp(28px, 4vw, 40px);
+  max-width: 42rem;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #111;
+  text-align: left;
+  letter-spacing: -0.01em;
+}
+
+.interior-page .de-atelier-gargi-portfolio__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.2vw, 22px);
+  align-items: stretch;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card {
+  box-sizing: border-box;
+  border-radius: 22px;
+  overflow: hidden;
+  color: inherit;
+  outline-offset: 4px;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--image {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 0;
+  background: #1a1410;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: inherit;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--image:has(.de-atelier-gargi-portfolio__card-hit:focus-visible) {
+  outline: 2px solid #3e2e26;
+  outline-offset: 4px;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card-hit:focus-visible {
+  outline: none;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--image:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(26, 18, 14, 0.18);
+}
+
+.interior-page .de-atelier-gargi-portfolio__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: inherit;
+}
+
+.interior-page .de-atelier-gargi-portfolio__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.interior-page .de-atelier-gargi-portfolio__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 8, 6, 0.12) 0%,
+    rgba(12, 8, 6, 0.35) 55%,
+    rgba(12, 8, 6, 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+.interior-page .de-atelier-gargi-portfolio__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: 0;
+  padding: clamp(14px, 2.2vw, 20px) clamp(14px, 2vw, 18px);
+  font-family: system-ui, "Segoe UI", "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  min-height: 0;
+  padding: clamp(18px, 3.5vw, 28px);
+  text-decoration: none;
+  background:
+    linear-gradient(168deg, rgba(255, 248, 240, 0.07) 0%, transparent 42%),
+    linear-gradient(148deg, #5c483d 0%, #45362d 45%, #342a22 100%);
+  border: 1px solid rgba(90, 70, 54, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 240, 0.1),
+    0 1px 0 rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.32s ease,
+    background 0.32s ease;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--more:hover {
+  transform: translateY(-3px);
+  border-color: rgba(198, 168, 125, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 240, 0.14),
+    0 18px 44px rgba(26, 18, 14, 0.2);
+  background:
+    linear-gradient(168deg, rgba(255, 248, 240, 0.1) 0%, transparent 45%),
+    linear-gradient(148deg, #665245 0%, #4d3d33 48%, #3a2f28 100%);
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--more:focus-visible {
+  outline: 2px solid #3e2e26;
+  outline-offset: 4px;
+}
+
+.interior-page .de-atelier-gargi-portfolio__more-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 13rem;
+  text-align: center;
+}
+
+.interior-page .de-atelier-gargi-portfolio__more-stack::before {
+  content: "";
+  display: block;
+  width: min(48%, 3.25rem);
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(214, 191, 168, 0.55) 20%,
+    rgba(214, 191, 168, 0.75) 50%,
+    rgba(214, 191, 168, 0.55) 80%,
+    transparent
+  );
+}
+
+.interior-page .de-atelier-gargi-portfolio__more-label {
+  font-family: var(--heading-font);
+  font-size: clamp(1.65rem, 3.8vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f5ebe2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+.interior-page .de-atelier-gargi-portfolio__more-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--body-font);
+  font-size: clamp(0.82rem, 1.35vw, 0.98rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(241, 231, 220, 0.72);
+  transition: color 0.28s ease;
+}
+
+.interior-page .de-atelier-gargi-portfolio__more-hint::after {
+  content: "\2192";
+  font-size: 0.95em;
+  opacity: 0.85;
+  transform: translateX(0);
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--more:hover .de-atelier-gargi-portfolio__more-hint {
+  color: rgba(255, 248, 240, 0.92);
+}
+
+.interior-page .de-atelier-gargi-portfolio__card--more:hover .de-atelier-gargi-portfolio__more-hint::after {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interior-page .de-atelier-gargi-portfolio__card--image:hover,
+  .interior-page .de-atelier-gargi-portfolio__card--more:hover,
+  .interior-page .de-atelier-gargi-portfolio__card--more:focus-visible {
+    transform: none;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--more,
+  .interior-page .de-atelier-gargi-portfolio__more-hint,
+  .interior-page .de-atelier-gargi-portfolio__more-hint::after {
+    transition: none;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--more:hover .de-atelier-gargi-portfolio__more-hint::after {
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .interior-page .de-atelier-gargi-portfolio__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .interior-page .de-atelier-gargi-portfolio__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Interior page — stacked projects band (full-width, white) */
 .interior-page .interior-portfolio-section {
   width: 100%;
@@ -5216,12 +5483,14 @@ body.home-page {
 
 .gallary-section {
   background: var(--primary-light);
-  padding: 42px 0 52px;
+  padding: 42px 0 clamp(56px, 6vw, 88px);
 }
 
 /* Architecture page — bands match “Our Architecture: Designed for the Future” (sand + paper) */
 .architecture-page .gallary-section,
 .construction-page .gallary-section,
+.interior-page .gallary-section,
+.contact-page .gallary-section,
 .architecture-page .services-cta-banner,
 .construction-page .services-cta-banner,
 .gallery-page .services-cta-banner,
@@ -5231,8 +5500,10 @@ body.home-page {
 }
 
 .architecture-page .gallary-section,
-.construction-page .gallary-section {
-  padding-bottom: 0;
+.construction-page .gallary-section,
+.interior-page .gallary-section,
+.contact-page .gallary-section {
+  padding-bottom: clamp(48px, 5vw, 72px);
 }
 
 .architecture-page .footer-quote-strip {
@@ -5262,6 +5533,28 @@ body.home-page {
   color: var(--text-muted);
 }
 
+.gallary-scroll-viewport {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pinch-zoom;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(90, 70, 54, 0.35) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallary-scroll-viewport {
+    scroll-behavior: auto;
+  }
+}
+
 .gallary-grid {
   width: 100%;
   max-width: 100%;
@@ -5274,9 +5567,47 @@ body.home-page {
   overflow: hidden;
 }
 
+/*
+ * Default strip: four columns, ~102vw min width. Vertical wheel → scrollLeft in script.js.
+ */
+.gallary-scroll-viewport .gallary-grid {
+  width: 100%;
+  max-width: none;
+  grid-template-columns: repeat(4, minmax(max(220px, 25.5vw), 1fr));
+  overflow: visible;
+}
+
+.gallary-infinite-track {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  align-items: stretch;
+}
+
+/* Same per-tile width as the non-infinite strip (~¼ viewport); do not oversize cells */
+.gallary-scroll-viewport--infinite .gallary-infinite-track > .gallary-grid {
+  flex: 0 0 auto;
+  width: max-content;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(max(220px, 25.5vw), 25.5vw);
+  max-width: none;
+  overflow: visible;
+}
+
+.gallary-scroll-viewport--infinite .gallary-card {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.gallary-scroll-viewport--infinite .gallary-card:nth-child(n) {
+  transition-delay: 0s;
+}
+
 .gallary-card {
   width: 100%;
-  height: 420px;
+  height: 340px;
   opacity: 0;
   overflow: hidden;
   flex: 0 0 auto;
@@ -5306,19 +5637,6 @@ body.home-page {
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 1;
-  transform: translateX(0);
-  transition: transform 0.45s ease, opacity 0.45s ease;
-}
-
-.gallary-card img.is-sliding-out {
-  opacity: 0;
-  transform: translateX(-14%);
-}
-
-.gallary-card img.is-sliding-in {
-  opacity: 0;
-  transform: translateX(14%);
 }
 
 @media (max-width: 1920px) {
@@ -5332,13 +5650,14 @@ body.home-page {
     max-width: none;
     min-width: 0;
     height: auto;
-    aspect-ratio: 480 / 420;
+    aspect-ratio: 3 / 2;
+    max-height: min(42vh, 360px);
   }
 }
 
 @media (max-width: 900px) {
   .gallary-section {
-    padding: 34px 0 40px;
+    padding: 34px 0 clamp(44px, 5vw, 56px);
   }
 
   .gallary-header {
@@ -5363,7 +5682,8 @@ body.home-page {
     width: 100%;
     min-width: 0;
     height: auto;
-    aspect-ratio: 480 / 420;
+    aspect-ratio: 3 / 2;
+    max-height: min(40vh, 340px);
   }
 }
 
@@ -6395,7 +6715,7 @@ body.home-page {
 }
 
 .footer-v2-logo {
-  width: 82px;
+  width: 160px;
   height: auto;
   display: block;
 }
@@ -6509,6 +6829,102 @@ body.home-page {
   margin: 0;
   font-size: 15px;
   color: rgba(232, 219, 204, 0.84);
+}
+
+/* WhatsApp FAB: injected as last child of <html> (see script.js) + viewport-fixed, so it never
+   scrolls with <body> during page-in / exit animations. */
+@keyframes stratus-wa-attention {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow:
+      0 8px 26px rgba(15, 48, 26, 0.36),
+      0 0 0 0 rgba(37, 211, 102, 0.35);
+  }
+
+  50% {
+    transform: translateY(-6px) scale(1.08);
+    box-shadow:
+      0 16px 42px rgba(37, 211, 102, 0.45),
+      0 0 0 10px rgba(37, 211, 102, 0);
+  }
+}
+
+.stratus-whatsapp-float {
+  position: fixed;
+  /* Above section stacks; stay below mobile drawer/backdrop (≈198+) */
+  z-index: 160;
+  bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 14px));
+  right: max(18px, calc(env(safe-area-inset-right, 0px) + 14px));
+  top: auto;
+  left: auto;
+  box-sizing: border-box;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  flex-shrink: 0;
+  box-shadow: 0 8px 26px rgba(15, 48, 26, 0.36);
+  animation: stratus-wa-attention 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.stratus-whatsapp-float:hover,
+.stratus-whatsapp-float:focus-visible {
+  animation-play-state: paused;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow:
+    0 14px 38px rgba(37, 211, 102, 0.5),
+    0 0 0 6px rgba(37, 211, 102, 0.15);
+  color: #fff;
+}
+
+.stratus-whatsapp-float:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.stratus-whatsapp-float__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stratus-whatsapp-float__icon svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stratus-whatsapp-float {
+    animation: none;
+    will-change: auto;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .stratus-whatsapp-float:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(15, 48, 26, 0.45);
+  }
+}
+
+@media print {
+  .stratus-whatsapp-float {
+    display: none !important;
+  }
 }
 
 @media (max-width: 980px) {
@@ -6831,10 +7247,6 @@ body.home-page {
     letter-spacing: 3px;
   }
 
-  .gallary-grid {
-    grid-template-columns: 1fr;
-  }
-
   .latest-article-link {
     letter-spacing: 3px;
     gap: 10px;
@@ -7123,13 +7535,14 @@ body.home-page {
     width: 100%;
     max-width: none;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
-    margin: 0 0 4px;
+    margin: 0;
     padding: 0;
     min-width: 0;
     overflow-x: visible;
     overflow-y: visible;
+    text-align: center;
   }
 
   .home-process-header h2 {
@@ -7143,7 +7556,7 @@ body.home-page {
   .home-process-header p {
     width: 100%;
     min-width: 0;
-    text-align: left;
+    text-align: center;
     font-size: clamp(13px, 2.9vw, 17px);
     white-space: normal;
   }
@@ -7151,10 +7564,6 @@ body.home-page {
   .home-process-grid {
     grid-template-columns: 1fr;
     gap: 14px;
-  }
-
-  .home-process-card--offset {
-    grid-column: auto;
   }
 
   .home-process-card img {

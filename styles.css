@@ -548,6 +548,128 @@ body.home-page {
   }
 }
 
+/* Home page — triptych banner (first section) */
+.home-page .home-banner-section {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding:
+    clamp(132px, 11vw, 172px)
+    clamp(16px, 4vw, 56px)
+    clamp(20px, 3vw, 40px);
+  min-height: calc(min(74vh, 820px) + clamp(152px, 12vw, 212px));
+  overflow: hidden;
+}
+
+.home-page .home-banner-stage {
+  position: relative;
+  --home-banner-width: 900px;
+  --home-banner-height: 438px;
+  width: min(100%, var(--home-banner-width));
+  margin: 0 auto;
+}
+
+.home-page .home-banner-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  height: var(--home-banner-height);
+  min-height: var(--home-banner-height);
+  max-height: var(--home-banner-height);
+}
+
+.home-page .home-banner-panel {
+  position: relative;
+  height: var(--home-banner-height);
+  min-height: var(--home-banner-height);
+  max-height: var(--home-banner-height);
+  overflow: hidden;
+  background-color: #f2f2f2;
+}
+
+.home-page .home-banner-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.home-page .home-banner-panel--center img {
+  filter: grayscale(100%) contrast(1.08);
+}
+
+.home-page .home-banner-panel--cycle img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.home-page .home-banner-panel--cycle img.is-active {
+  opacity: 1;
+}
+
+.home-page .home-banner-logo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+@media (max-width: 900px) {
+  .home-page .home-banner-section {
+    padding:
+      clamp(108px, 18vw, 132px)
+      16px
+      16px;
+    min-height: calc(clamp(220px, 42vh, 360px) * 3 + clamp(124px, 20vw, 148px));
+  }
+
+  .home-page .home-banner-stage {
+    width: min(100%, var(--home-banner-width, 900px));
+  }
+
+  .home-page .home-banner-columns {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .home-page .home-banner-panel {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 900 / 438;
+  }
+
+  .home-page .home-banner-logo {
+    bottom: 0;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-banner-panel--cycle img {
+    transition: none;
+  }
+}
+
 .home-page .navbar {
   position: relative;
   z-index: 5;
@@ -683,112 +805,94 @@ body.home-page {
 .home-about-redesign {
   background: #ffffff;
   color: #4a3c31;
-  padding: 80px clamp(28px, 5vw, 72px) 64px clamp(96px, 12vw, 180px);
+  padding: clamp(56px, 8vw, 88px) clamp(24px, 5vw, 72px);
 }
 
 .home-about-redesign-inner {
-  max-width: 1240px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
-.home-about-redesign-top {
+.home-about-redesign-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: clamp(24px, 4vw, 48px);
-  align-items: start;
-  margin-bottom: 40px;
+  grid-template-columns: minmax(240px, 380px) minmax(240px, 440px);
+  gap: clamp(16px, 2.5vw, 28px);
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.home-about-redesign-content {
+  width: 100%;
+  max-width: 380px;
 }
 
 .home-about-redesign-tag {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   border: none;
-  border-radius: 999px;
-  padding: 8px 14px 8px 10px;
+  border-radius: 0;
+  padding: 0;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1;
-  color: #ffffff;
-  background: #4a3c31;
+  color: #4a372d;
+  background: transparent;
 }
 
 .home-about-redesign .home-about-redesign-tag::before {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.22);
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background-color: transparent;
   background-image: url("./Font/New_images/Arrow.png");
-  background-size: 11px 11px;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.home-about-redesign-intro h2 {
-  margin: 0;
+.home-about-redesign-content h2 {
+  margin: 0 0 16px;
   font-family: var(--heading-font);
-  font-size: clamp(22px, 2.5vw, 34px);
-  font-weight: 700;
-  line-height: 1.12;
+  font-size: clamp(44px, 4.3vw, 58px);
+  font-weight: 600;
+  line-height: 1;
   letter-spacing: 0.01em;
   color: #4a3c31;
-  padding: 4px 0 0;
-}
-
-.home-about-redesign-intro h2 .home-about-heading-line {
-  display: block;
 }
 
 .home-about-redesign-copy {
   margin: 0;
-  max-width: 48ch;
-  font-size: clamp(16px, 1.5vw, 19px);
-  line-height: 1.55;
+  max-width: 44ch;
+  font-size: 17px;
+  line-height: 1.45;
   letter-spacing: 0.01em;
   color: #4a3c31;
 }
 
-@media (min-width: 769px) {
-  .home-about-redesign-copy {
-    padding-top: 44px;
-  }
+.home-about-redesign-media {
+  justify-self: end;
+  margin-left: auto;
+  margin-right: 0;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
-.home-about-redesign-stats {
-  border-top: 1px solid #e5e5e5;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 0;
-}
-
-.home-about-redesign-stat {
-  padding: 28px 20px 8px 0;
-  border-right: 1px solid #e5e5e5;
-  min-height: 120px;
-}
-
-.home-about-redesign-stat:last-child {
-  border-right: none;
-}
-
-.home-about-redesign-stat h3 {
-  margin: 0 0 10px;
-  font-family: var(--body-font);
-  font-size: clamp(36px, 4vw, 56px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: #4a3c31;
-}
-
-.home-about-redesign-stat p {
-  margin: 0;
-  font-size: clamp(15px, 1.15vw, 17px);
-  line-height: 1.35;
-  font-weight: 500;
-  color: #4a3c31;
+.home-about-redesign-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .home-services-redesign {
@@ -798,7 +902,7 @@ body.home-page {
 }
 
 .home-services-redesign-inner {
-  max-width: 1180px;
+  max-width: 1062px;
   margin: 0 auto;
   text-align: center;
 }
@@ -821,20 +925,21 @@ body.home-page {
 
 .home-services-redesign h2 {
   margin: 0 auto 40px;
-  max-width: min(100%, 20em);
+  max-width: min(100%, 18em);
   font-family: var(--heading-font);
-  font-size: clamp(26px, 3.1vw, 42px);
+  font-size: clamp(28px, 3.4vw, 44px);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: 0.01em;
   color: #4a3c31;
+  text-transform: uppercase;
   white-space: normal;
 }
 
 .home-services-redesign-cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 28px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
 }
 
 .home-services-redesign-card {
@@ -846,8 +951,8 @@ body.home-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;
-  border-radius: 28px;
+  aspect-ratio: 1062 / 615;
+  border-radius: 32px;
   overflow: hidden;
   text-decoration: none;
   isolation: isolate;
@@ -879,7 +984,7 @@ body.home-page {
   max-width: 95%;
   text-align: center;
   font-family: "Barlow Condensed", var(--heading-font);
-  font-size: clamp(24px, 2.1vw, 34px);
+  font-size: clamp(22px, 2.2vw, 32px);
   font-weight: 700;
   line-height: 1.08;
   letter-spacing: 0.03em;
@@ -1721,7 +1826,9 @@ body.home-page {
 }
 
 .top-hero-page .about-hero .page-hero-content .about-hero-title {
-  font-family: "MuseoModerno", sans-serif;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   max-width: none;
   font-size: clamp(36px, 7.4vw, 110px);
@@ -2044,6 +2151,16 @@ body.home-page {
 
 .architecture-hero--architecture {
   background-image: url("./photos/PROJECTS/6c563f4e6262be778d9c242a760194b77730a2b9.png");
+  background-position: center;
+}
+
+.architecture-hero--arch-intero {
+  background-image: url("./Gallary_image/Arch_Cover%20Pic.png");
+  background-position: center;
+}
+
+.architecture-hero--project {
+  background-image: url("./Font/updated_images/architecture_banner.png");
   background-position: center;
 }
 
@@ -2875,6 +2992,318 @@ body.home-page {
   overflow: hidden;
 }
 
+.arch-intero-page .architecture-approach-inner {
+  padding-right: 600px;
+}
+
+.arch-intero-page .architecture-approach-visuals {
+  width: 560px;
+}
+
+.arch-intero-page .arch-intero-projects-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(40px, 5vw, 64px) clamp(20px, 3.5vw, 40px) clamp(48px, 6vw, 72px);
+  background: #ffffff;
+  color: #3e2e26;
+}
+
+.arch-intero-page .arch-intero-projects-inner {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.arch-intero-page .arch-intero-projects-title {
+  margin: 0 0 clamp(22px, 3.5vw, 32px);
+  font-family: var(--body-font);
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #6b2d26;
+  letter-spacing: 0.01em;
+}
+
+.arch-intero-page .arch-intero-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 18px);
+  align-items: stretch;
+}
+
+.arch-intero-page .arch-intero-projects-card {
+  position: relative;
+  aspect-ratio: 1.28;
+  min-height: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #1a1410;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.arch-intero-page .arch-intero-projects-card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: inherit;
+}
+
+.arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-hit:focus-visible) {
+  outline: 2px solid #3e2e26;
+  outline-offset: 4px;
+}
+
+.arch-intero-page .arch-intero-projects-card-hit:focus-visible {
+  outline: none;
+}
+
+.arch-intero-page .arch-intero-projects-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(26, 18, 14, 0.18);
+}
+
+.arch-intero-page .arch-intero-projects-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: inherit;
+}
+
+.arch-intero-page .arch-intero-projects-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.arch-intero-page .arch-intero-projects-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 8, 6, 0.12) 0%,
+    rgba(12, 8, 6, 0.35) 55%,
+    rgba(12, 8, 6, 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+.arch-intero-page .arch-intero-projects-feature {
+  position: absolute;
+  top: clamp(10px, 1.5vw, 14px);
+  right: clamp(10px, 1.5vw, 14px);
+  z-index: 3;
+  max-width: min(92%, 14rem);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(0.65rem, 1.1vw, 0.72rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: rgba(22, 16, 12, 0.72);
+  text-align: right;
+  pointer-events: none;
+}
+
+.arch-intero-page .arch-intero-projects-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: 0;
+  padding: clamp(14px, 2.2vw, 20px) clamp(14px, 2vw, 18px);
+  font-family: var(--body-font);
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arch-intero-page .arch-intero-projects-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .arch-intero-page .arch-intero-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.direct-project-page .direct-project-ongoing-section .arch-intero-projects-inner {
+  max-width: 1040px;
+}
+
+.direct-project-page .direct-project-ongoing-section .arch-intero-projects-card {
+  aspect-ratio: 1.45;
+}
+
+.direct-project-page .direct-project-ongoing-caption {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+}
+
+.direct-project-page .direct-project-ongoing-name {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--heading-font);
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.direct-project-page .direct-project-floorplans-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(32px, 4vw, 48px) clamp(20px, 3vw, 32px) clamp(40px, 5vw, 56px);
+  background: #ffffff;
+  color: #3e2e26;
+}
+
+.direct-project-page .direct-project-floorplans-inner {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.direct-project-page .direct-project-floorplans-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 32px);
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.direct-project-page .direct-project-floorplan-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.direct-project-page .direct-project-floorplan-title {
+  margin: 0 0 clamp(6px, 1vw, 10px);
+  font-family: var(--heading-font);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #6b2d26;
+  text-align: center;
+}
+
+.direct-project-page .direct-project-floorplan-label {
+  margin: 0 0 clamp(8px, 1.5vw, 12px);
+  font-family: var(--body-font);
+  font-size: clamp(0.88rem, 1.25vw, 1rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgba(62, 46, 38, 0.82);
+  text-align: center;
+}
+
+.direct-project-page .direct-project-floorplan-media {
+  width: 100%;
+  border: 1px solid rgba(62, 46, 38, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f7f4f0;
+  transition: opacity 0.36s ease;
+}
+
+.direct-project-page .direct-project-floorplan-media.is-floorplan-fading {
+  opacity: 0;
+}
+
+.direct-project-page .direct-project-floorplan-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  aspect-ratio: 16 / 11;
+  object-fit: contain;
+  object-position: center;
+  background: #f7f4f0;
+}
+
+.project-page .project-portfolio-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(32px, 4vw, 52px) clamp(20px, 3vw, 32px) clamp(40px, 5vw, 56px);
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+.project-page .project-portfolio-inner {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.project-page .project-portfolio-title {
+  margin: 0 0 clamp(20px, 3vw, 28px);
+  max-width: 36rem;
+  font-family: var(--body-font);
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #111;
+  text-align: left;
+  letter-spacing: -0.01em;
+}
+
+.project-page .project-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 18px);
+  align-items: stretch;
+}
+
+.project-page .project-portfolio-card {
+  min-width: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #a8a8a8;
+}
+
+.project-page .project-portfolio-media {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.project-page .project-portfolio-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 900px) {
+  .project-page .project-portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .project-page .project-portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Overlap unchanged: main 600px from left, side 400px at right → width 900 preserves ~100px overlap */
 .architecture-approach-stack {
   position: relative;
@@ -2968,11 +3397,24 @@ body.home-page {
     overflow: hidden;
     border-radius: 28px;
   }
+
+  .arch-intero-page .architecture-approach-visuals {
+    width: min(560px, 100%);
+    height: 560px;
+  }
 }
 
 @media (min-width: 1025px) and (max-width: 1100px) {
   .architecture-approach-inner {
     padding-right: 340px;
+  }
+
+  .arch-intero-page .architecture-approach-inner {
+    padding-right: 520px;
+  }
+
+  .arch-intero-page .architecture-approach-visuals {
+    width: 480px;
   }
 }
 
@@ -3477,7 +3919,9 @@ body.home-page {
 
 .brand-story-header {
   max-width: 520px;
+  margin: 0 auto;
   margin-bottom: 0;
+  text-align: center;
 }
 
 .brand-story-kicker {
@@ -3547,7 +3991,7 @@ body.home-page {
 }
 
 .brand-story-header p {
-  margin: 0;
+  margin: 0 auto;
   font-family: var(--body-font);
   font-size: 17px;
   line-height: 1.45;
@@ -3556,17 +4000,19 @@ body.home-page {
 }
 
 .brand-story-images {
-  display: block;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .brand-story-image {
   width: 100%;
-  max-width: 650px;
+  max-width: 420px;
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 20px;
-  margin-left: 0;
+  margin-inline: auto;
 }
 
 .brand-story-image img {
@@ -3578,14 +4024,15 @@ body.home-page {
 
 .brand-story-section {
   display: grid;
-  grid-template-columns: minmax(280px, 440px) minmax(420px, 1fr);
-  gap: clamp(14px, 2.2vw, 32px);
+  grid-template-columns: minmax(280px, 440px) minmax(280px, 420px);
+  gap: clamp(24px, 4vw, 48px);
   align-items: center;
   justify-content: center;
+  justify-items: center;
   max-width: 1280px;
   margin: 0 auto;
-  padding-left: clamp(52px, 7vw, 132px);
-  padding-right: clamp(34px, 5.6vw, 116px);
+  padding-left: clamp(24px, 4vw, 48px);
+  padding-right: clamp(24px, 4vw, 48px);
 }
 
 .founder-note-section {
@@ -5105,6 +5552,25 @@ body.home-page {
     rgba(12, 8, 6, 0.35) 55%,
     rgba(12, 8, 6, 0.62) 100%
   );
+  pointer-events: none;
+}
+
+.interior-page .de-atelier-gargi-portfolio__feature {
+  position: absolute;
+  top: clamp(10px, 1.5vw, 14px);
+  right: clamp(10px, 1.5vw, 14px);
+  z-index: 3;
+  max-width: min(92%, 14rem);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(0.65rem, 1.1vw, 0.72rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: rgba(22, 16, 12, 0.72);
+  text-align: right;
   pointer-events: none;
 }
 
@@ -7274,6 +7740,7 @@ body.home-page {
   .brand-story-section {
     grid-template-columns: 1fr;
     gap: 20px;
+    justify-items: center;
     padding-left: max(20px, env(safe-area-inset-left, 0px));
     padding-right: max(20px, env(safe-area-inset-right, 0px));
   }
@@ -7284,10 +7751,10 @@ body.home-page {
   }
 
   .brand-story-image {
-    width: min(100%, 720px);
+    width: min(100%, 420px);
     height: auto;
-    aspect-ratio: 16 / 9;
-    margin-left: 0;
+    aspect-ratio: 3 / 4;
+    margin-inline: auto;
   }
 
   .services-feature-left {
@@ -7450,46 +7917,33 @@ body.home-page {
 
   .home-about-redesign {
     padding: 44px max(20px, env(safe-area-inset-left, 0px)) 34px
-      max(32px, calc(12px + env(safe-area-inset-right, 0px)));
+      max(20px, env(safe-area-inset-right, 0px));
   }
 
-  .home-about-redesign-top {
+  .home-about-redesign-layout {
     grid-template-columns: 1fr;
-    gap: 22px;
-    margin-bottom: 24px;
+    gap: 20px;
+    width: 100%;
   }
 
-  .home-about-redesign-intro h2 {
+  .home-about-redesign-content {
     max-width: none;
-    font-size: clamp(22px, 5.5vw, 32px);
-    line-height: 1.1;
+  }
+
+  .home-about-redesign-content h2 {
+    font-size: clamp(36px, 10vw, 48px);
   }
 
   .home-about-redesign-copy {
-    margin-top: 0;
     max-width: none;
-    font-size: clamp(20px, 5.6vw, 28px);
-    line-height: 1.22;
+    font-size: 16px;
   }
 
-  .home-about-redesign-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .home-about-redesign-stat {
-    padding: 16px 8px 28px;
-  }
-
-  .home-about-redesign-stat:nth-child(2n) {
-    border-right: none;
-  }
-
-  .home-about-redesign-stat h3 {
-    font-size: clamp(42px, 10vw, 56px);
-  }
-
-  .home-about-redesign-stat p {
-    font-size: clamp(18px, 4.2vw, 24px);
+  .home-about-redesign-media {
+    width: min(100%, 420px);
+    max-width: 420px;
+    height: auto;
+    aspect-ratio: 3 / 4;
   }
 
   .home-services-redesign {

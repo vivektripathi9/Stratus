@@ -980,3 +980,141 @@ if (latestRoot) {
      animations for page transitions; any transform on body makes fixed children scroll with the page. */
   document.documentElement.appendChild(a);
 })();
+
+(function initHomeBannerCycle() {
+  const root = document.querySelector("[data-home-banner-cycle]");
+  if (!root) return;
+
+  const frames = [...root.querySelectorAll("img")];
+  if (frames.length < 2) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduceMotion.matches) return;
+
+  let index = 0;
+  window.setInterval(() => {
+    frames[index].classList.remove("is-active");
+    index = (index + 1) % frames.length;
+    frames[index].classList.add("is-active");
+  }, 4500);
+})();
+
+(function initDirectProjectFloorplans() {
+  const root = document.querySelector("[data-direct-project-floorplans]");
+  if (!root) return;
+
+  const floorplanSets = {
+    avena: [
+      {
+        src: "./Avena/Ground%20Floor.png",
+        alt: "Avena ground floor plan",
+        label: "Ground Floor",
+      },
+      {
+        src: "./Avena/First%20Floor.png",
+        alt: "Avena first floor plan",
+        label: "First Floor",
+      },
+      {
+        src: "./Avena/Second%20Floor.png",
+        alt: "Avena second floor plan",
+        label: "Second Floor",
+      },
+    ],
+    evara: [
+      {
+        src: "./Evara/01_Stilt%20Floor.png",
+        alt: "Evara stilt floor plan",
+        label: "Stilt Floor",
+      },
+      {
+        src: "./Evara/02_Typical%20Floors.png",
+        alt: "Evara typical floors plan",
+        label: "Typical Floors",
+      },
+      {
+        src: "./Evara/03_Terrace%20Floor.png",
+        alt: "Evara terrace floor plan",
+        label: "Terrace Floor",
+      },
+    ],
+    mungo: [
+      {
+        src: "./Mungo/Floor%20Plan_01.png",
+        alt: "Mungo floor plan 01",
+        label: "Floor Plan 01",
+      },
+      {
+        src: "./Mungo/Floor%20Plan_02.png",
+        alt: "Mungo floor plan 02",
+        label: "Floor Plan 02",
+      },
+      {
+        src: "./Mungo/Section.png",
+        alt: "Mungo section drawing",
+        label: "Section",
+      },
+    ],
+  };
+
+  const FLOORPLAN_FADE_MS = 360;
+  const FLOORPLAN_INTERVAL_MS = 4500;
+  const carousels = [...root.querySelectorAll("[data-floorplan-carousel]")];
+
+  function whenFloorplanImageReady(img) {
+    if (!img) return Promise.resolve();
+    if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+    return new Promise((resolve) => {
+      img.addEventListener("load", () => resolve(), { once: true });
+      img.addEventListener("error", () => resolve(), { once: true });
+    });
+  }
+
+  carousels.forEach((card) => {
+    const project = card.dataset.floorplanProject;
+    const slides = floorplanSets[project];
+    const img = card.querySelector("[data-floorplan-img]");
+    const label = card.querySelector("[data-floorplan-label]");
+    const media = card.querySelector(".direct-project-floorplan-media");
+
+    if (!slides?.length || !img || !media) return;
+
+    let index = 0;
+
+    async function showSlide(nextIndex, { animate = true } = {}) {
+      const slide = slides[nextIndex % slides.length];
+      if (!slide) return;
+
+      if (animate) {
+        media.classList.add("is-floorplan-fading");
+        await new Promise((resolve) => setTimeout(resolve, FLOORPLAN_FADE_MS));
+      }
+
+      img.src = slide.src;
+      img.alt = slide.alt;
+      if (label) label.textContent = slide.label;
+
+      await whenFloorplanImageReady(img);
+
+      if (animate) {
+        requestAnimationFrame(() => {
+          media.classList.remove("is-floorplan-fading");
+        });
+      }
+    }
+
+    let reduceMotion = false;
+    try {
+      reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch {
+      reduceMotion = false;
+    }
+
+    if (slides.length < 2 || reduceMotion) return;
+
+    window.setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index, { animate: true });
+    }, FLOORPLAN_INTERVAL_MS);
+  });
+})();

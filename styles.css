@@ -209,6 +209,7 @@ html {
   background-color: var(--primary-light);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 * {
@@ -233,11 +234,19 @@ select {
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
   font-family: var(--body-font);
   font-size: var(--site-body-size);
   line-height: var(--site-body-line-height);
   letter-spacing: 0.3px;
   color: #fff;
+}
+
+.top-hero-page,
+.home-page {
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .about-page {
@@ -701,10 +710,14 @@ body.home-page {
   width: 26px;
 }
 
-.home-page .nav-right {
-  width: 100%;
-  justify-content: flex-end;
-  gap: 22px;
+@media (min-width: 769px) {
+  .home-page .nav-right {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    justify-content: flex-end;
+    gap: 22px;
+  }
 }
 
 .home-page .nav-links {
@@ -1062,7 +1075,9 @@ body.home-page {
   font-size: clamp(14px, 1.35vw + 0.55rem, 19px);
   line-height: 1.3;
   color: rgba(241, 231, 220, 0.92);
-  white-space: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   min-width: 0;
 }
 
@@ -1729,6 +1744,10 @@ body.home-page {
   left: 0;
   right: 0;
   z-index: 8;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  box-sizing: border-box;
 }
 
 .top-hero-page .navbar {
@@ -1762,10 +1781,14 @@ body.home-page {
   width: 26px;
 }
 
-.top-hero-page .nav-right {
-  width: 100%;
-  justify-content: flex-end;
-  gap: 22px;
+@media (min-width: 769px) {
+  .top-hero-page .nav-right {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    justify-content: flex-end;
+    gap: 22px;
+  }
 }
 
 .top-hero-page .nav-links {
@@ -1886,8 +1909,8 @@ body.home-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("./Font/updated_images/about_banner.png");
-  background-position: left center;
+  background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -2137,12 +2160,15 @@ body.home-page {
 }
 
 .architecture-hero {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   padding: 0 22px 0;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: clip;
   background-image: url("./Public/hero/BG.png");
   background-position: left center;
   background-size: cover;
@@ -2160,7 +2186,7 @@ body.home-page {
 }
 
 .architecture-hero--project {
-  background-image: url("./Font/updated_images/architecture_banner.png");
+  background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
   background-position: center;
 }
 
@@ -2169,7 +2195,8 @@ body.home-page {
 }
 
 .architecture-hero--interior {
-  background-image: url("./Font/updated_images/interior_banner.jpg");
+  background-image: url("./Gargi/De%20Atelier_Cover%20Pic.jpeg");
+  background-position: center;
 }
 
 .architecture-hero--gallery {
@@ -2207,17 +2234,20 @@ body.home-page {
 
 .interior-feature-section {
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   padding: 64px 24px 72px;
   background-color: #ffffff;
   background-image: none;
+  overflow-x: clip;
 }
 
 .interior-feature-inner {
   max-width: 1120px;
   margin: 0 auto;
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 0.9fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
   gap: 48px;
   align-items: center;
 }
@@ -2538,7 +2568,7 @@ body.home-page {
   }
 
   .interior-feature-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 28px;
   }
 
@@ -2687,10 +2717,12 @@ body.home-page {
 /* Architecture page — Our Approach (layered images, flex + absolute stack) */
 .architecture-approach-section {
   width: 100%;
+  max-width: 100%;
   padding: 80px 0;
   background-color: #5b463d;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 /* architecture.html only — “Designing spaces that are both timeless and intelligent” band */
@@ -3375,32 +3407,79 @@ body.home-page {
 @media (max-width: 1024px) {
   .architecture-approach-inner {
     flex-direction: column;
-    align-items: center;
-    padding: 0 20px;
-    gap: 48px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0 clamp(16px, 4vw, 24px);
+    gap: clamp(32px, 5vw, 48px);
+  }
+
+  .arch-intero-page .architecture-approach-inner {
+    padding: 0 clamp(16px, 4vw, 24px);
   }
 
   .architecture-approach-copy {
     max-width: none;
+    width: 100%;
     text-align: center;
   }
 
+  .architecture-approach-eyebrow {
+    letter-spacing: 0.22em;
+  }
+
+  .architecture-approach-copy h2 {
+    font-size: clamp(28px, 7vw, 38px);
+    line-height: 1.12;
+  }
+
   .architecture-approach-body p {
+    max-width: 36rem;
     margin-left: auto;
     margin-right: auto;
   }
 
   .architecture-approach-visuals {
     position: static;
-    width: min(360px, 100%);
-    height: 520px;
+    width: 100%;
+    max-width: min(360px, 100%);
+    height: auto;
+    aspect-ratio: 4 / 5;
+    min-height: 260px;
+    max-height: min(520px, 78vw);
+    margin-inline: auto;
     overflow: hidden;
-    border-radius: 28px;
+    border-radius: clamp(16px, 4vw, 28px);
   }
 
   .arch-intero-page .architecture-approach-visuals {
-    width: min(560px, 100%);
-    height: 560px;
+    width: 100%;
+    max-width: min(420px, 100%);
+    height: auto;
+    aspect-ratio: 4 / 5;
+    min-height: 280px;
+    max-height: min(560px, 82vw);
+  }
+
+  .architecture-approach-stack,
+  .approach-images {
+    max-width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .architecture-approach-panel--main,
+  .main-img {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .main-img img {
+    object-position: center;
   }
 }
 
@@ -3419,8 +3498,54 @@ body.home-page {
 }
 
 @media (max-width: 600px) {
+  .architecture-approach-section {
+    padding: clamp(48px, 12vw, 64px) 0 clamp(40px, 10vw, 56px);
+  }
+
+  .architecture-approach-inner {
+    gap: 28px;
+    padding: 0;
+  }
+
+  .arch-intero-page .architecture-approach-inner {
+    padding: 0;
+  }
+
+  .architecture-approach-copy {
+    padding-inline: max(16px, env(safe-area-inset-left, 0px))
+      max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .architecture-approach-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    margin-bottom: 10px;
+  }
+
+  .architecture-approach-copy h2 {
+    font-size: clamp(26px, 8.2vw, 32px);
+    margin-bottom: 16px;
+  }
+
+  .architecture-approach-body p {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: none;
+  }
+
+  .architecture-approach-visuals,
+  .arch-intero-page .architecture-approach-visuals {
+    width: 100%;
+    max-width: none;
+    min-height: 240px;
+    max-height: none;
+    aspect-ratio: 5 / 4;
+    margin-inline: 0;
+    border-radius: 0;
+  }
+
   .architecture-approach-stack {
-    max-width: min(360px, 100%);
+    max-width: 100%;
   }
 }
 
@@ -4699,6 +4824,8 @@ body.home-page {
     align-items: center;
     justify-content: flex-start;
     gap: 0;
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
   }
@@ -4742,12 +4869,20 @@ body.home-page {
     pointer-events: auto;
   }
 
+  .home-page .nav-right,
+  .top-hero-page .nav-right {
+    flex: none;
+    width: min(300px, 86vw);
+    max-width: min(300px, 86vw);
+  }
+
   .nav-right {
     position: fixed;
     z-index: 199;
     top: 0;
     right: 0;
     width: min(300px, 86vw);
+    max-width: min(300px, 86vw);
     height: 100vh;
     height: 100dvh;
     margin: 0;
@@ -5452,8 +5587,10 @@ body.home-page {
 .interior-page .de-atelier-gargi-portfolio {
   box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
   margin: 0;
   padding: clamp(48px, 6vw, 80px) clamp(20px, 4vw, 48px) clamp(56px, 7vw, 88px);
+  overflow-x: clip;
   background: #ffffff;
   color: #1a1a1a;
 }
@@ -5950,6 +6087,8 @@ body.home-page {
 .gallary-section {
   background: var(--primary-light);
   padding: 42px 0 clamp(56px, 6vw, 88px);
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* Architecture page — bands match “Our Architecture: Designed for the Future” (sand + paper) */
@@ -7167,7 +7306,7 @@ body.home-page {
 
 .footer-v2-top {
   display: grid;
-  grid-template-columns: minmax(280px, 1.25fr) 0.5fr 0.6fr minmax(260px, 1fr);
+  grid-template-columns: minmax(280px, 1.25fr) 0.5fr 0.6fr minmax(320px, 1.1fr);
   gap: 26px;
   align-items: start;
   position: relative;
@@ -7232,13 +7371,15 @@ body.home-page {
 }
 
 .footer-v2-subscribe input {
-  width: 170px;
+  box-sizing: border-box;
+  width: min(100%, 300px);
+  min-width: 250px;
   min-height: 36px;
   border-radius: 999px;
   border: 1px solid rgba(232, 219, 204, 0.6);
   background: transparent;
   color: #f2e8dc;
-  padding: 0 14px;
+  padding: 0 18px;
   font-size: 16px;
   outline: none;
 }
@@ -7489,7 +7630,9 @@ body.home-page {
   }
 
   .footer-v2-subscribe input {
-    width: min(100%, 280px);
+    width: min(100%, 320px);
+    min-width: 0;
+    max-width: 100%;
     text-align: center;
   }
 
@@ -7724,8 +7867,20 @@ body.home-page {
     padding-inline: 8px;
   }
 
-  .architecture-approach-visuals {
-    height: min(400px, 78vw);
+  .architecture-approach-visuals,
+  .arch-intero-page .architecture-approach-visuals {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 200px;
+    max-height: min(400px, 78vw);
+    aspect-ratio: 4 / 5;
+  }
+
+  .architecture-approach-inner,
+  .arch-intero-page .architecture-approach-inner {
+    padding-inline: max(16px, env(safe-area-inset-left, 0px))
+      max(16px, env(safe-area-inset-right, 0px));
   }
 
   .gallery-page-section {
@@ -7815,12 +7970,6 @@ body.home-page {
     padding-left: max(var(--space-md), env(safe-area-inset-left, 0px));
     padding-right: max(var(--space-md), env(safe-area-inset-right, 0px));
     padding-bottom: max(var(--space-md), env(safe-area-inset-bottom, 0px));
-  }
-
-  /* Override .home-page / .top-hero-page .nav-right { width: 100% } so the drawer is narrow and fully off-screen */
-  .top-hero-page .navbar > .nav-right {
-    width: min(300px, 86vw);
-    max-width: min(300px, 86vw);
   }
 
   .nav-links a {
@@ -8012,7 +8161,9 @@ body.home-page {
     min-width: 0;
     text-align: center;
     font-size: clamp(13px, 2.9vw, 17px);
-    white-space: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .home-process-grid {

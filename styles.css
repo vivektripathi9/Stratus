@@ -191,6 +191,9 @@
   --hero-nav-max-width: 980px;
   --hero-nav-padding-desktop: 8px 12px 8px 16px;
   --hero-nav-padding-mobile: 10px 12px;
+  --hero-nav-surface: rgba(103, 92, 86, 0.58);
+  --hero-nav-brand: #5b4033;
+  --hero-nav-cta: #5b4033;
   /* Base copy scale — inherited by paragraphs and most UI text */
   --site-body-size: 18px;
   --site-body-line-height: 1.65;
@@ -258,7 +261,14 @@ body {
     scroll-behavior: smooth;
   }
 
+  /* Fade page content only — not the site chrome header (avoids navbar seam lines during load) */
   body {
+    animation: none;
+    opacity: 1;
+  }
+
+  body > section,
+  body > footer {
     animation: stratus-page-in 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
@@ -268,9 +278,21 @@ body {
     transform: none;
   }
 
+  html.stratus-exit-prep body > section,
+  html.stratus-exit-prep body > footer {
+    animation: none;
+    opacity: 1;
+  }
+
   html.stratus-exit-prep body.stratus-is-leaving {
     opacity: 0;
     /* no transform — keeps fixed UI (e.g. WhatsApp) viewport-anchored during exit */
+    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html.stratus-exit-prep body.stratus-is-leaving > section,
+  html.stratus-exit-prep body.stratus-is-leaving > footer {
+    opacity: 0;
     transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
@@ -370,6 +392,9 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  isolation: isolate;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .navbar-leading {
@@ -391,8 +416,9 @@ h6 {
   width: 56px;
   height: 56px;
   border-radius: 999px;
-  background: #5b4033;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--hero-nav-brand);
+  border: none;
+  flex-shrink: 0;
 }
 
 .brand-logo {
@@ -679,16 +705,24 @@ body.home-page {
   }
 }
 
-.home-page .navbar {
+.home-page .navbar,
+.top-hero-page .navbar {
   position: relative;
   z-index: 5;
   max-width: var(--hero-nav-max-width);
   margin: 28px auto 0;
   padding: var(--hero-nav-padding-desktop);
   border-radius: 999px;
-  background: rgba(67, 49, 39, 0.5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: var(--hero-nav-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(26, 18, 14, 0.12);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+.top-hero-page .top-corner-logo,
+.home-page .top-corner-logo {
+  display: none;
 }
 
 .home-corner-logo {
@@ -725,34 +759,47 @@ body.home-page {
 }
 
 .home-page .nav-links a {
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.01em;
 }
 
 .hero-contact-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  flex-shrink: 0;
   text-decoration: none;
   color: #fff;
+  font-family: var(--body-font);
   font-size: 16px;
-  padding: 6px 11px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 10px 9px 20px;
   border-radius: 999px;
-  background: rgba(92, 64, 50, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: var(--hero-nav-cta);
+  border: none;
+  box-shadow: none;
+  transition: filter 0.2s ease;
+}
+
+.hero-contact-btn:hover,
+.hero-contact-btn:focus-visible {
+  filter: brightness(1.08);
 }
 
 .hero-contact-btn-icon {
   display: inline-grid;
   place-items: center;
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #f5eee6;
-  color: #5a3f32;
-  font-size: 12px;
+  background: #ffffff;
+  color: #3e2e26;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .home-page .hero-content {
@@ -938,15 +985,18 @@ body.home-page {
 
 .home-services-redesign h2 {
   margin: 0 auto 40px;
-  max-width: min(100%, 18em);
+  width: 100%;
+  max-width: none;
   font-family: var(--heading-font);
-  font-size: clamp(28px, 3.4vw, 44px);
+  font-size: clamp(16px, 2.65vw, 44px);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: 0.01em;
   color: #4a3c31;
   text-transform: uppercase;
-  white-space: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home-services-redesign-cards {
@@ -1750,24 +1800,12 @@ body.home-page {
   box-sizing: border-box;
 }
 
-.top-hero-page .navbar {
-  position: relative;
-  z-index: 5;
-  max-width: var(--hero-nav-max-width);
-  margin: 28px auto 0;
-  padding: var(--hero-nav-padding-desktop);
-  border-radius: 999px;
-  background: rgba(67, 49, 39, 0.5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
 .top-corner-logo {
   position: absolute;
   top: 34px;
   left: 30px;
   z-index: 6;
-  display: inline-flex;
+  display: none;
   text-decoration: none;
 }
 
@@ -1796,9 +1834,9 @@ body.home-page {
 }
 
 .top-hero-page .nav-links a {
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.01em;
 }
 
@@ -8001,11 +8039,14 @@ body.home-page {
     margin-inline: auto;
   }
 
-  .home-page .navbar {
+  .home-page .navbar,
+  .top-hero-page .navbar {
     margin-top: 14px;
     padding: var(--hero-nav-padding-mobile);
     border-radius: 16px;
-    background: rgba(53, 37, 29, 0.58);
+    background: var(--hero-nav-surface);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
   }
 
   .home-page .brand-logo {
@@ -8106,9 +8147,9 @@ body.home-page {
 
   .home-services-redesign h2 {
     max-width: none;
-    font-size: clamp(24px, 6.5vw, 34px);
+    font-size: clamp(14px, 3.4vw, 34px);
     margin-bottom: 28px;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   .home-services-redesign-cards {
@@ -8286,13 +8327,6 @@ body.home-page {
     max-width: min(18em, 94vw);
     font-size: clamp(22px, 5.5vw, 34px);
     line-height: 1.12;
-  }
-
-  .top-hero-page .navbar {
-    margin-top: 14px;
-    padding: var(--hero-nav-padding-mobile);
-    border-radius: 16px;
-    background: rgba(53, 37, 29, 0.58);
   }
 
   .top-corner-logo {

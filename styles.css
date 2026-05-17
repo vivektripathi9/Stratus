@@ -593,16 +593,18 @@ body.home-page {
   background-color: #fff;
   padding:
     clamp(132px, 11vw, 172px)
-    clamp(16px, 4vw, 56px)
+    clamp(0px, 0.75vw, 8px)
     clamp(20px, 3vw, 40px);
   min-height: calc(min(74vh, 820px) + clamp(152px, 12vw, 212px));
-  overflow: hidden;
+  overflow: visible;
 }
 
 .home-page .home-banner-stage {
   position: relative;
   --home-banner-width: 900px;
   --home-banner-height: 438px;
+  --home-banner-gap: clamp(32px, 4vw, 56px);
+  --home-banner-logo-width: 118%;
   width: min(100%, var(--home-banner-width));
   margin: 0 auto;
 }
@@ -610,7 +612,7 @@ body.home-page {
 .home-page .home-banner-columns {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: var(--home-banner-gap);
   width: 100%;
   height: var(--home-banner-height);
   min-height: var(--home-banner-height);
@@ -651,24 +653,27 @@ body.home-page {
 
 .home-page .home-banner-logo {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
+  right: auto;
   bottom: 0;
   z-index: 2;
-  width: 100%;
+  width: var(--home-banner-logo-width, 118%);
+  max-width: none;
   height: auto;
   display: block;
   pointer-events: none;
   object-fit: contain;
   object-position: center bottom;
+  transform: translateX(-50%);
 }
 
 @media (max-width: 900px) {
   .home-page .home-banner-section {
     padding:
       clamp(108px, 18vw, 132px)
+      max(4px, env(safe-area-inset-right, 0px))
       16px
-      16px;
+      max(4px, env(safe-area-inset-left, 0px));
     min-height: calc(clamp(220px, 42vh, 360px) * 3 + clamp(124px, 20vw, 148px));
   }
 
@@ -676,9 +681,14 @@ body.home-page {
     width: min(100%, var(--home-banner-width, 900px));
   }
 
+  .home-page .home-banner-stage {
+    --home-banner-gap: 32px;
+    --home-banner-logo-width: 112%;
+  }
+
   .home-page .home-banner-columns {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: var(--home-banner-gap);
     height: auto;
     min-height: 0;
     max-height: none;
@@ -694,7 +704,7 @@ body.home-page {
 
   .home-page .home-banner-logo {
     bottom: 0;
-    width: 100%;
+    width: var(--home-banner-logo-width, 112%);
     margin-inline: auto;
   }
 }
@@ -865,7 +875,7 @@ body.home-page {
 .home-about-redesign {
   background: #ffffff;
   color: #4a3c31;
-  padding: clamp(56px, 8vw, 88px) clamp(24px, 5vw, 72px);
+  padding: clamp(56px, 8vw, 88px) clamp(8px, 1.25vw, 20px);
 }
 
 .home-about-redesign-inner {
@@ -876,7 +886,7 @@ body.home-page {
 .home-about-redesign-layout {
   display: grid;
   grid-template-columns: minmax(240px, 380px) minmax(240px, 440px);
-  gap: clamp(16px, 2.5vw, 28px);
+  gap: clamp(36px, 5vw, 60px);
   align-items: center;
   justify-content: center;
   justify-items: center;
@@ -8106,13 +8116,13 @@ body.home-page {
   }
 
   .home-about-redesign {
-    padding: 44px max(20px, env(safe-area-inset-left, 0px)) 34px
-      max(20px, env(safe-area-inset-right, 0px));
+    padding: 44px max(4px, env(safe-area-inset-left, 0px)) 34px
+      max(4px, env(safe-area-inset-right, 0px));
   }
 
   .home-about-redesign-layout {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 36px;
     width: 100%;
   }
 

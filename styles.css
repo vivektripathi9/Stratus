@@ -604,7 +604,7 @@ body.home-page {
   --home-banner-width: 900px;
   --home-banner-height: 438px;
   --home-banner-gap: clamp(32px, 4vw, 56px);
-  --home-banner-logo-width: 118%;
+  --home-banner-logo-width: 96%;
   width: min(100%, var(--home-banner-width));
   margin: 0 auto;
 }
@@ -657,7 +657,7 @@ body.home-page {
   right: auto;
   bottom: 0;
   z-index: 2;
-  width: var(--home-banner-logo-width, 118%);
+  width: var(--home-banner-logo-width, 96%);
   max-width: none;
   height: auto;
   display: block;
@@ -683,7 +683,7 @@ body.home-page {
 
   .home-page .home-banner-stage {
     --home-banner-gap: 32px;
-    --home-banner-logo-width: 112%;
+    --home-banner-logo-width: 90%;
   }
 
   .home-page .home-banner-columns {
@@ -704,7 +704,7 @@ body.home-page {
 
   .home-page .home-banner-logo {
     bottom: 0;
-    width: var(--home-banner-logo-width, 112%);
+    width: var(--home-banner-logo-width, 90%);
     margin-inline: auto;
   }
 }

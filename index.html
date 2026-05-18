@@ -9,9 +9,8 @@
     <title>Home | Stratus</title>
     <link
       rel="preload"
-      href="./photos/Mungo/Banner%20Video%20-%20Stratus.mp4"
-      as="video"
-      type="video/mp4"
+      href="./Gallary_image/banner/banner_container1.png"
+      as="image"
     />
     <link
       rel="preload"
@@ -95,6 +94,7 @@
             src="./Gallary_image/banner/image_container2.png"
             alt="Stratus architectural showcase — panel two"
             decoding="async"
+            fetchpriority="low"
           />
         </div>
         <div class="home-banner-panel home-banner-panel--cycle" data-home-banner-cycle>
@@ -124,6 +124,7 @@
         alt=""
         aria-hidden="true"
         decoding="async"
+        fetchpriority="low"
       />
       </div>
     </section>
@@ -135,6 +136,7 @@
         muted
         loop
         playsinline
+        preload="none"
         aria-hidden="true"
       >
         <source src="./photos/Mungo/Banner%20Video%20-%20Stratus.mp4" type="video/mp4" />
@@ -324,8 +326,7 @@
                 <img
                   src="./Public/about/our_ongoing.jpg"
                   alt="Coastal Retreat project preview"
-                  loading="eager"
-                  fetchpriority="high"
+                  loading="lazy"
                   decoding="async"
                 />
         </article>
@@ -341,7 +342,7 @@
                 <img
                   src="./Public/about/on_going.jpg"
                   alt="Chic Apartment project preview"
-                  loading="eager"
+                  loading="lazy"
             decoding="async"
           />
               </article>
@@ -357,7 +358,7 @@
                 <img
                   src="./Public/about/vk.png"
                   alt="Cafe Grey project preview"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </article>
@@ -373,7 +374,7 @@
                 <img
                   src="./Public/about/Avk.png"
                   alt="Dongle Desk project preview"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
         </article>
@@ -389,7 +390,7 @@
                 <img
                   src="./Public/about/Dongle.png"
                   alt="Mungo project preview"
-                  loading="eager"
+                  loading="lazy"
             decoding="async"
           />
               </article>

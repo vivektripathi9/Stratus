@@ -872,6 +872,16 @@ body.home-page {
   line-height: 0.82;
 }
 
+/* Home: faster first paint — below-fold sections defer layout until near the viewport */
+body.home-page .home-about-redesign,
+body.home-page .home-services-redesign,
+body.home-page .home-process-section,
+body.home-page .home-why-section,
+body.home-page .home-faq-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
+}
+
 .home-about-redesign {
   background: #ffffff;
   color: #4a3c31;

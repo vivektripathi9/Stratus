@@ -593,7 +593,7 @@ body.home-page {
   background-color: #fff;
   padding:
     clamp(132px, 11vw, 172px)
-    clamp(0px, 0.75vw, 8px)
+    0.5rem
     clamp(20px, 3vw, 40px);
   min-height: calc(min(74vh, 820px) + clamp(152px, 12vw, 212px));
   overflow: visible;
@@ -671,9 +671,9 @@ body.home-page {
   .home-page .home-banner-section {
     padding:
       clamp(108px, 18vw, 132px)
-      max(4px, env(safe-area-inset-right, 0px))
+      max(0.5rem, env(safe-area-inset-right, 0px))
       16px
-      max(4px, env(safe-area-inset-left, 0px));
+      max(0.5rem, env(safe-area-inset-left, 0px));
     min-height: calc(clamp(220px, 42vh, 360px) * 3 + clamp(124px, 20vw, 148px));
   }
 
@@ -875,7 +875,7 @@ body.home-page {
 .home-about-redesign {
   background: #ffffff;
   color: #4a3c31;
-  padding: clamp(56px, 8vw, 88px) clamp(8px, 1.25vw, 20px);
+  padding: clamp(56px, 8vw, 88px) 0.5rem;
 }
 
 .home-about-redesign-inner {
@@ -3104,14 +3104,7 @@ body.home-page {
   letter-spacing: 0.01em;
 }
 
-.arch-intero-page .arch-intero-projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(12px, 1.8vw, 18px);
-  align-items: stretch;
-}
-
-.arch-intero-page .arch-intero-projects-card {
+.arch-intero-page .arch-intero-projects-card:not(:has(.arch-intero-projects-card-top)) {
   position: relative;
   aspect-ratio: 1.28;
   min-height: 0;
@@ -3123,7 +3116,30 @@ body.home-page {
     box-shadow 0.28s ease;
 }
 
-.arch-intero-page .arch-intero-projects-card-hit {
+.arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-top) {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #1a1410;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.arch-intero-page .arch-intero-projects-card-top {
+  position: relative;
+  width: 100%;
+  flex: 0 0 auto;
+  aspect-ratio: 1.28;
+  min-height: 0;
+}
+
+.arch-intero-page .arch-intero-projects-card:not(:has(.arch-intero-projects-card-top)) .arch-intero-projects-card-hit {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -3133,18 +3149,154 @@ body.home-page {
   border-radius: inherit;
 }
 
-.arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-hit:focus-visible) {
-  outline: 2px solid #3e2e26;
-  outline-offset: 4px;
+.arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-top) .arch-intero-projects-card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: inherit;
 }
 
 .arch-intero-page .arch-intero-projects-card-hit:focus-visible {
   outline: none;
 }
 
-.arch-intero-page .arch-intero-projects-card:hover {
+.arch-intero-page .arch-intero-projects-card-toggle {
+  position: absolute;
+  right: clamp(8px, 1.4vw, 12px);
+  bottom: clamp(8px, 1.4vw, 12px);
+  z-index: 4;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(38px, 5vw, 44px);
+  height: clamp(38px, 5vw, 44px);
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(255, 252, 248, 0.92);
+  color: #3e2e26;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(12, 8, 6, 0.22);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.arch-intero-page .arch-intero-projects-card-toggle:hover {
+  background: #fff;
+  border-color: rgba(90, 70, 54, 0.35);
+}
+
+.arch-intero-page .arch-intero-projects-card-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.arch-intero-page .arch-intero-projects-card-toggle-chevron {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  transition: transform 0.25s ease;
+}
+
+.arch-intero-page .arch-intero-projects-card-toggle[aria-expanded="true"] .arch-intero-projects-card-toggle-chevron {
+  transform: rotate(225deg) translateY(1px);
+}
+
+.arch-intero-page .arch-intero-projects-card-panel {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: clamp(10px, 1.6vw, 14px) clamp(10px, 1.6vw, 14px) clamp(12px, 2vw, 16px);
+  background: #faf8f5;
+  border-top: 1px solid rgba(90, 70, 54, 0.14);
+}
+
+.arch-intero-page .arch-intero-projects-card-panel[hidden] {
+  display: none;
+}
+
+.arch-intero-page .arch-intero-projects-card-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.8vw, 16px);
+  width: 100%;
+  align-items: start;
+}
+
+.arch-intero-page .arch-intero-projects-card-panel-figure {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f2ede8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(6px, 1.2vw, 10px);
+  min-height: clamp(200px, 34vw, 400px);
+}
+
+.arch-intero-page .arch-intero-projects-card-panel-figure img {
+  width: 100%;
+  height: auto;
+  max-height: min(52vh, 520px);
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 520px) {
+  .arch-intero-page .arch-intero-projects-card-panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arch-intero-page .arch-intero-projects-card-panel-figure {
+    min-height: clamp(180px, 48vw, 320px);
+  }
+
+  .arch-intero-page .arch-intero-projects-card-panel-figure img {
+    max-height: min(60vh, 480px);
+  }
+}
+
+.arch-intero-page .arch-intero-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 18px);
+  /* Prevent short cards from stretching to a tall neighbor’s height (avoids empty dark band). */
+  align-items: start;
+}
+
+.arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-top):hover {
   transform: translateY(-3px);
   box-shadow: 0 18px 40px rgba(26, 18, 14, 0.18);
+}
+
+.arch-intero-page .arch-intero-projects-card:not(:has(.arch-intero-projects-card-top)):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(26, 18, 14, 0.18);
+}
+
+.arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-top):has(.arch-intero-projects-card-hit:focus-visible) {
+  outline: 2px solid #3e2e26;
+  outline-offset: 4px;
+}
+
+.arch-intero-page .arch-intero-projects-card:not(:has(.arch-intero-projects-card-top)):has(.arch-intero-projects-card-hit:focus-visible) {
+  outline: 2px solid #3e2e26;
+  outline-offset: 4px;
 }
 
 .arch-intero-page .arch-intero-projects-media {
@@ -3213,7 +3365,8 @@ body.home-page {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .arch-intero-page .arch-intero-projects-card:hover {
+  .arch-intero-page .arch-intero-projects-card:has(.arch-intero-projects-card-top):hover,
+  .arch-intero-page .arch-intero-projects-card:not(:has(.arch-intero-projects-card-top)):hover {
     transform: none;
   }
 }
@@ -3360,16 +3513,50 @@ body.home-page {
 }
 
 .project-page .project-portfolio-media {
+  position: relative;
   width: 100%;
   aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .project-page .project-portfolio-media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
   object-position: center;
+}
+
+.project-page .project-portfolio-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 8, 6, 0.12) 0%,
+    rgba(12, 8, 6, 0.35) 55%,
+    rgba(12, 8, 6, 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+.project-page .project-portfolio-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: 0;
+  padding: clamp(14px, 2.2vw, 20px) clamp(14px, 2vw, 18px);
+  font-family: system-ui, "Segoe UI", "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
 @media (max-width: 900px) {
@@ -6216,7 +6403,7 @@ body.home-page {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-content: stretch;
   align-items: stretch;
-  gap: 0;
+  gap: clamp(10px, 1.25vw, 16px);
   overflow: hidden;
 }
 
@@ -8116,8 +8303,8 @@ body.home-page {
   }
 
   .home-about-redesign {
-    padding: 44px max(4px, env(safe-area-inset-left, 0px)) 34px
-      max(4px, env(safe-area-inset-right, 0px));
+    padding: 44px max(0.5rem, env(safe-area-inset-left, 0px)) 34px
+      max(0.5rem, env(safe-area-inset-right, 0px));
   }
 
   .home-about-redesign-layout {

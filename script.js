@@ -1118,3 +1118,28 @@ if (latestRoot) {
     }, FLOORPLAN_INTERVAL_MS);
   });
 })();
+
+(function initArchInteroProjectCardToggles() {
+  document.querySelectorAll(".arch-intero-projects-card-toggle").forEach((btn) => {
+    if (btn.dataset.archInteroToggleBound === "1") return;
+    btn.dataset.archInteroToggleBound = "1";
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const card = btn.closest(".arch-intero-projects-card");
+      const panel = card?.querySelector(".arch-intero-projects-card-panel");
+      if (!panel) return;
+
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      if (!expanded) {
+        panel.querySelectorAll("img").forEach((img) => {
+          img.loading = "eager";
+        });
+      }
+      btn.setAttribute("aria-expanded", String(!expanded));
+      panel.hidden = expanded;
+    });
+  });
+})();

@@ -592,19 +592,19 @@ body.home-page {
   align-items: center;
   background-color: #fff;
   padding:
-    clamp(132px, 11vw, 172px)
+    clamp(112px, 9.5vw, 148px)
     0.5rem
-    clamp(20px, 3vw, 40px);
+    clamp(16px, 2.5vw, 32px);
   min-height: calc(min(74vh, 820px) + clamp(152px, 12vw, 212px));
   overflow: visible;
 }
 
 .home-page .home-banner-stage {
   position: relative;
-  --home-banner-width: 900px;
-  --home-banner-height: 438px;
-  --home-banner-gap: clamp(32px, 4vw, 56px);
-  --home-banner-logo-width: 96%;
+  --home-banner-width: 980px;
+  --home-banner-height: 477px;
+  --home-banner-gap: clamp(40px, 5vw, 68px);
+  --home-banner-logo-width: 118%;
   width: min(100%, var(--home-banner-width));
   margin: 0 auto;
 }
@@ -640,6 +640,22 @@ body.home-page {
   filter: grayscale(100%) contrast(1.08);
 }
 
+.home-page .home-banner-panel--center img.home-banner-center-com {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(6px, 2vw, 14px);
+  transform: translateX(-50%);
+  width: auto;
+  max-width: min(98%, 420px);
+  height: auto;
+  max-height: min(42%, 120px);
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 2;
+  pointer-events: none;
+  filter: none;
+}
+
 .home-page .home-banner-panel--cycle img {
   position: absolute;
   inset: 0;
@@ -655,7 +671,7 @@ body.home-page {
   position: absolute;
   left: 50%;
   right: auto;
-  bottom: 0;
+  bottom: clamp(44px, 7.5vw, 88px);
   z-index: 2;
   width: var(--home-banner-logo-width, 96%);
   max-width: none;
@@ -670,20 +686,20 @@ body.home-page {
 @media (max-width: 900px) {
   .home-page .home-banner-section {
     padding:
-      clamp(108px, 18vw, 132px)
+      clamp(96px, 16vw, 116px)
       max(0.5rem, env(safe-area-inset-right, 0px))
-      16px
+      12px
       max(0.5rem, env(safe-area-inset-left, 0px));
     min-height: calc(clamp(220px, 42vh, 360px) * 3 + clamp(124px, 20vw, 148px));
   }
 
   .home-page .home-banner-stage {
-    width: min(100%, var(--home-banner-width, 900px));
+    width: min(100%, var(--home-banner-width, 980px));
   }
 
   .home-page .home-banner-stage {
-    --home-banner-gap: 32px;
-    --home-banner-logo-width: 90%;
+    --home-banner-gap: 40px;
+    --home-banner-logo-width: 104%;
   }
 
   .home-page .home-banner-columns {
@@ -699,11 +715,10 @@ body.home-page {
     height: auto;
     min-height: 0;
     max-height: none;
-    aspect-ratio: 900 / 438;
+    aspect-ratio: 980 / 477;
   }
 
   .home-page .home-banner-logo {
-    bottom: 0;
     width: var(--home-banner-logo-width, 90%);
     margin-inline: auto;
   }
@@ -885,7 +900,7 @@ body.home-page .home-faq-section {
 .home-about-redesign {
   background: #ffffff;
   color: #4a3c31;
-  padding: clamp(56px, 8vw, 88px) 0.5rem;
+  padding: clamp(44px, 6.5vw, 72px) 0.5rem;
 }
 
 .home-about-redesign-inner {
@@ -978,7 +993,7 @@ body.home-page .home-faq-section {
 .home-services-redesign {
   background: #ffffff;
   color: #4a3c31;
-  padding: 80px clamp(28px, 5vw, 72px) 80px;
+  padding: 64px clamp(28px, 5vw, 72px) 64px;
 }
 
 .home-services-redesign-inner {
@@ -1273,7 +1288,7 @@ body.home-page .home-faq-section {
 .home-why-section {
   background: #ffffff;
   color: #4a3c31;
-  padding: 54px clamp(34px, 4.8vw, 86px) 58px;
+  padding: 44px clamp(34px, 4.8vw, 86px) 48px;
 }
 
 .home-why-inner {
@@ -1649,7 +1664,7 @@ body.home-page .home-faq-section {
 
 .home-faq-section {
   background: #ffffff;
-  padding: 62px clamp(28px, 4vw, 64px);
+  padding: 50px clamp(28px, 4vw, 64px);
 }
 
 .home-faq-inner {
@@ -1967,10 +1982,32 @@ body.home-page .home-faq-section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  overflow: hidden;
+  background-color: #1a1512;
+}
+
+.contact-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-hero-video {
+    display: none;
+  }
+
+  .contact-hero {
+    background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
 
 .contact-hero-content {
@@ -4403,6 +4440,75 @@ body.home-page .home-faq-section {
   margin: 0 auto;
   padding-left: clamp(24px, 4vw, 48px);
   padding-right: clamp(24px, 4vw, 48px);
+}
+
+.contact-page .brand-story-section {
+  display: grid;
+  grid-template-columns: minmax(160px, 240px) minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 72px);
+  align-items: start;
+  max-width: 1140px;
+  width: 100%;
+  margin-inline: auto;
+  padding: 56px 24px 72px;
+  box-sizing: border-box;
+  background-color: var(--primary-light);
+  background-image: var(--paper-theme);
+  background-size: 4px 4px, 8px 8px, 100% 100%;
+  background-blend-mode: multiply, soft-light, normal;
+  color: var(--text-muted);
+}
+
+.contact-page .brand-story-section .brand-story-header {
+  margin: 0;
+  max-width: none;
+  width: auto;
+  text-align: left;
+}
+
+.contact-page .brand-story-section .brand-story-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 0;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--accent-brown);
+  background: transparent;
+}
+
+.contact-page .brand-story-section .brand-story-header h2 {
+  text-align: left;
+  margin: 0;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.contact-page .brand-story-contact-prose {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  text-align: left;
+}
+
+.contact-page .brand-story-contact-prose p {
+  margin: 0 0 1.25em;
+  font-family: var(--body-font);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+.contact-page .brand-story-contact-prose p:last-child {
+  margin-bottom: 0;
 }
 
 .founder-note-section {
@@ -8145,6 +8251,18 @@ body.home-page .home-faq-section {
     padding-right: max(20px, env(safe-area-inset-right, 0px));
   }
 
+  .contact-page .brand-story-section {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  .contact-page .brand-story-section .brand-story-header,
+  .contact-page .brand-story-section .brand-story-header h2 {
+    text-align: center;
+  }
+
   .brand-story-header h2 {
     font-size: clamp(30px, 7.5vw, 44px);
     line-height: 1.05;
@@ -8313,7 +8431,7 @@ body.home-page .home-faq-section {
   }
 
   .home-about-redesign {
-    padding: 44px max(0.5rem, env(safe-area-inset-left, 0px)) 34px
+    padding: 36px max(0.5rem, env(safe-area-inset-left, 0px)) 28px
       max(0.5rem, env(safe-area-inset-right, 0px));
   }
 
@@ -8344,7 +8462,7 @@ body.home-page .home-faq-section {
   }
 
   .home-services-redesign {
-    padding: 48px max(20px, env(safe-area-inset-left, 0px)) 52px
+    padding: 40px max(20px, env(safe-area-inset-left, 0px)) 44px
       max(20px, env(safe-area-inset-right, 0px));
   }
 
@@ -8433,7 +8551,7 @@ body.home-page .home-faq-section {
   }
 
   .home-why-section {
-    padding: 38px max(22px, env(safe-area-inset-left, 0px)) 42px
+    padding: 32px max(22px, env(safe-area-inset-left, 0px)) 36px
       max(22px, env(safe-area-inset-right, 0px));
   }
 
@@ -8498,7 +8616,7 @@ body.home-page .home-faq-section {
   }
 
   .home-faq-section {
-    padding: 42px max(20px, env(safe-area-inset-left, 0px)) 44px
+    padding: 34px max(20px, env(safe-area-inset-left, 0px)) 36px
       max(20px, env(safe-area-inset-right, 0px));
   }
 

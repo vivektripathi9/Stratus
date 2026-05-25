@@ -1986,7 +1986,9 @@ body.home-page .home-faq-section {
   background-color: #1a1512;
 }
 
-.contact-hero-video {
+.contact-hero-video,
+.contact-hero-image,
+.page-hero-video {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -1998,11 +2000,12 @@ body.home-page .home-faq-section {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-hero-video {
+  .contact-hero-video,
+  .page-hero-video {
     display: none;
   }
 
-  .contact-hero {
+  .architecture-hero--project {
     background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
     background-position: center;
     background-size: cover;
@@ -2281,7 +2284,8 @@ body.home-page .home-faq-section {
 }
 
 .architecture-hero--project {
-  background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
+  background-color: #1a1512;
+  background-image: none;
   background-position: center;
 }
 
@@ -6436,6 +6440,8 @@ body.home-page .home-faq-section {
 }
 
 .gallary-section {
+  /* Horizontal space between gallery tiles (within strip + between infinite-scroll segments) */
+  --gallary-strip-gap: clamp(12px, 1.5vw, 22px);
   background: var(--primary-light);
   padding: 42px 0 clamp(56px, 6vw, 88px);
   max-width: 100%;
@@ -6519,7 +6525,7 @@ body.home-page .home-faq-section {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-content: stretch;
   align-items: stretch;
-  gap: clamp(10px, 1.25vw, 16px);
+  gap: var(--gallary-strip-gap, clamp(12px, 1.5vw, 22px));
   overflow: hidden;
 }
 
@@ -6538,6 +6544,8 @@ body.home-page .home-faq-section {
   flex-direction: row;
   width: max-content;
   align-items: stretch;
+  /* Without this, the last tile of a cloned strip touches the first tile of the next strip */
+  gap: var(--gallary-strip-gap, clamp(12px, 1.5vw, 22px));
 }
 
 /* Same per-tile width as the non-infinite strip (~¼ viewport); do not oversize cells */
@@ -6549,6 +6557,7 @@ body.home-page .home-faq-section {
   grid-auto-columns: minmax(max(220px, 25.5vw), 25.5vw);
   max-width: none;
   overflow: visible;
+  gap: var(--gallary-strip-gap, clamp(12px, 1.5vw, 22px));
 }
 
 .gallary-scroll-viewport--infinite .gallary-card {

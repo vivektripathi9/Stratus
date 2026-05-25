@@ -149,22 +149,31 @@ projectTabs.forEach((tab) => {
 
     vp.dataset.gallaryInfiniteDone = "1";
 
-    function segmentWidth() {
-      return grid.offsetWidth;
+    /** Flex `gap` between cloned strip and the next (CSS does not add space across sibling grids). */
+    function flexGapBetweenStrips() {
+      const cs = getComputedStyle(track);
+      const raw = cs.columnGap || cs.gap;
+      const n = parseFloat(raw);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    /** One full horizontal repeat unit: strip width + flex gap after it. */
+    function segmentStep() {
+      return grid.offsetWidth + flexGapBetweenStrips();
     }
 
     function normalize() {
-      const S = segmentWidth();
-      if (S < 8) return;
+      const step = segmentStep();
+      if (grid.offsetWidth < 8) return;
       if (vp._gallaryNormalizing) return;
 
-      const prevS = Number(vp._gallaryPrevS) || 0;
-      if (prevS > 8 && Math.abs(S - prevS) > 5) {
+      const prevStep = Number(vp._gallaryPrevS) || 0;
+      if (prevStep > 8 && Math.abs(step - prevStep) > 5) {
         vp._gallaryNormalizing = true;
         vp.style.scrollBehavior = "auto";
         const le = vp.scrollLeft;
-        vp.scrollLeft = (le / prevS) * S;
-        vp._gallaryPrevS = String(S);
+        vp.scrollLeft = (le / prevStep) * step;
+        vp._gallaryPrevS = String(step);
         requestAnimationFrame(() => {
           vp._gallaryNormalizing = false;
           vp.style.scrollBehavior = "";
@@ -173,35 +182,35 @@ projectTabs.forEach((tab) => {
       }
 
       const le = vp.scrollLeft;
-      if (le < S - 8) {
+      if (le < step - 8) {
         vp._gallaryNormalizing = true;
         vp.style.scrollBehavior = "auto";
-        vp.scrollLeft = le + S;
-        vp._gallaryPrevS = String(S);
+        vp.scrollLeft = le + step;
+        vp._gallaryPrevS = String(step);
         requestAnimationFrame(() => {
           vp._gallaryNormalizing = false;
           vp.style.scrollBehavior = "";
         });
-      } else if (le > 2 * S - vp.clientWidth + 8) {
+      } else if (le > 2 * step - vp.clientWidth + 8) {
         vp._gallaryNormalizing = true;
         vp.style.scrollBehavior = "auto";
-        vp.scrollLeft = le - S;
-        vp._gallaryPrevS = String(S);
+        vp.scrollLeft = le - step;
+        vp._gallaryPrevS = String(step);
         requestAnimationFrame(() => {
           vp._gallaryNormalizing = false;
           vp.style.scrollBehavior = "";
         });
       } else {
-        vp._gallaryPrevS = String(S);
+        vp._gallaryPrevS = String(step);
       }
     }
 
     function initScrollPos() {
-      const S = segmentWidth();
-      if (S < 8) return;
+      const step = segmentStep();
+      if (grid.offsetWidth < 8) return;
       vp.style.scrollBehavior = "auto";
-      vp.scrollLeft = S;
-      vp._gallaryPrevS = String(S);
+      vp.scrollLeft = step;
+      vp._gallaryPrevS = String(step);
       requestAnimationFrame(() => {
         vp.style.scrollBehavior = "";
       });

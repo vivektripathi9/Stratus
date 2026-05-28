@@ -965,8 +965,8 @@ if (latestRoot) {
 (function initWhatsAppFloat() {
   if (document.querySelector(".stratus-whatsapp-float")) return;
 
-  /* Match primary studio line on contact.html (+91 90350 44622) — digits only for wa.me */
-  const phone = "919035044622";
+  /* +91 48773284 — digits only for wa.me */
+  const phone = "9148773284";
   const preset = encodeURIComponent("Hello, I'd like to connect with Stratus.");
   const href = `https://wa.me/${phone}?text=${preset}`;
 

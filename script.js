@@ -130,6 +130,110 @@ projectTabs.forEach((tab) => {
   const viewports = document.querySelectorAll(".gallary-scroll-viewport--infinite");
   if (!viewports.length) return;
 
+  const reduceMotionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function startGallaryAutoplay(vp) {
+    if (reduceMotionMq.matches) return;
+
+    const speedPxPerSec = 48;
+    let paused = false;
+    let pauseUntil = 0;
+    let lastTs = 0;
+    let rafId = null;
+
+    const pause = (ms = 2800) => {
+      pauseUntil = performance.now() + ms;
+    };
+
+    vp.classList.add("is-gallary-autoplay");
+
+    vp.addEventListener("mouseenter", () => {
+      paused = true;
+    });
+    vp.addEventListener("mouseleave", () => {
+      paused = false;
+      lastTs = 0;
+    });
+    vp.addEventListener(
+      "focusin",
+      () => {
+        paused = true;
+      },
+      true
+    );
+    vp.addEventListener(
+      "focusout",
+      (e) => {
+        if (!vp.contains(e.relatedTarget)) {
+          paused = false;
+          lastTs = 0;
+        }
+      },
+      true
+    );
+    vp.addEventListener(
+      "touchstart",
+      () => {
+        paused = true;
+      },
+      { passive: true }
+    );
+    vp.addEventListener(
+      "touchend",
+      () => {
+        paused = false;
+        pause(1500);
+        lastTs = 0;
+      },
+      { passive: true }
+    );
+    vp.addEventListener(
+      "wheel",
+      () => {
+        pause(3200);
+      },
+      { passive: true }
+    );
+
+    function stopAutoplay() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      vp.classList.remove("is-gallary-autoplay");
+    }
+
+    function tick(ts) {
+      if (!lastTs) lastTs = ts;
+      const dt = Math.min(64, ts - lastTs) / 1000;
+      lastTs = ts;
+
+      if (!reduceMotionMq.matches && !paused && ts >= pauseUntil && !document.hidden) {
+        vp.scrollLeft += speedPxPerSec * dt;
+        if (typeof vp._gallaryNormalize === "function") {
+          vp._gallaryNormalize();
+        }
+      }
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    if (typeof reduceMotionMq.addEventListener === "function") {
+      reduceMotionMq.addEventListener("change", () => {
+        if (reduceMotionMq.matches) stopAutoplay();
+        else if (!rafId) {
+          lastTs = 0;
+          rafId = requestAnimationFrame(tick);
+          vp.classList.add("is-gallary-autoplay");
+        }
+      });
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) lastTs = 0;
+    });
+
+    rafId = requestAnimationFrame(tick);
+  }
+
   viewports.forEach((vp) => {
     if (vp.dataset.gallaryInfiniteDone) return;
     const grid = vp.querySelector(":scope > .gallary-grid");
@@ -249,7 +353,10 @@ projectTabs.forEach((tab) => {
     window.addEventListener("resize", onWindowResize, { passive: true });
     window.addEventListener("load", initScrollPos, { once: true });
     requestAnimationFrame(() => {
-      requestAnimationFrame(initScrollPos);
+      requestAnimationFrame(() => {
+        initScrollPos();
+        startGallaryAutoplay(vp);
+      });
     });
   });
 })();

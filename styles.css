@@ -6544,6 +6544,23 @@ body.home-page .home-faq-section {
   scrollbar-color: rgba(90, 70, 54, 0.35) transparent;
 }
 
+/* Continuous autoplay uses scrollLeft steps — avoid smooth-scroll lag */
+.gallary-scroll-viewport--infinite {
+  scroll-behavior: auto;
+}
+
+.gallary-scroll-viewport--infinite.is-gallary-autoplay {
+  cursor: default;
+}
+
+.gallary-scroll-viewport--infinite.is-gallary-autoplay:hover {
+  cursor: grab;
+}
+
+.gallary-scroll-viewport--infinite.is-gallary-autoplay:active {
+  cursor: grabbing;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .gallary-scroll-viewport {
     scroll-behavior: auto;

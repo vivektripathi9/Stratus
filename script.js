@@ -1244,18 +1244,34 @@ if (latestRoot) {
       e.preventDefault();
       e.stopPropagation();
 
-      const card = btn.closest(".arch-intero-projects-card");
-      const panel = card?.querySelector(".arch-intero-projects-card-panel");
+      const panelId = btn.getAttribute("aria-controls");
+      const panel =
+        (panelId && document.getElementById(panelId)) ||
+        btn.closest(
+          ".arch-intero-projects-card, .de-atelier-gargi-portfolio__card, .project-portfolio-card"
+        )?.querySelector(".arch-intero-projects-card-panel");
       if (!panel) return;
 
       const expanded = btn.getAttribute("aria-expanded") === "true";
-      if (!expanded) {
+      const willExpand = !expanded;
+
+      if (willExpand) {
+        panel.removeAttribute("hidden");
+        btn.setAttribute("aria-expanded", "true");
         panel.querySelectorAll("img").forEach((img) => {
           img.loading = "eager";
+          const src = img.getAttribute("src");
+          if (src && !img.complete) {
+            img.src = src;
+          }
+          if (typeof img.decode === "function") {
+            img.decode().catch(() => {});
+          }
         });
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.setAttribute("aria-expanded", "false");
       }
-      btn.setAttribute("aria-expanded", String(!expanded));
-      panel.hidden = expanded;
     });
   });
 })();

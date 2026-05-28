@@ -1520,14 +1520,32 @@ if (latestRoot) {
     }
   }
 
+  function applyLazyToImage(img) {
+    if (!img || img.tagName !== "IMG") return;
+    if (img.hasAttribute("loading")) return;
+    if (img.getAttribute("fetchpriority") === "high") return;
+    if (img.classList.contains("top-corner-logo-img") || img.classList.contains("brand-logo")) return;
+    if (img.closest("header, .hero, .architecture-hero, .page-hero, .about-hero, .services-hero")) return;
+    img.loading = "lazy";
+    if (!img.hasAttribute("decoding")) img.decoding = "async";
+  }
+
   function initGlobalImageLazy() {
-    document.querySelectorAll("img").forEach((img) => {
-      if (img.hasAttribute("loading")) return;
-      if (img.getAttribute("fetchpriority") === "high") return;
-      if (img.closest("header, .hero, .architecture-hero, .page-hero, .home-hero-video")) return;
-      img.loading = "lazy";
-      if (!img.hasAttribute("decoding")) img.decoding = "async";
+    document.querySelectorAll("img").forEach(applyLazyToImage);
+  }
+
+  function observeLazyImages() {
+    if (!("MutationObserver" in window)) return;
+    const mo = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          if (node.tagName === "IMG") applyLazyToImage(node);
+          node.querySelectorAll?.("img").forEach(applyLazyToImage);
+        });
+      });
     });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
   }
 
   function initLazyHeroVideos() {
@@ -1594,5 +1612,7 @@ if (latestRoot) {
 
   initLazyHeroVideos();
   initInternalLinkPrefetch();
+  initGlobalImageLazy();
+  observeLazyImages();
   runWhenIdle(initGlobalImageLazy);
 })();

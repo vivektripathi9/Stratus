@@ -695,39 +695,68 @@ body.home-page {
     padding:
       clamp(96px, 16vw, 116px)
       max(0.5rem, env(safe-area-inset-right, 0px))
-      12px
+      clamp(10px, 2.5vw, 16px)
       max(0.5rem, env(safe-area-inset-left, 0px));
-    min-height: calc(clamp(220px, 42vh, 360px) * 3 + clamp(124px, 20vw, 148px));
+    min-height: calc(clamp(180px, 34vw, 290px) + clamp(108px, 16vw, 130px));
   }
 
   .home-page .home-banner-stage {
-    width: min(100%, var(--home-banner-width, 980px));
-  }
-
-  .home-page .home-banner-stage {
-    --home-banner-gap: 40px;
-    --home-banner-logo-width: 104%;
+    --home-banner-width: min(100%, 760px);
+    --home-banner-height: clamp(154px, 39vw, 272px);
+    --home-banner-gap: clamp(8px, 2.3vw, 14px);
+    --home-banner-logo-width: clamp(280px, 78vw, 610px);
+    width: var(--home-banner-width);
+    margin-top: clamp(8px, 2.2vw, 14px);
   }
 
   .home-page .home-banner-columns {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--home-banner-gap);
-    height: auto;
-    min-height: 0;
-    max-height: none;
+    width: 100%;
+    height: var(--home-banner-height);
+    min-height: var(--home-banner-height);
+    max-height: var(--home-banner-height);
   }
 
   .home-page .home-banner-panel {
-    width: 100%;
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    aspect-ratio: 980 / 477;
+    height: var(--home-banner-height);
+    min-height: var(--home-banner-height);
+    max-height: var(--home-banner-height);
+  }
+
+  .home-page .home-banner-panel--cycle img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+
+  .home-page .home-banner-panel--cycle img.is-active {
+    opacity: 1;
+  }
+
+  .home-page .home-banner-panel--center img.home-banner-center-com {
+    display: block;
+    bottom: clamp(4px, 1.2vw, 10px);
+    max-width: min(92%, 150px);
+    max-height: min(42%, 56px);
   }
 
   .home-page .home-banner-logo {
-    width: var(--home-banner-logo-width, 90%);
+    position: absolute;
+    left: 50%;
+    right: auto;
+    bottom: clamp(8px, 2.2vw, 16px);
+    z-index: 2;
+    width: var(--home-banner-logo-width, 92%);
+    max-width: none;
+    height: auto;
     margin-inline: auto;
+    pointer-events: none;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: translateX(-50%);
   }
 }
 

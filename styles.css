@@ -8894,7 +8894,7 @@ body.portfolio-panel-lightbox-open {
   }
 
   .home-page .hero {
-    min-height: min(94dvh, 820px);
+    min-height: min(68dvh, 560px);
     padding: 0 max(16px, env(safe-area-inset-left, 0px)) 0
       max(16px, env(safe-area-inset-right, 0px));
     overflow: hidden;

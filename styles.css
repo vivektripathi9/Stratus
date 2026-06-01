@@ -747,7 +747,7 @@ body.home-page {
     position: absolute;
     left: 50%;
     right: auto;
-    bottom: clamp(18px, 4vw, 30px);
+    bottom: clamp(26px, 5.5vw, 42px);
     z-index: 2;
     width: var(--home-banner-logo-width, 92%);
     max-width: none;

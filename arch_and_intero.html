@@ -66,7 +66,7 @@
         <div class="nav-right" id="site-navigation">
           <ul class="nav-links">
             <li><a href="./de-atelier.html">De Atelier</a></li>
-            <li><a href="./arch_and_intero.html" aria-current="page">Arch &amp; Int</a></li>
+            <li><a href="./arch_and_intero.html" aria-current="page">Architecture and Interior</a></li>
             <li><a href="./project.html">Projects</a></li>
           </ul>
           <a href="./contact.html" class="hero-contact-btn"
@@ -88,14 +88,14 @@
           interior design together as one continuous discipline. Structure, light, material, and
           atmosphere are resolved in balance so every space feels grounded, functional, and complete.
         </p>
-        <div class="architecture-intro-media">
-          <img
-            src="./Gallary_image/contianer/01.png"
-            alt="Junglee cafe interior section drawing with seating, menu board, and planting"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+      </div>
+      <div class="architecture-intro-media">
+        <img
+          src="./Gallary_image/contianer/01.png"
+          alt="Junglee cafe interior section drawing with seating, menu board, and planting"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </section>
 
@@ -132,13 +132,31 @@
       </div>
     </section>
 
-    <section class="arch-intero-projects-section" aria-labelledby="arch-intero-projects-heading">
+    <section
+      class="arch-intero-projects-section"
+      id="arch-intero-page-projects"
+      aria-labelledby="arch-intero-projects-heading"
+    >
       <div class="arch-intero-projects-inner">
         <h2 id="arch-intero-projects-heading" class="arch-intero-projects-title">Projects</h2>
         <div class="arch-intero-projects-grid">
-          <article class="arch-intero-projects-card">
+          <article
+            class="arch-intero-projects-card"
+            data-arch-drawer-title="Evara @ 7th Main"
+            data-arch-drawer-year="2026"
+            data-arch-drawer-location="Indiranagar, Bengaluru, IN"
+            data-arch-drawer-tags="Residential|Architecture|Interiors|Contemporary Modern"
+            data-arch-drawer-desc="Where Contemporary Design Feels Like Home|||Located in the vibrant neighbourhood of Indiranagar, Evara @ 7th Main is a contemporary apartment designed to offer the perfect balance of elegance, functionality, and everyday comfort. Every space has been thoughtfully planned to maximize natural light, optimize functionality, and create a seamless flow between living areas.|||The design embraces clean lines, premium materials, and a refined aesthetic that reflects modern urban living. Carefully curated interiors, smart space planning, and timeless finishes come together to create a home that is both sophisticated and inviting.|||Evara @ 7th Main is a reflection of Stratus' commitment to designing homes that enhance the way people live—where thoughtful architecture meets everyday practicality.|||Key Features: Elegant contemporary interiors; intelligent space planning; bright, naturally lit living spaces; premium material finishes; functional and family-friendly layout; minimalist design language; comfortable and timeless living spaces."
+            data-arch-drawer-link="./direct_project.html"
+          >
             <div class="arch-intero-projects-card-top">
-              <a class="arch-intero-projects-card-hit" href="./direct_project.html">
+              <button
+                type="button"
+                class="arch-intero-projects-card-hit"
+                aria-haspopup="dialog"
+                aria-controls="arch-intero-project-drawer"
+                aria-label="Open project details for Evara Indiranagar"
+              >
                 <div class="arch-intero-projects-media">
                   <img
                     src="./Gallary_image/contianer/Evara_Cover%20Pic.png"
@@ -152,23 +170,13 @@
                     On Going
                   </p>
                 </div>
-              </a>
-              <button
-                type="button"
-                class="arch-intero-projects-card-toggle"
-                id="arch-intero-toggle-evara"
-                aria-expanded="false"
-                aria-controls="arch-intero-panel-evara"
-                aria-label="Show or hide plan drawings for Evara"
-              >
-                <span class="arch-intero-projects-card-toggle-chevron" aria-hidden="true"></span>
               </button>
             </div>
             <div
               id="arch-intero-panel-evara"
               class="arch-intero-projects-card-panel"
               role="region"
-              aria-labelledby="arch-intero-toggle-evara"
+              aria-label="Evara project plans and views"
               hidden
             >
               <div class="arch-intero-projects-card-panel-grid">
@@ -207,9 +215,23 @@
               </div>
             </div>
           </article>
-          <article class="arch-intero-projects-card">
+          <article
+            class="arch-intero-projects-card"
+            data-arch-drawer-title="Avena Residence, Devanahalli"
+            data-arch-drawer-year="2026"
+            data-arch-drawer-location="Devanahalli, Bengaluru, IN"
+            data-arch-drawer-tags="Residential|Architecture|Interiors|Contemporary Minimalist"
+            data-arch-drawer-desc="A Home Crafted for Modern Living|||Avena Residence is a thoughtfully designed home in Devanahalli that embodies contemporary architecture, functional planning, and timeless elegance. Every space has been carefully curated to create a seamless balance between aesthetics, comfort, and everyday practicality.|||Designed to maximize natural light and ventilation, the residence features clean architectural lines, refined material finishes, and thoughtfully planned living spaces that foster warmth and togetherness. The interiors reflect a minimalist design philosophy while offering a sophisticated and welcoming atmosphere for modern family living.|||Every detail of Avena Residence is a testament to Stratus' commitment to creating homes that are not only visually striking but also deeply connected to the lifestyle of their occupants.|||Key Features: Elegant contemporary architecture; optimized space planning; abundant natural light and ventilation; warm, refined interiors; premium material palette; functional family-centric design; seamless indoor-outdoor connection."
+            data-arch-drawer-link="./direct_project.html"
+          >
             <div class="arch-intero-projects-card-top">
-              <a class="arch-intero-projects-card-hit" href="./direct_project.html">
+              <button
+                type="button"
+                class="arch-intero-projects-card-hit"
+                aria-haspopup="dialog"
+                aria-controls="arch-intero-project-drawer"
+                aria-label="Open project details for Avena Devanahalli"
+              >
                 <div class="arch-intero-projects-media">
                   <img
                     src="./Few_new_images/AVena/container_image.png"
@@ -223,23 +245,13 @@
                     On Going
                   </p>
                 </div>
-              </a>
-              <button
-                type="button"
-                class="arch-intero-projects-card-toggle"
-                id="arch-intero-toggle-avena"
-                aria-expanded="false"
-                aria-controls="arch-intero-panel-avena"
-                aria-label="Show or hide plan drawings for Avena"
-              >
-                <span class="arch-intero-projects-card-toggle-chevron" aria-hidden="true"></span>
               </button>
             </div>
             <div
               id="arch-intero-panel-avena"
               class="arch-intero-projects-card-panel"
               role="region"
-              aria-labelledby="arch-intero-toggle-avena"
+              aria-label="Avena project plans and views"
               hidden
             >
               <div class="arch-intero-projects-card-panel-grid">
@@ -278,12 +290,26 @@
               </div>
             </div>
           </article>
-          <article class="arch-intero-projects-card">
+          <article
+            class="arch-intero-projects-card"
+            data-arch-drawer-title="Aarogya Clinic, Shivaji Nagar"
+            data-arch-drawer-year="2026"
+            data-arch-drawer-location="Shivaji Nagar, Bengaluru, IN"
+            data-arch-drawer-tags="Healthcare|Interiors|Commercial|Contemporary"
+            data-arch-drawer-desc="Designed for Comfort. Built for Care.|||Aarogya Clinic is a modern healthcare facility in Shivaji Nagar, thoughtfully designed to create a welcoming and reassuring environment for patients. The interiors blend functionality with calming aesthetics, ensuring every space supports comfort, privacy, and efficient medical care.|||The clinic features a clean, contemporary design with soothing colour palettes, optimized layouts, and well-planned consultation and treatment areas. Every element has been carefully curated to promote a seamless patient journey while enabling healthcare professionals to deliver the highest standard of care.|||At Aarogya Clinic, design goes beyond aesthetics—it enhances the overall healthcare experience by fostering trust, wellbeing, and ease.|||Key Features: Patient-centric space planning; calm and welcoming interiors; efficient consultation and treatment zones; hygienic, easy-to-maintain finishes; modern lighting solutions; comfortable waiting areas; functional and ergonomic design."
+            data-arch-drawer-link="./direct_project.html"
+          >
             <div class="arch-intero-projects-card-top">
-              <a class="arch-intero-projects-card-hit" href="./direct_project.html">
+              <button
+                type="button"
+                class="arch-intero-projects-card-hit"
+                aria-haspopup="dialog"
+                aria-controls="arch-intero-project-drawer"
+                aria-label="Open project details for Arogyaa Clinic"
+              >
                 <div class="arch-intero-projects-media">
                   <img
-                    src="./Few_new_images/Arogya_clinic/container_image.png"
+                    src="./The_process/00%20%281%29%28%29.png"
                     alt="Arogyaa Clinic reception interior in Shivaji Nagar"
                     loading="lazy"
                     decoding="async"
@@ -295,29 +321,19 @@
                     Completed
                   </p>
                 </div>
-              </a>
-              <button
-                type="button"
-                class="arch-intero-projects-card-toggle"
-                id="arch-intero-toggle-clinic"
-                aria-expanded="false"
-                aria-controls="arch-intero-panel-clinic"
-                aria-label="Show or hide plan drawings for Arogyaa Clinic"
-              >
-                <span class="arch-intero-projects-card-toggle-chevron" aria-hidden="true"></span>
               </button>
             </div>
             <div
               id="arch-intero-panel-clinic"
               class="arch-intero-projects-card-panel"
               role="region"
-              aria-labelledby="arch-intero-toggle-clinic"
+              aria-label="Arogyaa Clinic project plans and views"
               hidden
             >
               <div class="arch-intero-projects-card-panel-grid">
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./Avena/Screenshot%202026-05-27%20172835.png"
+                    src="./The_process/00%20%281%29%28%29.png"
                     alt="Arogyaa Homeopathic Clinic — reception and waiting area"
                     loading="lazy"
                     decoding="async"
@@ -325,24 +341,16 @@
                 </figure>
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./Avena/Screenshot%202026-05-27%20172945.png"
+                    src="./The_process/02%28%29.png"
+                    alt="Arogyaa Homeopathic Clinic — consultation room interior"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <figure class="arch-intero-projects-card-panel-figure">
+                  <img
+                    src="./The_process/03%28%29.png"
                     alt="Arogyaa Homeopathic Clinic — exterior entrance and signage"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
-                <figure class="arch-intero-projects-card-panel-figure">
-                  <img
-                    src="./Few_new_images/Arogya_clinic/Screenshot%202026-06-03%20114306.png"
-                    alt="Arogyaa Homeopathic Clinic — additional interior view"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
-                <figure class="arch-intero-projects-card-panel-figure">
-                  <img
-                    src="./Few_new_images/Arogya_clinic/Screenshot%202026-06-03%20114332.png"
-                    alt="Arogyaa Homeopathic Clinic — additional interior view"
                     loading="lazy"
                     decoding="async"
                   />
@@ -350,12 +358,26 @@
               </div>
             </div>
           </article>
-          <article class="arch-intero-projects-card">
+          <article
+            class="arch-intero-projects-card"
+            data-arch-drawer-title="Mungo Café, Indiranagar"
+            data-arch-drawer-year="2026"
+            data-arch-drawer-location="Indiranagar, Bengaluru, IN"
+            data-arch-drawer-tags="Commercial|Hospitality|Interiors|Contemporary Minimalist"
+            data-arch-drawer-desc="A Space Where Design Meets Experience|||Mungo Café is a thoughtfully crafted café in the heart of Indiranagar, designed to create an atmosphere that is warm, inviting, and effortlessly contemporary. Inspired by minimalist aesthetics and earthy materiality, the interiors feature soft curves, textured finishes, ambient lighting, and a muted palette that enhances the overall dining experience.|||The design balances functionality with visual appeal, creating intimate seating zones while maintaining an open, welcoming environment. Every detail—from the illuminated service counter to the sculptural niches and refined furniture—has been carefully curated to reflect the café's modern identity.|||Mungo is more than just a place to dine; it's a destination where architecture, interiors, and hospitality come together to offer a memorable experience.|||Key Features: Warm ambient lighting; earth-toned textured finishes; soft architectural curves; custom-designed service counter; functional space planning; intimate and inviting seating; modern, minimalist aesthetic."
+            data-arch-drawer-link="./direct_project.html"
+          >
             <div class="arch-intero-projects-card-top">
-              <a class="arch-intero-projects-card-hit" href="./direct_project.html">
+              <button
+                type="button"
+                class="arch-intero-projects-card-hit"
+                aria-haspopup="dialog"
+                aria-controls="arch-intero-project-drawer"
+                aria-label="Open project details for MUNGO Indiranagar"
+              >
                 <div class="arch-intero-projects-media">
                   <img
-                    src="./Few_new_images/Mungo/mungo_container_image.jpeg"
+                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124723.png"
                     alt="MUNGO cafe interior in Indiranagar"
                     loading="lazy"
                     decoding="async"
@@ -366,54 +388,52 @@
                     Completed
                   </p>
                 </div>
-              </a>
-              <button
-                type="button"
-                class="arch-intero-projects-card-toggle"
-                id="arch-intero-toggle-mungo"
-                aria-expanded="false"
-                aria-controls="arch-intero-panel-mungo"
-                aria-label="Show or hide plan drawings for Mungo"
-              >
-                <span class="arch-intero-projects-card-toggle-chevron" aria-hidden="true"></span>
               </button>
             </div>
             <div
               id="arch-intero-panel-mungo"
               class="arch-intero-projects-card-panel"
               role="region"
-              aria-labelledby="arch-intero-toggle-mungo"
+              aria-label="MUNGO project plans and views"
               hidden
             >
               <div class="arch-intero-projects-card-panel-grid">
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./Mungo/Floor%20Plan_01.png"
-                    alt="Mungo cafe — floor plan one"
+                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124622.png"
+                    alt="Mungo cafe Indiranagar — project image 1"
                     loading="lazy"
                     decoding="async"
                   />
                 </figure>
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./Mungo/Floor%20Plan_02.png"
-                    alt="Mungo cafe — floor plan two"
+                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124639.png"
+                    alt="Mungo cafe Indiranagar — project image 2"
                     loading="lazy"
                     decoding="async"
                   />
                 </figure>
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./Few_new_images/Mungo/Screenshot%202026-06-03%20114005.png"
-                    alt="Mungo cafe Indiranagar — additional project view"
+                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124658.png"
+                    alt="Mungo cafe Indiranagar — project image 3"
                     loading="lazy"
                     decoding="async"
                   />
                 </figure>
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./Few_new_images/Mungo/Screenshot%202026-06-03%20114017.png"
-                    alt="Mungo cafe Indiranagar — additional project view"
+                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124711.png"
+                    alt="Mungo cafe Indiranagar — project image 4"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <figure class="arch-intero-projects-card-panel-figure">
+                  <img
+                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124723.png"
+                    alt="Mungo cafe Indiranagar — project image 5"
                     loading="lazy"
                     decoding="async"
                   />
@@ -421,9 +441,23 @@
               </div>
             </div>
           </article>
-          <article class="arch-intero-projects-card">
+          <article
+            class="arch-intero-projects-card"
+            data-arch-drawer-title="Dongle Desk"
+            data-arch-drawer-year="2026"
+            data-arch-drawer-location="Indiranagar, Bengaluru, IN"
+            data-arch-drawer-tags="Commercial|Workplace|Interiors|Contemporary Modern"
+            data-arch-drawer-desc="A Workspace Designed to Inspire Innovation|||Dongle Desk is a modern workspace designed to foster creativity, collaboration, and productivity. Blending contemporary aesthetics with intelligent space planning, the office creates an environment where ideas flourish and teams thrive.|||The design emphasizes openness, flexibility, and functionality through thoughtfully planned workstations, collaborative zones, and comfortable breakout spaces. A refined material palette, ample natural light, and minimalist detailing contribute to a workspace that is both visually engaging and highly efficient.|||Every aspect of Dongle Desk has been crafted to support the evolving needs of today's professionals, creating a workplace that inspires innovation while ensuring comfort and efficiency.|||Key Features: Open and collaborative workspace design; intelligent space planning; ergonomic workstations; modern minimalist interiors; flexible meeting and breakout areas; optimized natural lighting; functional and productive work environment."
+            data-arch-drawer-link="./direct_project.html"
+          >
             <div class="arch-intero-projects-card-top">
-              <a class="arch-intero-projects-card-hit" href="./direct_project.html">
+              <button
+                type="button"
+                class="arch-intero-projects-card-hit"
+                aria-haspopup="dialog"
+                aria-controls="arch-intero-project-drawer"
+                aria-label="Open project details for Dongle Desk Indiranagar"
+              >
                 <div class="arch-intero-projects-media">
                   <img
                     src="./Few_new_images/Dongle_desk/container_image.jpeg"
@@ -437,23 +471,13 @@
                     Completed
                   </p>
                 </div>
-              </a>
-              <button
-                type="button"
-                class="arch-intero-projects-card-toggle"
-                id="arch-intero-toggle-dongle"
-                aria-expanded="false"
-                aria-controls="arch-intero-panel-dongle"
-                aria-label="Show or hide plan drawings for Dongle Desk"
-              >
-                <span class="arch-intero-projects-card-toggle-chevron" aria-hidden="true"></span>
               </button>
             </div>
             <div
               id="arch-intero-panel-dongle"
               class="arch-intero-projects-card-panel"
               role="region"
-              aria-labelledby="arch-intero-toggle-dongle"
+              aria-label="Dongle Desk project plans and views"
               hidden
             >
               <div class="arch-intero-projects-card-panel-grid">
@@ -492,9 +516,23 @@
               </div>
             </div>
           </article>
-          <article class="arch-intero-projects-card arch-intero-projects-card--featured arch-intero-projects-card--know-more">
+          <article
+            class="arch-intero-projects-card arch-intero-projects-card--featured arch-intero-projects-card--know-more"
+            data-arch-drawer-title="Studio Apartment, Indiranagar"
+            data-arch-drawer-year="2026"
+            data-arch-drawer-location="Indiranagar, Bengaluru, IN"
+            data-arch-drawer-tags="Residential|Interiors|Architecture|Contemporary Minimalist"
+            data-arch-drawer-desc="A Modern Studio Designed for Urban Living|||Nestled in the heart of Indiranagar, this thoughtfully designed studio apartment blends contemporary architecture with warm, inviting interiors. The striking A-frame façade, expansive glass windows, and natural textures create a space that feels open, bright, and effortlessly stylish.|||Every corner has been carefully planned to maximize functionality without compromising on aesthetics. From the seamless indoor-outdoor connection to the cozy, light-filled living spaces, the apartment offers a calm retreat amidst the city's vibrant lifestyle.|||Whether it's the minimalist design language, the abundance of natural light, or the carefully curated finishes, this studio reflects Stratus' approach to creating homes that are both practical and inspiring.|||Key Features: Iconic A-frame architectural design; double-height glazed façade; abundant natural light; smart space planning; warm, minimalist interiors; seamless indoor-outdoor living; functional and elegant design solutions."
+            data-arch-drawer-link="./direct_project.html"
+          >
             <div class="arch-intero-projects-card-top">
-              <a class="arch-intero-projects-card-hit" href="./direct_project.html">
+              <button
+                type="button"
+                class="arch-intero-projects-card-hit"
+                aria-haspopup="dialog"
+                aria-controls="arch-intero-project-drawer"
+                aria-label="Open project details for Studio Apartment Indiranagar"
+              >
                 <div class="arch-intero-projects-media">
                   <img
                     src="./Few_new_images/studio_apartments/container%20image.png"
@@ -509,23 +547,13 @@
                     Completed
                   </p>
                 </div>
-              </a>
-              <button
-                type="button"
-                class="arch-intero-projects-card-toggle"
-                id="arch-intero-toggle-studio"
-                aria-expanded="false"
-                aria-controls="arch-intero-panel-studio"
-                aria-label="Show or hide plan drawings for Studio Apartment"
-              >
-                <span class="arch-intero-projects-card-toggle-chevron" aria-hidden="true"></span>
               </button>
             </div>
             <div
               id="arch-intero-panel-studio"
               class="arch-intero-projects-card-panel"
               role="region"
-              aria-labelledby="arch-intero-toggle-studio"
+              aria-label="Studio Apartment project plans and views"
               hidden
             >
               <div class="arch-intero-projects-card-panel-grid">
@@ -634,7 +662,7 @@
           <div class="footer-v2-brand">
             <a href="./index.html" class="footer-v2-logo-link" aria-label="Stratus Home">
               <img
-                src="./Public/navbar/logo.png"
+                src="./Public/navbar/logo - footer.png"
                 alt="Stratus logo"
                 class="footer-v2-logo"
                 loading="lazy"
@@ -642,8 +670,7 @@
               />
             </a>
             <p>
-              We design interiors that balance comfort and clarity, crafting spaces defined by
-              purpose, proportion, and lasting character.
+              We are a design firm specializing in architecture, interiors, and spatial design. We create thoughtful, timeless spaces where concept, function, material, and experience come together seamlessly. Guided by context, human behavior, and purposeful design, we craft environments that are refined, enduring, and designed to age gracefully.
             </p>
             <div class="footer-v2-social">
               <a href="#" aria-label="Instagram"

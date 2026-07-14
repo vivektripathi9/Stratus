@@ -1367,6 +1367,447 @@ if (latestRoot) {
   });
 })();
 
+(function initArchInteroProjectDrawer() {
+  const DRAWER_ID = "arch-intero-project-drawer";
+  const SCOPE_SELECTOR = "#arch-intero-page-projects, #de-atelier-page-projects, #project-page-projects";
+  const CARD_SELECTOR =
+    ".arch-intero-projects-card, .de-atelier-gargi-portfolio__card--image, .project-portfolio-card";
+  const HIT_SELECTOR =
+    ".arch-intero-projects-card-hit, .de-atelier-gargi-portfolio__card-hit, .project-portfolio-card-hit";
+  const MEDIA_IMG_SELECTOR =
+    ".arch-intero-projects-media img, .de-atelier-gargi-portfolio__media img, .project-portfolio-media img";
+  const scopes = document.querySelectorAll(SCOPE_SELECTOR);
+  if (!scopes.length) return;
+
+  let root = document.getElementById(DRAWER_ID);
+  if (!root) {
+    root = document.createElement("div");
+    root.id = DRAWER_ID;
+    root.className = "arch-intero-drawer";
+    root.hidden = true;
+    root.setAttribute("aria-hidden", "true");
+    root.innerHTML = `
+      <div class="arch-intero-drawer__scrim" data-arch-drawer-close tabindex="-1"></div>
+      <div
+        class="arch-intero-drawer__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="arch-intero-drawer-title"
+      >
+        <button type="button" class="arch-intero-drawer__close" data-arch-drawer-close aria-label="Close project panel">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="arch-intero-drawer__scroll">
+          <div class="arch-intero-drawer__banner">
+            <img class="arch-intero-drawer__banner-img" src="" alt="" decoding="async" />
+          </div>
+          <div class="arch-intero-drawer__head">
+            <div class="arch-intero-drawer__head-left">
+              <p class="arch-intero-drawer__year"></p>
+              <p class="arch-intero-drawer__location"></p>
+              <div class="arch-intero-drawer__tags" aria-label="Project categories"></div>
+            </div>
+            <div class="arch-intero-drawer__head-right">
+              <h2 id="arch-intero-drawer-title" class="arch-intero-drawer__title"></h2>
+              <div class="arch-intero-drawer__desc"></div>
+            </div>
+          </div>
+          <div class="arch-intero-drawer__grid" role="group" aria-label="Project images"></div>
+          <p class="arch-intero-drawer__foot">
+            <a class="arch-intero-drawer__project-link" href="./direct_project.html">View full project</a>
+          </p>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(root);
+  }
+
+  const scrim = root.querySelector(".arch-intero-drawer__scrim");
+  const btnClose = root.querySelector(".arch-intero-drawer__close");
+  const bannerImg = root.querySelector(".arch-intero-drawer__banner-img");
+  const yearEl = root.querySelector(".arch-intero-drawer__year");
+  const locationEl = root.querySelector(".arch-intero-drawer__location");
+  const tagsEl = root.querySelector(".arch-intero-drawer__tags");
+  const titleEl = root.querySelector(".arch-intero-drawer__title");
+  const descEl = root.querySelector(".arch-intero-drawer__desc");
+  const gridEl = root.querySelector(".arch-intero-drawer__grid");
+  const projectLink = root.querySelector(".arch-intero-drawer__project-link");
+  const scrollEl = root.querySelector(".arch-intero-drawer__scroll");
+  const panelEl = root.querySelector(".arch-intero-drawer__panel");
+
+  let lastFocus = null;
+  let closeTimer = null;
+  let scrollLockY = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  let reduceMotion = false;
+  let isMobileDrawer = false;
+  try {
+    reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    isMobileDrawer = window.matchMedia("(max-width: 767px)").matches;
+  } catch {
+    reduceMotion = false;
+    isMobileDrawer = false;
+  }
+
+  function lockBodyScroll() {
+    if (document.body.classList.contains("arch-intero-drawer-scroll-locked")) return;
+    scrollLockY = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.classList.add("arch-intero-drawer-scroll-locked");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollLockY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+
+  function unlockBodyScroll() {
+    if (!document.body.classList.contains("arch-intero-drawer-scroll-locked")) return;
+    const y = scrollLockY;
+    document.body.classList.remove("arch-intero-drawer-scroll-locked");
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+
+    const html = document.documentElement;
+    const prevHtmlScroll = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    try {
+      window.scrollTo({ top: y, left: 0, behavior: "instant" });
+    } catch {
+      window.scrollTo(0, y);
+    }
+    if (Math.abs((window.scrollY || html.scrollTop) - y) > 1) {
+      html.scrollTop = y;
+      document.body.scrollTop = y;
+    }
+    html.style.scrollBehavior = prevHtmlScroll;
+  }
+
+  function clearDrawerContent() {
+    bannerImg.removeAttribute("src");
+    gridEl.innerHTML = "";
+    descEl.innerHTML = "";
+    tagsEl.innerHTML = "";
+    yearEl.textContent = "";
+    yearEl.hidden = true;
+    locationEl.textContent = "";
+    locationEl.hidden = true;
+    tagsEl.hidden = true;
+    titleEl.textContent = "";
+    scrollEl?.classList.remove("is-swapping", "is-swapped");
+  }
+
+  function finishClose() {
+    root.hidden = true;
+    root.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("arch-intero-drawer-open");
+    unlockBodyScroll();
+    clearDrawerContent();
+    if (document.activeElement && root.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+    lastFocus = null;
+  }
+
+  function isOpen() {
+    return root.classList.contains("is-open");
+  }
+
+  function openFromCard(card) {
+    if (closeTimer) {
+      window.clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
+    try {
+      isMobileDrawer = window.matchMedia("(max-width: 767px)").matches;
+    } catch {
+      isMobileDrawer = false;
+    }
+
+    const sourcePanel = card.querySelector(".arch-intero-projects-card-panel");
+    const mediaImg = card.querySelector(MEDIA_IMG_SELECTOR);
+    if (!sourcePanel || !mediaImg || !gridEl) return;
+
+    const switchingProject = isOpen();
+
+    if (scrollEl) {
+      scrollEl.style.scrollBehavior = "auto";
+      scrollEl.scrollTop = 0;
+      scrollEl.scrollLeft = 0;
+      if (switchingProject && !reduceMotion) {
+        scrollEl.classList.remove("is-swapped");
+        scrollEl.classList.add("is-swapping");
+      }
+    }
+
+    const title = card.getAttribute("data-arch-drawer-title") || "Project";
+    const year = card.getAttribute("data-arch-drawer-year") || "";
+    const location = card.getAttribute("data-arch-drawer-location") || "";
+    const tagsRaw = card.getAttribute("data-arch-drawer-tags") || "";
+    const status = card.getAttribute("data-arch-drawer-status") || "";
+    const desc = card.getAttribute("data-arch-drawer-desc") || "";
+    const href = card.getAttribute("data-arch-drawer-link") || "./direct_project.html";
+
+    const bannerSrc = mediaImg.getAttribute("src") || "";
+    const bannerAlt = mediaImg.getAttribute("alt") || title;
+    bannerImg.src = bannerSrc;
+    bannerImg.alt = bannerAlt;
+
+    titleEl.textContent = title;
+
+    yearEl.textContent = year;
+    yearEl.hidden = !year;
+
+    locationEl.textContent = location;
+    locationEl.hidden = !location;
+
+    let tagParts = tagsRaw
+      .split("|")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (!tagParts.length && status) {
+      tagParts = status
+        .split(/[·,]+/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+    }
+    tagsEl.innerHTML = "";
+    if (tagParts.length) {
+      tagsEl.hidden = false;
+      tagParts.forEach((t) => {
+        const line = document.createElement("span");
+        line.className = "arch-intero-drawer__tag-line";
+        line.textContent = t;
+        tagsEl.appendChild(line);
+      });
+    } else {
+      tagsEl.hidden = true;
+    }
+
+    descEl.innerHTML = "";
+    const blocks = desc.includes("|||") ? desc.split("|||").map((s) => s.trim()).filter(Boolean) : [desc.trim()].filter(Boolean);
+    if (!blocks.length) {
+      descEl.hidden = true;
+    } else {
+      descEl.hidden = false;
+      blocks.forEach((block) => {
+        const nl = block.indexOf("\n");
+        const head = nl >= 0 ? block.slice(0, nl).trim() : block.trim();
+        const body = nl >= 0 ? block.slice(nl + 1).trim() : "";
+        const headNormalized = head.replace(/:$/, "");
+
+        if (/^\d+\.\s/.test(head) && body) {
+          const h = document.createElement("h3");
+          h.className = "arch-intero-drawer__desc-heading";
+          h.textContent = head;
+          const p = document.createElement("p");
+          p.className = "arch-intero-drawer__desc-p";
+          p.textContent = body;
+          descEl.appendChild(h);
+          descEl.appendChild(p);
+        } else if (headNormalized === "Project Highlights" && body) {
+          const h = document.createElement("h3");
+          h.className = "arch-intero-drawer__desc-heading";
+          h.textContent = "Project Highlights";
+          descEl.appendChild(h);
+          const meta = document.createElement("div");
+          meta.className = "arch-intero-drawer__desc-meta";
+          body
+            .split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .forEach((line) => {
+              const p = document.createElement("p");
+              p.className = "arch-intero-drawer__desc-meta-line";
+              p.textContent = line;
+              meta.appendChild(p);
+            });
+          descEl.appendChild(meta);
+        } else if (headNormalized === "Key Features" && body) {
+          const h = document.createElement("h3");
+          h.className = "arch-intero-drawer__desc-heading";
+          h.textContent = "Key Features";
+          descEl.appendChild(h);
+          const ul = document.createElement("ul");
+          ul.className = "arch-intero-drawer__desc-list";
+          body
+            .split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .forEach((line) => {
+              const li = document.createElement("li");
+              li.textContent = line.replace(/^[-•*]\s*/, "");
+              ul.appendChild(li);
+            });
+          descEl.appendChild(ul);
+        } else {
+          const p = document.createElement("p");
+          p.className = "arch-intero-drawer__desc-p";
+          p.textContent = block;
+          descEl.appendChild(p);
+        }
+      });
+    }
+
+    projectLink.setAttribute("href", href);
+
+    gridEl.innerHTML = "";
+    sourcePanel.querySelectorAll(".arch-intero-projects-card-panel-figure").forEach((fig) => {
+      const clone = fig.cloneNode(true);
+      gridEl.appendChild(clone);
+    });
+
+    gridEl.querySelectorAll("img").forEach((img, index) => {
+      img.loading = isMobileDrawer && index > 0 ? "lazy" : "eager";
+      const src = img.getAttribute("src");
+      if (src && !img.complete) {
+        img.src = src;
+      }
+      if (typeof img.decode === "function" && (!isMobileDrawer || index === 0)) {
+        img.decode().catch(() => {});
+      }
+    });
+
+    const alreadyVisible = !root.hidden;
+    if (!alreadyVisible) {
+      lastFocus = document.activeElement;
+      root.hidden = false;
+      root.setAttribute("aria-hidden", "false");
+      document.body.classList.add("arch-intero-drawer-open");
+      lockBodyScroll();
+    }
+
+    if (!root.classList.contains("is-open")) {
+      if (reduceMotion) {
+        root.classList.add("is-open");
+      } else {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            root.classList.add("is-open");
+          });
+        });
+      }
+    }
+
+    if (scrollEl) {
+      scrollEl.scrollTop = 0;
+      scrollEl.scrollLeft = 0;
+      scrollEl.style.scrollBehavior = "";
+
+      if (switchingProject && !reduceMotion) {
+        requestAnimationFrame(() => {
+          scrollEl.classList.remove("is-swapping");
+          scrollEl.classList.add("is-swapped");
+        });
+      } else {
+        scrollEl.classList.remove("is-swapping", "is-swapped");
+      }
+    }
+
+    if (!switchingProject) {
+      try {
+        btnClose.focus({ preventScroll: true });
+      } catch {
+        btnClose.focus();
+      }
+    }
+  }
+
+  function close() {
+    if (!isOpen() && root.hidden) return;
+    if (closeTimer) {
+      window.clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
+    if (document.activeElement && typeof document.activeElement.blur === "function") {
+      document.activeElement.blur();
+    }
+
+    if (reduceMotion) {
+      root.classList.remove("is-open");
+      finishClose();
+      return;
+    }
+
+    root.classList.remove("is-open");
+    closeTimer = window.setTimeout(() => {
+      closeTimer = null;
+      finishClose();
+    }, 380);
+  }
+
+  scopes.forEach((scope) => {
+    scope.querySelectorAll(HIT_SELECTOR).forEach((hit) => {
+      if (hit.dataset.archInteroDrawerBound === "1") return;
+      hit.dataset.archInteroDrawerBound = "1";
+
+      hit.addEventListener("click", (e) => {
+        const card = hit.closest(CARD_SELECTOR);
+        if (!card) return;
+        const sourcePanel = card.querySelector(".arch-intero-projects-card-panel");
+        const mediaImg = card.querySelector(MEDIA_IMG_SELECTOR);
+        if (!sourcePanel || !mediaImg) return;
+        e.preventDefault();
+        openFromCard(card);
+      });
+    });
+  });
+
+  function onCloseClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    close();
+  }
+
+  scrim?.addEventListener("click", onCloseClick);
+  btnClose?.addEventListener("click", onCloseClick);
+
+  panelEl?.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!isOpen() || e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+
+  panelEl?.addEventListener(
+    "touchend",
+    (e) => {
+      if (!isOpen()) return;
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (dx > 72 && Math.abs(dy) < 80) {
+        close();
+      }
+    },
+    { passive: true }
+  );
+
+  window.matchMedia("(max-width: 767px)").addEventListener("change", (e) => {
+    isMobileDrawer = e.matches;
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
+    const lightbox = document.getElementById("portfolio-panel-lightbox");
+    if (lightbox && !lightbox.hidden) return;
+    if (e.key === "Escape") {
+      e.preventDefault();
+      close();
+    }
+  });
+})();
+
 (function initPortfolioPanelLightbox() {
   const ROOT_ID = "portfolio-panel-lightbox";
   let root = document.getElementById(ROOT_ID);
@@ -1469,8 +1910,10 @@ if (latestRoot) {
   document.addEventListener("click", (e) => {
     const thumb = e.target.closest(".arch-intero-projects-card-panel-figure img");
     if (!thumb || isOpen()) return;
-    const panel = thumb.closest(".arch-intero-projects-card-panel");
-    if (!panel || panel.hidden) return;
+    const panel =
+      thumb.closest(".arch-intero-projects-card-panel") || thumb.closest(".arch-intero-drawer__grid");
+    if (!panel) return;
+    if (panel.matches(".arch-intero-projects-card-panel") && panel.hidden) return;
     e.preventDefault();
     open(panel, thumb);
   });

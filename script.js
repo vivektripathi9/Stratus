@@ -1218,6 +1218,16 @@ if (latestRoot) {
 
 (function initEmailJsForms() {
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const EMAILJS_SDK_SOURCES = [
+    "https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js",
+    "/vendor/email.min.js",
+    "./vendor/email.min.js",
+  ];
+  const CONFIG_FALLBACK = {
+    serviceId: "service_9ztuvae",
+    templateId: "template_cwq2psl",
+    publicKey: "_JgxLeA4jeBlqIKrT",
+  };
 
   function getEmailJsConfig() {
     const cfg = window.STRATUS_EMAILJS;
@@ -1229,54 +1239,103 @@ if (latestRoot) {
     ) {
       return cfg;
     }
-    return null;
+    window.STRATUS_EMAILJS = Object.freeze({
+      serviceId: CONFIG_FALLBACK.serviceId,
+      templateId: CONFIG_FALLBACK.templateId,
+      publicKey: CONFIG_FALLBACK.publicKey,
+    });
+    return window.STRATUS_EMAILJS;
   }
 
   function loadScript(src) {
     return new Promise(function (resolve, reject) {
-      const existing = document.querySelector('script[src="' + src + '"]');
+      const existing = document.querySelector('script[data-stratus-src="' + src + '"], script[src="' + src + '"]');
       if (existing) {
-        if (existing.dataset.loaded === "true") {
+        if (
+          existing.dataset.loaded === "true" ||
+          existing.dataset.failed === "true"
+        ) {
+          if (existing.dataset.failed === "true") {
+            reject(new Error("Failed to load script"));
+          } else {
+            resolve();
+          }
+          return;
+        }
+        // Script tag exists but may have already finished loading before listeners were attached.
+        if (existing.src && (window.emailjs || window.STRATUS_EMAILJS)) {
+          existing.dataset.loaded = "true";
           resolve();
           return;
         }
-        existing.addEventListener("load", function () {
+        var settled = false;
+        function onLoad() {
+          if (settled) return;
+          settled = true;
+          existing.dataset.loaded = "true";
           resolve();
-        });
-        existing.addEventListener("error", function () {
+        }
+        function onError() {
+          if (settled) return;
+          settled = true;
+          existing.dataset.failed = "true";
           reject(new Error("Failed to load script"));
-        });
+        }
+        existing.addEventListener("load", onLoad);
+        existing.addEventListener("error", onError);
+        // Safety timeout so a completed-but-unlistened script cannot hang forever.
+        window.setTimeout(function () {
+          if (settled) return;
+          if (window.emailjs || window.STRATUS_EMAILJS) {
+            onLoad();
+          } else {
+            onError();
+          }
+        }, 4000);
         return;
       }
+
       const script = document.createElement("script");
       script.src = src;
       script.async = true;
+      script.dataset.stratusSrc = src;
       script.addEventListener("load", function () {
         script.dataset.loaded = "true";
         resolve();
       });
       script.addEventListener("error", function () {
+        script.dataset.failed = "true";
         reject(new Error("Failed to load script"));
       });
       document.head.appendChild(script);
     });
   }
 
-  async function ensureEmailJs() {
-    if (!window.STRATUS_EMAILJS) {
-      await loadScript("./emailjs-config.js");
+  async function loadEmailJsSdk() {
+    if (window.emailjs && typeof window.emailjs.send === "function") {
+      return window.emailjs;
     }
+    var lastError = null;
+    for (var i = 0; i < EMAILJS_SDK_SOURCES.length; i++) {
+      try {
+        await loadScript(EMAILJS_SDK_SOURCES[i]);
+        if (window.emailjs && typeof window.emailjs.send === "function") {
+          return window.emailjs;
+        }
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    throw lastError || new Error("EmailJS SDK unavailable");
+  }
+
+  async function ensureEmailJs() {
     const cfg = getEmailJsConfig();
     if (!cfg) {
       throw new Error("EmailJS config missing");
     }
-    if (!window.emailjs || typeof window.emailjs.send !== "function") {
-      await loadScript("./vendor/email.min.js");
-    }
-    if (!window.emailjs || typeof window.emailjs.send !== "function") {
-      throw new Error("EmailJS SDK unavailable");
-    }
-    return { emailjs: window.emailjs, cfg: cfg };
+    const emailjs = await loadEmailJsSdk();
+    return { emailjs: emailjs, cfg: cfg };
   }
 
   function setStatus(el, message, state) {

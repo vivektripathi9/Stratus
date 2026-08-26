@@ -1216,44 +1216,245 @@ if (latestRoot) {
   });
 })();
 
-(function () {
-  const form = document.getElementById("contact-form");
-  if (!form) return;
+(function initEmailJsForms() {
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const status = document.getElementById("contact-form-status");
-  const mail = "hello@stratus.company";
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
+  function getEmailJsConfig() {
+    const cfg = window.STRATUS_EMAILJS;
+    if (
+      cfg &&
+      typeof cfg.serviceId === "string" &&
+      typeof cfg.templateId === "string" &&
+      typeof cfg.publicKey === "string"
+    ) {
+      return cfg;
     }
+    return null;
+  }
 
-    const fd = new FormData(form);
-    const name = String(fd.get("name") || "").trim();
-    const email = String(fd.get("email") || "").trim();
-    const phone = String(fd.get("phone") || "").trim();
-    const topic = String(fd.get("topic") || "").trim();
-    const message = String(fd.get("message") || "").trim();
-    const topicLabel = (() => {
-      const sel = form.querySelector("#contact-topic");
-      if (!sel || !sel.selectedOptions.length) return topic;
-      return sel.selectedOptions[0].textContent || topic;
-    })();
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      const existing = document.querySelector('script[src="' + src + '"]');
+      if (existing) {
+        if (existing.dataset.loaded === "true") {
+          resolve();
+          return;
+        }
+        existing.addEventListener("load", function () {
+          resolve();
+        });
+        existing.addEventListener("error", function () {
+          reject(new Error("Failed to load script"));
+        });
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.addEventListener("load", function () {
+        script.dataset.loaded = "true";
+        resolve();
+      });
+      script.addEventListener("error", function () {
+        reject(new Error("Failed to load script"));
+      });
+      document.head.appendChild(script);
+    });
+  }
 
-    const subject = encodeURIComponent(`Stratus enquiry: ${topicLabel}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "—"}\nInterest: ${topicLabel}\n\n${message}`
+  async function ensureEmailJs() {
+    if (!window.STRATUS_EMAILJS) {
+      await loadScript("./emailjs-config.js");
+    }
+    const cfg = getEmailJsConfig();
+    if (!cfg) {
+      throw new Error("EmailJS config missing");
+    }
+    if (!window.emailjs || typeof window.emailjs.send !== "function") {
+      await loadScript("./vendor/email.min.js");
+    }
+    if (!window.emailjs || typeof window.emailjs.send !== "function") {
+      throw new Error("EmailJS SDK unavailable");
+    }
+    return { emailjs: window.emailjs, cfg: cfg };
+  }
+
+  function setStatus(el, message, state) {
+    if (!el) return;
+    el.textContent = message || "";
+    el.classList.remove("is-success", "is-error", "is-loading");
+    if (state) el.classList.add(state);
+  }
+
+  function isValidEmail(value) {
+    return EMAIL_RE.test(String(value || "").trim());
+  }
+
+  async function sendWithEmailJs(templateParams) {
+    const ready = await ensureEmailJs();
+    return ready.emailjs.send(
+      ready.cfg.serviceId,
+      ready.cfg.templateId,
+      templateParams,
+      { publicKey: ready.cfg.publicKey }
     );
+  }
 
-    window.location.href = `mailto:${mail}?subject=${subject}&body=${body}`;
+  function initContactForm() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
 
-    if (status) {
-      status.textContent =
-        "If your email app did not open, send the same details to " + mail + ".";
-    }
-  });
+    const status = document.getElementById("contact-form-status");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    let submitting = false;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      if (submitting) return;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const fd = new FormData(form);
+      const name = String(fd.get("name") || "").trim();
+      const email = String(fd.get("email") || "").trim();
+      const phone = String(fd.get("phone") || "").trim();
+      const topic = String(fd.get("topic") || "").trim();
+      const message = String(fd.get("message") || "").trim();
+      const topicLabel = (function () {
+        const sel = form.querySelector("#contact-topic");
+        if (!sel || !sel.selectedOptions.length) return topic;
+        return (sel.selectedOptions[0].textContent || topic).trim();
+      })();
+
+      if (!name || !email || !message || !topic) {
+        setStatus(status, "Please fill in all required fields.", "is-error");
+        return;
+      }
+      if (!isValidEmail(email)) {
+        setStatus(status, "Please enter a valid email address.", "is-error");
+        return;
+      }
+
+      submitting = true;
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus(status, "Sending…", "is-loading");
+
+      try {
+        await sendWithEmailJs({
+          name: name,
+          email: email,
+          phone: phone,
+          title: topicLabel,
+          message: message,
+        });
+        form.reset();
+        setStatus(
+          status,
+          "Thank you. Your message has been sent successfully.",
+          "is-success"
+        );
+      } catch (err) {
+        setStatus(
+          status,
+          "Something went wrong. Please try again.",
+          "is-error"
+        );
+      } finally {
+        submitting = false;
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+
+  function ensureFooterStatus(form) {
+    let status = form.querySelector(".footer-v2-subscribe-status");
+    if (status) return status;
+    status = document.createElement("p");
+    status.className = "footer-v2-subscribe-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    form.appendChild(status);
+    return status;
+  }
+
+  function initFooterForms() {
+    const forms = document.querySelectorAll("form.footer-v2-subscribe");
+    forms.forEach(function (form) {
+      const emailInput =
+        form.querySelector('input[type="email"]') ||
+        form.querySelector("input");
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (!emailInput || !submitBtn) return;
+
+      emailInput.setAttribute("name", "email");
+      emailInput.setAttribute("required", "required");
+      emailInput.setAttribute("autocomplete", "email");
+
+      const status = ensureFooterStatus(form);
+      let submitting = false;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (submitting) return;
+
+        const email = String(emailInput.value || "").trim();
+        if (!email) {
+          emailInput.reportValidity();
+          setStatus(status, "Please enter your email address.", "is-error");
+          return;
+        }
+        if (!isValidEmail(email)) {
+          emailInput.setCustomValidity("Please enter a valid email address.");
+          emailInput.reportValidity();
+          emailInput.setCustomValidity("");
+          setStatus(status, "Please enter a valid email address.", "is-error");
+          return;
+        }
+
+        submitting = true;
+        submitBtn.disabled = true;
+        setStatus(status, "Sending…", "is-loading");
+
+        try {
+          await sendWithEmailJs({
+            name: "Footer Subscription",
+            email: email,
+            phone: "",
+            title: "Website Footer",
+            message:
+              "New email submitted through the Stratus website footer.",
+          });
+          form.reset();
+          setStatus(
+            status,
+            "Thank you. Your email has been submitted.",
+            "is-success"
+          );
+        } catch (err) {
+          setStatus(
+            status,
+            "Something went wrong. Please try again.",
+            "is-error"
+          );
+        } finally {
+          submitting = false;
+          submitBtn.disabled = false;
+        }
+      });
+    });
+  }
+
+  initContactForm();
+  initFooterForms();
+
+  window.StratusEmailJs = {
+    send: sendWithEmailJs,
+    setStatus: setStatus,
+    isValidEmail: isValidEmail,
+  };
 })();
 
 (function initHomeProcessReveal() {
@@ -2294,7 +2495,6 @@ if (latestRoot) {
 
   const floorSelect = form.querySelector("#enquiry-floor");
   const status = document.getElementById("available-now-enquiry-status");
-  const mail = "hello@stratus.company";
   let lastFocus = null;
 
   function openEnquiry(floorValue) {
@@ -2319,7 +2519,12 @@ if (latestRoot) {
       }
     }
 
-    if (status) status.textContent = "";
+    if (window.StratusEmailJs) {
+      window.StratusEmailJs.setStatus(status, "", null);
+    } else if (status) {
+      status.textContent = "";
+      status.classList.remove("is-success", "is-error", "is-loading");
+    }
     const firstField = form.querySelector("#enquiry-name");
     if (firstField) firstField.focus();
   }
@@ -2347,8 +2552,10 @@ if (latestRoot) {
     if (e.key === "Escape") closeEnquiry();
   });
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (form.dataset.submitting === "1") return;
+
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -2360,17 +2567,58 @@ if (latestRoot) {
     const phone = String(fd.get("phone") || "").trim();
     const floor = String(fd.get("floor") || "").trim();
     const message = String(fd.get("message") || "").trim();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const api = window.StratusEmailJs;
 
-    const subject = encodeURIComponent(`Evara enquiry: ${floor}`);
-    const body = encodeURIComponent(
-      `Project: Evara @ 7th Main\nFloor plan: ${floor}\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
-    );
+    if (!name || !email || !phone || !floor || !message) {
+      if (api) {
+        api.setStatus(status, "Please fill in all required fields.", "is-error");
+      } else if (status) {
+        status.textContent = "Please fill in all required fields.";
+      }
+      return;
+    }
 
-    window.location.href = `mailto:${mail}?subject=${subject}&body=${body}`;
+    if (api && !api.isValidEmail(email)) {
+      api.setStatus(status, "Please enter a valid email address.", "is-error");
+      return;
+    }
 
-    if (status) {
-      status.textContent =
-        "If your email app did not open, send the same details to " + mail + ".";
+    if (!api || typeof api.send !== "function") {
+      if (status) {
+        status.textContent = "Something went wrong. Please try again.";
+        status.classList.add("is-error");
+      }
+      return;
+    }
+
+    form.dataset.submitting = "1";
+    if (submitBtn) submitBtn.disabled = true;
+    api.setStatus(status, "Sending…", "is-loading");
+
+    try {
+      await api.send({
+        name: name,
+        email: email,
+        phone: phone,
+        title: "Evara enquiry: " + floor,
+        message: message,
+      });
+      form.reset();
+      api.setStatus(
+        status,
+        "Thank you. Your message has been sent successfully.",
+        "is-success"
+      );
+    } catch (err) {
+      api.setStatus(
+        status,
+        "Something went wrong. Please try again.",
+        "is-error"
+      );
+    } finally {
+      form.dataset.submitting = "0";
+      if (submitBtn) submitBtn.disabled = false;
     }
   });
 })();

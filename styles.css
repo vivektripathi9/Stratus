@@ -2247,6 +2247,23 @@ body.home-page .home-faq-section {
   color: var(--text-muted);
 }
 
+.contact-form-note.is-success {
+  color: #2f6b4f;
+}
+
+.contact-form-note.is-error {
+  color: #8a3b2e;
+}
+
+.contact-form-note.is-loading {
+  color: var(--text-muted);
+}
+
+.contact-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 .contact-submit {
   grid-column: 1 / -1;
   justify-self: start;
@@ -9139,9 +9156,32 @@ body.portfolio-panel-lightbox-open {
 
 .footer-v2-subscribe {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   justify-self: end;
+}
+
+.footer-v2-subscribe-status {
+  flex: 1 1 100%;
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(232, 219, 204, 0.82);
+}
+
+.footer-v2-subscribe-status.is-success {
+  color: #c8e0d0;
+}
+
+.footer-v2-subscribe-status.is-error {
+  color: #e8b4a8;
+}
+
+.footer-v2-subscribe button:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 .footer-v2-subscribe input {

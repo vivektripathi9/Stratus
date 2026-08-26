@@ -1,6 +1,24 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        try {
+          if (location.protocol !== "http:" && location.protocol !== "https:") return;
+          var path = location.pathname || "/";
+          var file = "/index.html";
+          if (path !== "/" && !/index\.html?$/i.test(path)) {
+            file = /\.html$/i.test(path) ? path : path.replace(/\/+$/, "") + ".html";
+          }
+          try { sessionStorage.setItem("stratus-active-page", file); } catch (err) {}
+          if (path !== "/" || location.hash) {
+            history.replaceState(null, "", "/" + (location.search || ""));
+          }
+          document.documentElement.style.visibility = "";
+        } catch (e) {}
+      })();
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Architecture and Interior | Stratus</title>
@@ -10,18 +28,18 @@
       as="image"
       fetchpriority="high"
     />
-    <link
+        <link
       rel="preload"
-      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link
       rel="preload"
-      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -67,6 +85,7 @@
           <ul class="nav-links">
             <li><a href="./de-atelier.html">De Atelier</a></li>
             <li><a href="./arch_and_intero.html" aria-current="page">Design and Build</a></li>
+            <li><a href="./available-now.html">Available Now</a></li>
           </ul>
           <a href="./contact.html" class="hero-contact-btn"
             >Know more <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
@@ -76,7 +95,76 @@
     </header>
 
     <section class="architecture-hero architecture-hero--arch-intero page-hero">
+      <video
+        class="page-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="./All_Images/builvideo-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="./All_Images/builvideo.mp4" type="video/mp4" />
+      </video>
       <div class="page-hero-content"></div>
+    </section>
+
+    <section class="arch-intero-philosophy-section" aria-labelledby="arch-intero-live-beyond-heading">
+      <div class="arch-intero-philosophy-inner">
+        <article class="arch-intero-philosophy-block">
+          <h2 id="arch-intero-live-beyond-heading">
+            <span class="arch-intero-philosophy-title-brand">Stratus Live Beyond</span>
+          </h2>
+          <div class="arch-intero-philosophy-grid">
+            <div class="arch-intero-philosophy-col">
+              <h3>Development Philosophy</h3>
+              <p>
+                We create thoughtfully planned developments that go beyond individual spaces to shape
+                better ways of living. Every project is driven by its context, market relevance,
+                functionality, and long-term value. From planning and design to amenities and execution,
+                we focus on creating environments that are purposeful, enduring, and meaningful.
+              </p>
+            </div>
+            <div class="arch-intero-philosophy-col">
+              <h3>Execution Approach</h3>
+              <p>
+                Our approach brings together rigorous planning, integrated design, disciplined project
+                management, and quality-focused execution. We work closely across every stage of
+                development to maintain clarity in timelines, costs, materials, and construction. The
+                result is a development where design intent translates seamlessly into a well-resolved,
+                lasting experience.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="arch-intero-philosophy-block">
+          <h2 id="arch-intero-atelier-philosophy-heading">
+            <span class="arch-intero-philosophy-title-brand">Stratus de Atelier</span>
+          </h2>
+          <div class="arch-intero-philosophy-grid">
+            <div class="arch-intero-philosophy-col">
+              <h3>Design Philosophy</h3>
+              <p>
+                Stratus de Atelier approaches architecture as a balance of context, material, proportion,
+                and experience. We believe good design is not about excess, but about making thoughtful
+                decisions that create spaces with clarity, character, and longevity. Each project is
+                developed uniquely, allowing its site, purpose, and people to shape the architecture.
+              </p>
+            </div>
+            <div class="arch-intero-philosophy-col">
+              <h3>Execution Approach</h3>
+              <p>
+                We carry design intent from the first sketch to the final detail. Architecture, structure,
+                materials, lighting, and services are considered as one cohesive system, with close
+                attention to proportion, craftsmanship, and build quality. Through hands-on involvement
+                and careful detailing, we ensure that what is imagined is faithfully realised.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="architecture-intro-section" aria-labelledby="arch-intero-intro-heading">
@@ -376,7 +464,7 @@
               >
                 <div class="arch-intero-projects-media">
                   <img
-                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124723.png"
+                    src="./All_Images/Mungo/Screenshot%202026-08-21%20202556.png"
                     alt="MUNGO cafe interior in Indiranagar"
                     loading="lazy"
                     decoding="async"
@@ -399,40 +487,24 @@
               <div class="arch-intero-projects-card-panel-grid">
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124622.png"
-                    alt="Mungo cafe Indiranagar — project image 1"
+                    src="./All_Images/Mungo/Screenshot%202026-08-21%20202556.png"
+                    alt="Mungo cafe Indiranagar — counter and glass block wall"
                     loading="lazy"
                     decoding="async"
                   />
                 </figure>
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124639.png"
-                    alt="Mungo cafe Indiranagar — project image 2"
+                    src="./All_Images/Mungo/Screenshot%202026-08-21%20202605.png"
+                    alt="Mungo cafe Indiranagar — seating and branded counter"
                     loading="lazy"
                     decoding="async"
                   />
                 </figure>
                 <figure class="arch-intero-projects-card-panel-figure">
                   <img
-                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124658.png"
-                    alt="Mungo cafe Indiranagar — project image 3"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
-                <figure class="arch-intero-projects-card-panel-figure">
-                  <img
-                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124711.png"
-                    alt="Mungo cafe Indiranagar — project image 4"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
-                <figure class="arch-intero-projects-card-panel-figure">
-                  <img
-                    src="./All_Images/Mungo/Screenshot%202026-07-06%20124723.png"
-                    alt="Mungo cafe Indiranagar — project image 5"
+                    src="./All_Images/Mungo/Screenshot%202026-08-21%20202613.png"
+                    alt="Mungo cafe Indiranagar — barista at the counter"
                     loading="lazy"
                     decoding="async"
                   />
@@ -607,7 +679,7 @@
             <img
               src="./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png"
               alt="Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -615,7 +687,7 @@
             <img
               src="./Public/about/IMG1%20(1).png"
               alt="Warm-toned interior with layered materials, soft lighting, and contemporary furnishings"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -623,7 +695,7 @@
             <img
               src="./Public/IMG4.png"
               alt="Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -631,7 +703,7 @@
             <img
               src="./Public/home_page_section2_image1.png"
               alt="Residential interior with clean lines, natural light, and layered neutral textures"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -639,7 +711,7 @@
             <img
               src="./Public/home_page_section2_image2.png"
               alt="Living space with warm neutrals, wood accents, and generous glazing"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -647,7 +719,7 @@
             <img
               src="./Public/home_page_section2_image3.png"
               alt="Open-plan interior with sculptural lighting and refined material palette"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -726,7 +798,7 @@
         />
         <div class="footer-v2-bottom">
           <p>&copy; 2026, Stratus. All Rights Reserved</p>
-          <p>Site by PINAKKAA</p>
+          <p>Site by <a href="https://pinakkaa.com/" target="_blank" rel="noopener noreferrer">PINAKKAA</a></p>
         </div>
       </div>
     </footer>

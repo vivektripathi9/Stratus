@@ -1,6 +1,121 @@
+(function initSilentUrls() {
+  const canMask = location.protocol === "http:" || location.protocol === "https:";
+
+  function maskAddressBar() {
+    if (!canMask) return;
+    try {
+      const next = `/${location.search || ""}`;
+      if (`${location.pathname}${location.search}${location.hash}` !== next) {
+        history.replaceState(history.state, "", next);
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function scrollToId(id) {
+    if (!id) return;
+    let target = document.getElementById(id);
+    if (!target) {
+      try {
+        target = document.querySelector(`[name="${CSS.escape(id)}"]`);
+      } catch {
+        target = document.querySelector(`[name="${id}"]`);
+      }
+    }
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  try {
+    sessionStorage.removeItem("stratus-soft-nav");
+    sessionStorage.removeItem("stratus-landed-path");
+  } catch {
+    /* ignore */
+  }
+
+  document.documentElement.style.visibility = "";
+  maskAddressBar();
+
+  if (location.hash && location.hash.length > 1) {
+    const id = location.hash.slice(1);
+    window.requestAnimationFrame(() => {
+      scrollToId(id);
+      maskAddressBar();
+    });
+  }
+
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      const a = e.target.closest("a[href]");
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+
+      const hrefAttr = (a.getAttribute("href") || "").trim();
+      if (!hrefAttr || hrefAttr === "#" || hrefAttr.startsWith("mailto:") || hrefAttr.startsWith("tel:") || hrefAttr.startsWith("javascript:")) {
+        return;
+      }
+
+      let dest;
+      try {
+        dest = new URL(a.href, window.location.href);
+      } catch {
+        return;
+      }
+      if (dest.origin !== window.location.origin) return;
+
+      if (hrefAttr.startsWith("#") && hrefAttr.length > 1) {
+        e.preventDefault();
+        scrollToId(hrefAttr.slice(1));
+        maskAddressBar();
+        return;
+      }
+
+      const samePath = (() => {
+        function toFile(pathname) {
+          let path = pathname || "/";
+          if (!path || path === "/" || /\/index\.html?$/i.test(path)) return "/index.html";
+          path = path.replace(/\/+$/, "");
+          if (/\.html$/i.test(path)) return path;
+          return `${path}.html`;
+        }
+        let here = toFile(location.pathname);
+        try {
+          here = sessionStorage.getItem("stratus-active-page") || here;
+        } catch {
+          /* ignore */
+        }
+        return toFile(dest.pathname) === here;
+      })();
+
+      if (samePath && dest.hash && dest.hash.length > 1) {
+        e.preventDefault();
+        scrollToId(dest.hash.slice(1));
+        maskAddressBar();
+      }
+    },
+    true
+  );
+
+  window.addEventListener("hashchange", maskAddressBar);
+  window.addEventListener("popstate", maskAddressBar);
+})();
+
 (function initStratusPageTransitions() {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion.matches) return;
+
+  function toFile(pathname) {
+    let path = pathname || "/";
+    if (!path || path === "/" || /\/index\.html?$/i.test(path)) return "/index.html";
+    path = path.replace(/\/+$/, "");
+    if (/\.html$/i.test(path)) return path;
+    return `${path}.html`;
+  }
 
   window.addEventListener(
     "pageshow",
@@ -8,6 +123,7 @@
       if (!ev.persisted) return;
       document.documentElement.classList.remove("stratus-exit-prep");
       document.body.classList.remove("stratus-is-leaving");
+      document.documentElement.style.visibility = "";
     },
     false
   );
@@ -25,8 +141,7 @@
 
       const hrefAttr = (a.getAttribute("href") || "").trim();
       if (!hrefAttr || hrefAttr === "#") return;
-      if (hrefAttr.startsWith("mailto:") || hrefAttr.startsWith("tel:") || hrefAttr.startsWith("javascript:"))
-        return;
+      if (hrefAttr.startsWith("mailto:") || hrefAttr.startsWith("tel:") || hrefAttr.startsWith("javascript:")) return;
       if (hrefAttr.startsWith("#") && hrefAttr.length > 1) return;
 
       let dest;
@@ -37,12 +152,13 @@
       }
       if (dest.origin !== window.location.origin) return;
 
-      const here = new URL(window.location.href);
-      const samePath =
-        dest.pathname === here.pathname ||
-        (dest.pathname.endsWith("/index.html") && here.pathname.endsWith("/")) ||
-        (here.pathname.endsWith("/index.html") && dest.pathname.endsWith("/"));
-      if (samePath && dest.hash && dest.hash.length > 1) return;
+      const destFile = toFile(dest.pathname);
+      let hereFile = toFile(location.pathname);
+      try {
+        hereFile = sessionStorage.getItem("stratus-active-page") || hereFile;
+      } catch (err) {}
+      if (destFile === hereFile && dest.hash && dest.hash.length > 1) return;
+      if (destFile === hereFile) return;
 
       e.preventDefault();
 
@@ -53,7 +169,12 @@
       void body.offsetWidth;
       body.classList.add("stratus-is-leaving");
 
-      const destination = a.href;
+      const destination = `${dest.origin}${destFile}${dest.search}${dest.hash || ""}`;
+      try {
+        sessionStorage.setItem("stratus-active-page", destFile);
+      } catch {
+        /* ignore */
+      }
       const fallbackMs = 300;
       const timeoutId = window.setTimeout(() => {
         window.location.href = destination;
@@ -132,26 +253,46 @@ projectTabs.forEach((tab) => {
 
   const reduceMotionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  function neutralizeGallaryCloneImages(root) {
-    root.querySelectorAll("img[src]").forEach((img) => {
-      img.dataset.gallaryCloneSrc = img.getAttribute("src") || "";
-      img.removeAttribute("src");
-      img.loading = "lazy";
+  function prepareGallaryImages(root, { eager = false } = {}) {
+    root.querySelectorAll("img").forEach((img) => {
       img.decoding = "async";
+      img.draggable = false;
+      if (eager) {
+        img.loading = "eager";
+        img.setAttribute("fetchpriority", "low");
+      } else {
+        img.loading = "lazy";
+      }
     });
   }
 
-  function restoreGallaryCloneImages(root) {
-    root.querySelectorAll("img[data-gallary-clone-src]").forEach((img) => {
-      const src = img.dataset.gallaryCloneSrc;
-      if (src && !img.getAttribute("src")) img.setAttribute("src", src);
+  function waitForImages(root, timeoutMs = 2500) {
+    const imgs = [...root.querySelectorAll("img")];
+    if (!imgs.length) return Promise.resolve();
+    const loads = Promise.all(
+      imgs.map(
+        (img) =>
+          new Promise((resolve) => {
+            if (img.complete && img.naturalWidth > 0) {
+              resolve();
+              return;
+            }
+            const done = () => resolve();
+            img.addEventListener("load", done, { once: true });
+            img.addEventListener("error", done, { once: true });
+          })
+      )
+    );
+    const timeout = new Promise((resolve) => {
+      window.setTimeout(resolve, timeoutMs);
     });
+    return Promise.race([loads, timeout]);
   }
 
   function startGallaryAutoplay(vp) {
     if (reduceMotionMq.matches) return null;
 
-    const speedPxPerSec = 48;
+    const speedPxPerSec = 36;
     let paused = false;
     let pauseUntil = 0;
     let lastTs = 0;
@@ -214,6 +355,7 @@ projectTabs.forEach((tab) => {
     function stopAutoplay() {
       if (rafId) cancelAnimationFrame(rafId);
       rafId = null;
+      lastTs = 0;
       vp.classList.remove("is-gallary-autoplay");
     }
 
@@ -226,13 +368,14 @@ projectTabs.forEach((tab) => {
 
     function tick(ts) {
       if (!lastTs) lastTs = ts;
-      const dt = Math.min(64, ts - lastTs) / 1000;
+      const dt = Math.min(48, ts - lastTs) / 1000;
       lastTs = ts;
 
       if (
         !reduceMotionMq.matches &&
         vp._gallaryInView &&
         !paused &&
+        !vp._gallaryNormalizing &&
         ts >= pauseUntil &&
         !document.hidden
       ) {
@@ -256,7 +399,6 @@ projectTabs.forEach((tab) => {
       if (document.hidden) lastTs = 0;
     });
 
-    rafId = requestAnimationFrame(tick);
     return { stop: stopAutoplay, start: resumeAutoplay };
   }
 
@@ -264,6 +406,8 @@ projectTabs.forEach((tab) => {
     if (vp.dataset.gallaryInfiniteDone) return;
     const grid = vp.querySelector(":scope > .gallary-grid");
     if (!grid || !grid.querySelector(".gallary-card")) return;
+
+    prepareGallaryImages(grid, { eager: true });
 
     const track = document.createElement("div");
     track.className = "gallary-infinite-track";
@@ -274,16 +418,16 @@ projectTabs.forEach((tab) => {
     const after = grid.cloneNode(true);
     before.setAttribute("aria-hidden", "true");
     after.setAttribute("aria-hidden", "true");
-    neutralizeGallaryCloneImages(before);
-    neutralizeGallaryCloneImages(after);
+    prepareGallaryImages(before, { eager: true });
+    prepareGallaryImages(after, { eager: true });
     track.insertBefore(before, grid);
     track.appendChild(after);
     vp._gallaryCloneBefore = before;
     vp._gallaryCloneAfter = after;
 
     vp.dataset.gallaryInfiniteDone = "1";
+    vp.classList.add("is-gallary-booting");
 
-    /** Flex `gap` between cloned strip and the next (CSS does not add space across sibling grids). */
     function flexGapBetweenStrips() {
       const cs = getComputedStyle(track);
       const raw = cs.columnGap || cs.gap;
@@ -291,48 +435,42 @@ projectTabs.forEach((tab) => {
       return Number.isFinite(n) ? n : 0;
     }
 
-    /** One full horizontal repeat unit: strip width + flex gap after it. */
     function segmentStep() {
       return grid.offsetWidth + flexGapBetweenStrips();
     }
 
     function normalize() {
       const step = segmentStep();
-      if (grid.offsetWidth < 8) return;
+      if (step < 32) return;
       if (vp._gallaryNormalizing) return;
 
       const prevStep = Number(vp._gallaryPrevS) || 0;
-      if (prevStep > 8 && Math.abs(step - prevStep) > 5) {
+      if (prevStep > 32 && Math.abs(step - prevStep) / prevStep > 0.02) {
         vp._gallaryNormalizing = true;
-        vp.style.scrollBehavior = "auto";
         const le = vp.scrollLeft;
         vp.scrollLeft = (le / prevStep) * step;
         vp._gallaryPrevS = String(step);
         requestAnimationFrame(() => {
           vp._gallaryNormalizing = false;
-          vp.style.scrollBehavior = "";
         });
         return;
       }
 
       const le = vp.scrollLeft;
-      if (le < step - 8) {
+      const view = vp.clientWidth;
+      if (le < step - 4) {
         vp._gallaryNormalizing = true;
-        vp.style.scrollBehavior = "auto";
         vp.scrollLeft = le + step;
         vp._gallaryPrevS = String(step);
         requestAnimationFrame(() => {
           vp._gallaryNormalizing = false;
-          vp.style.scrollBehavior = "";
         });
-      } else if (le > 2 * step - vp.clientWidth + 8) {
+      } else if (le > 2 * step - view + 4) {
         vp._gallaryNormalizing = true;
-        vp.style.scrollBehavior = "auto";
         vp.scrollLeft = le - step;
         vp._gallaryPrevS = String(step);
         requestAnimationFrame(() => {
           vp._gallaryNormalizing = false;
-          vp.style.scrollBehavior = "";
         });
       } else {
         vp._gallaryPrevS = String(step);
@@ -341,13 +479,9 @@ projectTabs.forEach((tab) => {
 
     function initScrollPos() {
       const step = segmentStep();
-      if (grid.offsetWidth < 8) return;
-      vp.style.scrollBehavior = "auto";
+      if (step < 32) return;
       vp.scrollLeft = step;
       vp._gallaryPrevS = String(step);
-      requestAnimationFrame(() => {
-        vp.style.scrollBehavior = "";
-      });
     }
 
     vp._gallaryNormalize = normalize;
@@ -356,7 +490,7 @@ projectTabs.forEach((tab) => {
     vp.addEventListener(
       "scroll",
       () => {
-        if (scrollTick) return;
+        if (scrollTick || vp._gallaryNormalizing) return;
         scrollTick = true;
         requestAnimationFrame(() => {
           scrollTick = false;
@@ -369,12 +503,21 @@ projectTabs.forEach((tab) => {
     let resizeTimer = null;
     function onWindowResize() {
       window.clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(initScrollPos, 120);
+      resizeTimer = window.setTimeout(() => {
+        initScrollPos();
+      }, 180);
     }
 
     if ("ResizeObserver" in window) {
+      let roTimer = null;
       const ro = new ResizeObserver(() => {
-        normalize();
+        window.clearTimeout(roTimer);
+        roTimer = window.setTimeout(() => {
+          if (!vp._gallaryReady) return;
+          const step = segmentStep();
+          const prev = Number(vp._gallaryPrevS) || 0;
+          if (prev > 32 && Math.abs(step - prev) > 2) normalize();
+        }, 100);
       });
       ro.observe(track);
       ro.observe(grid);
@@ -382,27 +525,25 @@ projectTabs.forEach((tab) => {
 
     window.addEventListener("resize", onWindowResize, { passive: true });
 
-    const boot = () => {
-      if (vp._gallaryCloneBefore && vp._gallaryCloneAfter) {
-        restoreGallaryCloneImages(vp._gallaryCloneBefore);
-        restoreGallaryCloneImages(vp._gallaryCloneAfter);
-      }
+    const boot = async () => {
+      await waitForImages(track);
       initScrollPos();
+      vp._gallaryReady = true;
+      vp.classList.remove("is-gallary-booting");
+      vp.classList.add("is-gallary-ready");
       if (!vp._gallaryAutoplayCtl) {
         vp._gallaryAutoplayCtl = startGallaryAutoplay(vp);
-      } else {
+      }
+      if (vp._gallaryInView && vp._gallaryAutoplayCtl) {
         vp._gallaryAutoplayCtl.start();
       }
     };
 
-    const runWhenReady = () => {
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        requestAnimationFrame(boot);
+        boot();
       });
-    };
-
-    if (document.readyState === "complete") runWhenReady();
-    else window.addEventListener("load", runWhenReady, { once: true });
+    });
   }
 
   viewports.forEach((vp) => {
@@ -426,7 +567,7 @@ projectTabs.forEach((tab) => {
             }
           });
         },
-        { rootMargin: "280px 0px", threshold: 0.01 }
+        { rootMargin: "320px 0px", threshold: 0.01 }
       );
       io.observe(vp);
     } else {
@@ -437,8 +578,12 @@ projectTabs.forEach((tab) => {
 })();
 
 (function initGallarySectionReveal() {
-  const gallaryCards = document.querySelectorAll(".gallary-section .gallary-card");
-  if (!gallaryCards.length) return;
+  const cards = document.querySelectorAll(".gallary-section .gallary-card");
+  if (!cards.length) return;
+
+  const infiniteCards = new Set(
+    document.querySelectorAll(".gallary-scroll-viewport--infinite .gallary-card")
+  );
 
   if ("IntersectionObserver" in window) {
     const gallaryObserver = new IntersectionObserver(
@@ -449,14 +594,17 @@ projectTabs.forEach((tab) => {
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.22 }
+      { threshold: 0.18, rootMargin: "40px 0px" }
     );
-    gallaryCards.forEach((card) => {
-      if (card.closest("[aria-hidden='true']")) return;
+    cards.forEach((card) => {
+      if (infiniteCards.has(card) || card.closest("[aria-hidden='true']")) {
+        card.classList.add("is-inview");
+        return;
+      }
       gallaryObserver.observe(card);
     });
   } else {
-    gallaryCards.forEach((card) => {
+    cards.forEach((card) => {
       if (!card.closest("[aria-hidden='true']")) card.classList.add("is-inview");
     });
   }
@@ -1173,25 +1321,35 @@ if (latestRoot) {
 })();
 
 (function initHomeBannerCycle() {
-  const root = document.querySelector("[data-home-banner-cycle]");
-  if (!root) return;
-
-  const frames = [...root.querySelectorAll("img")];
-  if (frames.length < 2) return;
+  const roots = [...document.querySelectorAll("[data-home-banner-cycle]")];
+  if (!roots.length) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion.matches) return;
 
+  const panels = roots
+    .map((root) => [...root.querySelectorAll("img")])
+    .filter((frames) => frames.length >= 2);
+  if (!panels.length) return;
+
   let index = 0;
-  const startCycle = () => {
-    window.setInterval(() => {
-      frames[index].classList.remove("is-active");
-      index = (index + 1) % frames.length;
-      frames[index].classList.add("is-active");
-    }, 4500);
+
+  const advanceAll = () => {
+    panels.forEach((frames) => {
+      frames[index % frames.length].classList.remove("is-active");
+    });
+    index += 1;
+    panels.forEach((frames) => {
+      frames[index % frames.length].classList.add("is-active");
+    });
   };
 
-  if ("IntersectionObserver" in window) {
+  const startCycle = () => {
+    window.setInterval(advanceAll, 4500);
+  };
+
+  const firstRoot = roots[0];
+  if ("IntersectionObserver" in window && firstRoot) {
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries[0]?.isIntersecting) return;
@@ -1200,7 +1358,7 @@ if (latestRoot) {
       },
       { rootMargin: "120px 0px", threshold: 0.05 }
     );
-    io.observe(root);
+    io.observe(firstRoot);
   } else {
     startCycle();
   }
@@ -1409,6 +1567,7 @@ if (latestRoot) {
             </div>
             <div class="arch-intero-drawer__head-right">
               <h2 id="arch-intero-drawer-title" class="arch-intero-drawer__title"></h2>
+              <p class="arch-intero-drawer__subtitle" hidden></p>
               <div class="arch-intero-drawer__desc"></div>
             </div>
           </div>
@@ -1429,6 +1588,13 @@ if (latestRoot) {
   const locationEl = root.querySelector(".arch-intero-drawer__location");
   const tagsEl = root.querySelector(".arch-intero-drawer__tags");
   const titleEl = root.querySelector(".arch-intero-drawer__title");
+  let subtitleEl = root.querySelector(".arch-intero-drawer__subtitle");
+  if (!subtitleEl && titleEl) {
+    subtitleEl = document.createElement("p");
+    subtitleEl.className = "arch-intero-drawer__subtitle";
+    subtitleEl.hidden = true;
+    titleEl.insertAdjacentElement("afterend", subtitleEl);
+  }
   const descEl = root.querySelector(".arch-intero-drawer__desc");
   const gridEl = root.querySelector(".arch-intero-drawer__grid");
   const projectLink = root.querySelector(".arch-intero-drawer__project-link");
@@ -1498,6 +1664,10 @@ if (latestRoot) {
     locationEl.hidden = true;
     tagsEl.hidden = true;
     titleEl.textContent = "";
+    if (subtitleEl) {
+      subtitleEl.textContent = "";
+      subtitleEl.hidden = true;
+    }
     scrollEl?.classList.remove("is-swapping", "is-swapped");
   }
 
@@ -1560,18 +1730,31 @@ if (latestRoot) {
 
     titleEl.textContent = title;
 
+    if (subtitleEl) {
+      const subtitle = status.replace(/\r\n/g, "\n").trim();
+      subtitleEl.textContent = subtitle;
+      subtitleEl.hidden = !subtitle;
+    }
+
     yearEl.textContent = year;
     yearEl.hidden = !year;
 
     locationEl.textContent = location;
     locationEl.hidden = !location;
 
+    const statusFirstLine = status
+      .replace(/\r\n/g, "\n")
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean)[0] || "";
+    const statusNorm = statusFirstLine.toLowerCase();
     let tagParts = tagsRaw
       .split("|")
       .map((s) => s.trim())
-      .filter(Boolean);
-    if (!tagParts.length && status) {
-      tagParts = status
+      .filter(Boolean)
+      .filter((t) => t.toLowerCase() !== statusNorm);
+    if (!tagParts.length && statusFirstLine && !subtitleEl) {
+      tagParts = statusFirstLine
         .split(/[·,]+/)
         .map((s) => s.trim())
         .filter(Boolean);
@@ -1992,17 +2175,53 @@ if (latestRoot) {
   }
 
   function initLazyHeroVideos() {
+    const saveData = navigator.connection?.saveData;
+    const slowNet = ["slow-2g", "2g"].includes(navigator.connection?.effectiveType);
+
     document.querySelectorAll("video.home-hero-video, video.page-hero-video").forEach((video) => {
       if (video.dataset.heroVideoReady === "1") return;
+
+      if (saveData || slowNet) {
+        video.removeAttribute("autoplay");
+        return;
+      }
 
       const loadAndPlay = () => {
         if (video.dataset.heroVideoReady === "1") return;
         video.dataset.heroVideoReady = "1";
-        video.preload = "auto";
-        const playPromise = video.play();
-        if (playPromise && typeof playPromise.catch === "function") {
-          playPromise.catch(() => {});
+
+        const source = video.querySelector("source");
+        if (source?.getAttribute("src") && !video.getAttribute("src")) {
+          video.src = source.getAttribute("src");
         }
+
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute("playsinline", "");
+        video.preload = "auto";
+
+        const tryPlay = () => {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {
+              window.setTimeout(() => {
+                video.play()?.catch(() => {});
+              }, 250);
+            });
+          }
+        };
+
+        const onCanPlay = () => {
+          video.removeEventListener("canplay", onCanPlay);
+          tryPlay();
+        };
+        video.addEventListener("canplay", onCanPlay);
+        try {
+          video.load();
+        } catch {
+          /* ignore */
+        }
+        if (video.readyState >= 2) tryPlay();
       };
 
       if ("IntersectionObserver" in window) {
@@ -2012,9 +2231,17 @@ if (latestRoot) {
             loadAndPlay();
             io.disconnect();
           },
-          { rootMargin: "80px 0px", threshold: 0.12 }
+          { rootMargin: "400px 0px", threshold: 0 }
         );
         io.observe(video);
+        // Top-of-page heroes: kick off immediately if already visible
+        requestAnimationFrame(() => {
+          const rect = video.getBoundingClientRect();
+          if (rect.bottom > 0 && rect.top < window.innerHeight + 400) {
+            loadAndPlay();
+            io.disconnect();
+          }
+        });
       } else {
         loadAndPlay();
       }
@@ -2058,4 +2285,92 @@ if (latestRoot) {
   initGlobalImageLazy();
   observeLazyImages();
   runWhenIdle(initGlobalImageLazy);
+})();
+
+(function initAvailableNowEnquiry() {
+  const root = document.getElementById("available-now-enquiry");
+  const form = document.getElementById("available-now-enquiry-form");
+  if (!root || !form) return;
+
+  const floorSelect = form.querySelector("#enquiry-floor");
+  const status = document.getElementById("available-now-enquiry-status");
+  const mail = "hello@stratus.company";
+  let lastFocus = null;
+
+  function openEnquiry(floorValue) {
+    lastFocus = document.activeElement;
+    root.hidden = false;
+    root.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (floorSelect) {
+      const knownFloors = [
+        "First Floor",
+        "Second Floor",
+        "Stilt Floor",
+        "Typical Floors",
+        "Terrace Floor",
+        "Building Overview",
+      ];
+      if (knownFloors.includes(floorValue)) {
+        floorSelect.value = floorValue;
+      } else {
+        floorSelect.value = "General";
+      }
+    }
+
+    if (status) status.textContent = "";
+    const firstField = form.querySelector("#enquiry-name");
+    if (firstField) firstField.focus();
+  }
+
+  function closeEnquiry() {
+    root.hidden = true;
+    root.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+  }
+
+  document.querySelectorAll("[data-enquiry-open]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const floor = trigger.getAttribute("data-enquiry-floor") || "";
+      openEnquiry(floor);
+    });
+  });
+
+  root.querySelectorAll("[data-enquiry-close]").forEach((el) => {
+    el.addEventListener("click", closeEnquiry);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (root.hidden) return;
+    if (e.key === "Escape") closeEnquiry();
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const fd = new FormData(form);
+    const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim();
+    const floor = String(fd.get("floor") || "").trim();
+    const message = String(fd.get("message") || "").trim();
+
+    const subject = encodeURIComponent(`Evara enquiry: ${floor}`);
+    const body = encodeURIComponent(
+      `Project: Evara @ 7th Main\nFloor plan: ${floor}\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
+    );
+
+    window.location.href = `mailto:${mail}?subject=${subject}&body=${body}`;
+
+    if (status) {
+      status.textContent =
+        "If your email app did not open, send the same details to " + mail + ".";
+    }
+  });
 })();

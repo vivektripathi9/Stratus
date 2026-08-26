@@ -1,0 +1,402 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        try {
+          if (location.protocol !== "http:" && location.protocol !== "https:") return;
+          var path = location.pathname || "/";
+          var file = "/index.html";
+          if (path !== "/" && !/index\.html?$/i.test(path)) {
+            file = /\.html$/i.test(path) ? path : path.replace(/\/+$/, "") + ".html";
+          }
+          try { sessionStorage.setItem("stratus-active-page", file); } catch (err) {}
+          if (path !== "/" || location.hash) {
+            history.replaceState(null, "", "/" + (location.search || ""));
+          }
+          document.documentElement.style.visibility = "";
+        } catch (e) {}
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Available Now — Evara | Stratus</title>
+    <link
+      rel="preload"
+      href="./Gallary_image/contianer/Evara_Cover%20Pic.png"
+      as="image"
+      fetchpriority="high"
+    />
+        <link
+      rel="preload"
+      href="./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="top-hero-page available-now-page">
+    <header>
+      <a href="./index.html" class="top-corner-logo" aria-label="Stratus Home">
+        <img
+          src="./Public/navbar/logo.png"
+          alt="Stratus logo"
+          class="top-corner-logo-img"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </a>
+      <nav class="navbar" aria-label="Primary">
+        <div class="navbar-leading">
+          <a href="./index.html" class="brand" aria-label="Stratus Home">
+            <img
+              src="./Font/New_images/BG (2).png"
+              alt="Stratus logo"
+              class="brand-logo"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </a>
+          <button
+            type="button"
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="site-navigation"
+            aria-label="Open menu"
+          >
+            <span class="nav-toggle-bars" aria-hidden="true">
+              <span class="nav-toggle-bar"></span>
+              <span class="nav-toggle-bar"></span>
+              <span class="nav-toggle-bar"></span>
+            </span>
+          </button>
+        </div>
+        <div class="nav-backdrop" aria-hidden="true"></div>
+        <div class="nav-right" id="site-navigation">
+          <ul class="nav-links">
+            <li><a href="./de-atelier.html">De Atelier</a></li>
+            <li><a href="./arch_and_intero.html">Design and Build</a></li>
+            <li><a href="./available-now.html" aria-current="page">Available Now</a></li>
+          </ul>
+          <a href="./contact.html" class="hero-contact-btn"
+            >Know more <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <section class="architecture-hero architecture-hero--evara page-hero">
+      <div class="page-hero-content available-now-hero-content">
+        <h1>Available Now</h1>
+        <p class="available-now-hero-lede">Homes ready to move in across Bengaluru</p>
+      </div>
+    </section>
+
+    <section class="available-now-floorplans" aria-labelledby="available-now-evara-heading">
+      <div class="available-now-floorplans__inner">
+        <div class="available-now-floorplans__header">
+          <h2 id="available-now-evara-heading">Evara</h2>
+          <p class="available-now-floorplans__location">Indiranagar, Bengaluru</p>
+          <h3 class="available-now-floorplans__subheading" id="available-now-floorplans-heading">Floor plans</h3>
+          <p>Select a plan to enquire, or use the button below for general availability.</p>
+        </div>
+
+        <ul class="available-now-floorplans__grid">
+          <li class="available-now-floorplan-group">
+            <h3 class="available-now-floorplan-group__title">First floor plan</h3>
+            <div class="available-now-floorplan-group__images">
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="First Floor"
+                aria-label="Enquire about first floor plan view 1"
+              >
+                <img
+                  src="./Few_new_images/Evara/Screenshot%202026-06-03%20114950.png"
+                  alt="Evara first floor plan"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">First floor</span>
+              </button>
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Stilt Floor"
+                aria-label="Enquire about stilt floor plan"
+              >
+                <img
+                  src="./Evara/01_Stilt%20Floor.png"
+                  alt="Evara stilt floor plan"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Stilt floor</span>
+              </button>
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Typical Floors"
+                aria-label="Enquire about typical floors plan"
+              >
+                <img
+                  src="./Evara/02_Typical%20Floors.png"
+                  alt="Evara typical floors plan"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Typical floors</span>
+              </button>
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Terrace Floor"
+                aria-label="Enquire about terrace floor plan"
+              >
+                <img
+                  src="./Evara/03_Terrace%20Floor.png"
+                  alt="Evara terrace floor plan"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Terrace floor</span>
+              </button>
+            </div>
+          </li>
+
+          <li class="available-now-floorplan-group">
+            <h3 class="available-now-floorplan-group__title">Second floor plan</h3>
+            <div class="available-now-floorplan-group__images">
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Second Floor"
+                aria-label="Enquire about second floor plan view 1"
+              >
+                <img
+                  src="./Few_new_images/Evara/Screenshot%202026-06-03%20115300.png"
+                  alt="Evara second floor plan"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Second floor</span>
+              </button>
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Typical Floors"
+                aria-label="Enquire about typical floor layout"
+              >
+                <img
+                  src="./Evara/02_Typical%20Floors.png"
+                  alt="Evara typical floor layout detail"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Typical layout</span>
+              </button>
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Terrace Floor"
+                aria-label="Enquire about terrace level plan"
+              >
+                <img
+                  src="./Evara/03_Terrace%20Floor.png"
+                  alt="Evara terrace level plan"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Terrace level</span>
+              </button>
+              <button
+                type="button"
+                class="available-now-floorplan-thumb"
+                data-enquiry-open
+                data-enquiry-floor="Building Overview"
+                aria-label="Enquire about building overview"
+              >
+                <img
+                  src="./Gallary_image/contianer/Evara_Cover%20Pic.png"
+                  alt="Evara building exterior overview"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="available-now-floorplan-thumb__label">Building overview</span>
+              </button>
+            </div>
+          </li>
+        </ul>
+
+        <div class="available-now-floorplans__actions">
+          <button type="button" class="btn-primary available-now-enquire-btn" data-enquiry-open>
+            Enquire now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="available-now-enquiry"
+      id="available-now-enquiry"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="available-now-enquiry__scrim" data-enquiry-close tabindex="-1"></div>
+      <div
+        class="available-now-enquiry__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="available-now-enquiry-title"
+      >
+        <button
+          type="button"
+          class="available-now-enquiry__close"
+          data-enquiry-close
+          aria-label="Close enquiry form"
+        >
+          &times;
+        </button>
+        <h2 id="available-now-enquiry-title">Enquire about Evara</h2>
+        <p class="available-now-enquiry__intro">
+          Share your details and we will get back to you about availability and next steps.
+        </p>
+        <form class="contact-form available-now-enquiry__form" id="available-now-enquiry-form" novalidate>
+          <div class="contact-field">
+            <label for="enquiry-name">Name</label>
+            <input id="enquiry-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="contact-field">
+            <label for="enquiry-email">Email</label>
+            <input id="enquiry-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="contact-field">
+            <label for="enquiry-phone">Phone</label>
+            <input id="enquiry-phone" name="phone" type="tel" autocomplete="tel" required />
+          </div>
+          <div class="contact-field contact-field--full">
+            <label for="enquiry-floor">Floor plan</label>
+            <select id="enquiry-floor" name="floor" required>
+              <option value="" disabled selected>Select a floor plan</option>
+              <option value="First Floor">First floor plan</option>
+              <option value="Second Floor">Second floor plan</option>
+              <option value="Stilt Floor">Stilt floor plan</option>
+              <option value="Typical Floors">Typical floors plan</option>
+              <option value="Terrace Floor">Terrace floor plan</option>
+              <option value="Building Overview">Building overview</option>
+              <option value="General">General availability</option>
+            </select>
+          </div>
+          <div class="contact-field contact-field--full">
+            <label for="enquiry-message">Message</label>
+            <textarea
+              id="enquiry-message"
+              name="message"
+              rows="4"
+              placeholder="Tell us about your requirements…"
+              required
+            ></textarea>
+          </div>
+          <p class="contact-form-note" id="available-now-enquiry-status" role="status" aria-live="polite"></p>
+          <button type="submit" class="btn-primary contact-submit">Send enquiry</button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="site-footer footer-v2">
+      <div class="footer-v2-inner">
+        <div class="footer-v2-top">
+          <div class="footer-v2-brand">
+            <a href="./index.html" class="footer-v2-logo-link" aria-label="Stratus Home">
+              <img
+                src="./Public/navbar/logo - footer.png"
+                alt="Stratus logo"
+                class="footer-v2-logo"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <p>
+              We are a design firm specializing in architecture, interiors, and spatial design. We create
+              thoughtful, timeless spaces where concept, function, material, and experience come together
+              seamlessly.
+            </p>
+            <div class="footer-v2-social">
+              <a href="#" aria-label="Instagram"
+                ><img
+                  src="./Public/services/instagram.png"
+                  alt=""
+                  class="footer-social-icon"
+                  loading="lazy"
+                  decoding="async"
+              /></a>
+              <a href="#" aria-label="Twitter"
+                ><img
+                  src="./Public/services/twitter.png"
+                  alt=""
+                  class="footer-social-icon"
+                  loading="lazy"
+                  decoding="async"
+              /></a>
+              <a href="#" aria-label="LinkedIn"
+                ><img
+                  src="./Public/services/linkedin-in.png"
+                  alt=""
+                  class="footer-social-icon"
+                  loading="lazy"
+                  decoding="async"
+              /></a>
+            </div>
+          </div>
+          <div class="footer-v2-links">
+            <h3>Site</h3>
+            <a href="./index.html">Home</a>
+            <a href="./about.html">About</a>
+            <a href="./contact.html">Contact</a>
+          </div>
+          <div class="footer-v2-links">
+            <h3>Legal</h3>
+            <a href="./privacy.html">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="./terms.html">Terms and Conditions</a>
+          </div>
+          <form class="footer-v2-subscribe" action="#" method="post">
+            <label for="footer-email-available-now" class="sr-only">Email</label>
+            <input id="footer-email-available-now" type="email" placeholder="Hello@stratus.company" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <img
+          src="./photos/gallary/footter_image.png"
+          alt=""
+          class="footer-v2-wordmark-image"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+        <div class="footer-v2-bottom">
+          <p>&copy; 2026, Stratus. All Rights Reserved</p>
+          <p>Site by <a href="https://pinakkaa.com/" target="_blank" rel="noopener noreferrer">PINAKKAA</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

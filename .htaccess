@@ -1,0 +1,15 @@
+# Pretty URLs — hide .html in the address bar (Apache / many shared hosts)
+RewriteEngine On
+
+# Redirect visible *.html requests to clean URLs
+RewriteCond %{THE_REQUEST} \s/+([^?\s]*?)index\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+([^?\s]+?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Serve clean paths from the matching .html file
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]

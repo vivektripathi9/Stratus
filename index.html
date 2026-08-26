@@ -1,6 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        try {
+          if (location.protocol !== "http:" && location.protocol !== "https:") return;
+          var path = location.pathname || "/";
+          var file = "/index.html";
+          if (path !== "/" && !/index\.html?$/i.test(path)) {
+            file = /\.html$/i.test(path) ? path : path.replace(/\/+$/, "") + ".html";
+          }
+          try { sessionStorage.setItem("stratus-active-page", file); } catch (err) {}
+          if (path !== "/" || location.hash) {
+            history.replaceState(null, "", "/" + (location.search || ""));
+          }
+          document.documentElement.style.visibility = "";
+        } catch (e) {}
+      })();
+    </script>
+
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -13,18 +31,18 @@
       as="image"
       fetchpriority="high"
     />
-    <link
+        <link
       rel="preload"
-      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link
       rel="preload"
-      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -70,6 +88,7 @@
           <ul class="nav-links">
             <li><a href="./de-atelier.html">De Atelier</a></li>
             <li><a href="./arch_and_intero.html">Design and Build</a></li>
+            <li><a href="./available-now.html">Available Now</a></li>
           </ul>
           <a href="./contact.html" class="hero-contact-btn"
             >Know more <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
@@ -81,21 +100,28 @@
     <section class="home-banner-section" aria-label="Stratus showcase">
       <div class="home-banner-stage">
         <div class="home-banner-columns">
-        <div class="home-banner-panel home-banner-panel--static">
+        <div class="home-banner-panel home-banner-panel--cycle" data-home-banner-cycle>
           <img
-            src="./Public/architecture/Cont_1.png"
-            alt="Terracotta decorative screen with lattice and faceted blocks, warm golden backlight"
+            class="is-active"
+            src="./BAnner/IMG_1139.JPG"
+            alt="Stratus showcase — café seating with glass block walls"
             fetchpriority="high"
+            decoding="async"
+          />
+          <img
+            src="./BAnner/IMG_1545.JPG"
+            alt="Stratus showcase — lounge chair against textured wall"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="./All_Images/WhatsApp%20Image%202026-08-21%20at%201.01.13%20PM.jpeg"
+            alt="Travelopia workspace — brick wall office with workstations"
+            loading="lazy"
             decoding="async"
           />
         </div>
         <div class="home-banner-panel home-banner-panel--static home-banner-panel--center">
-          <img
-            src="./Public/architecture/Cont_2.png"
-            alt="Terracotta architectural screen with geometric lattice and faceted tile patterns"
-            decoding="async"
-            fetchpriority="low"
-           loading="lazy" decoding="async" />
           <img
             class="home-banner-center-com"
             src="./BAnner/logo_com.png"
@@ -107,25 +133,19 @@
         <div class="home-banner-panel home-banner-panel--cycle" data-home-banner-cycle>
           <img
             class="is-active"
-            src="./Public/architecture/Cont_2.png"
-            alt="Terracotta decorative screen — detail two"
-            decoding="async"
-          />
-          <img
             src="./BAnner/C22935C0-7232-49F1-803F-D63F86BF8FC0.png"
-            alt="Stratus showcase — interior visual"
+            alt="Stratus showcase — workspace with wood and green planter"
+            decoding="async"
+          />
+          <img
+            src="./Public/hero/Rectangle%2043%20(2).png"
+            alt="Mungo café interior with glass block walls and brunch counter"
             loading="lazy"
             decoding="async"
           />
           <img
-            src="./BAnner/IMG_1139.JPG"
-            alt="Stratus showcase — architectural interior"
-            loading="lazy"
-            decoding="async"
-          />
-          <img
-            src="./BAnner/IMG_1545.JPG"
-            alt="Stratus showcase — space and materials"
+            src="./All_Images/WhatsApp%20Image%202026-08-21%20at%201.01.13%20PM.jpeg"
+            alt="Travelopia workspace — brick wall office with workstations"
             loading="lazy"
             decoding="async"
           />
@@ -148,7 +168,8 @@
         muted
         loop
         playsinline
-        preload="none"
+        preload="auto"
+        poster="./Public/architecture/home-hero-poster.jpg"
         aria-hidden="true"
       >
         <source src="./Public/architecture/Clip_06%20(1)%20(1).mp4" type="video/mp4" />
@@ -172,7 +193,7 @@
           </div>
           <figure class="home-about-redesign-media">
             <img
-              src="./Gallary_image/banner/Brand%20Philosophy%20Image.png"
+              src="./Gallary_image/banner/Brand%20Philosophy%20Image.jpg"
               alt="Modern interior with floating wooden stairs, brick wall, circular windows, and indoor garden"
               loading="lazy"
               decoding="async"
@@ -247,13 +268,13 @@
           </article>
 
           <article class="home-process-card">
-            <img src="./The_process/Estimation.png" alt="Costing and estimate worksheet" loading="lazy" decoding="async" />
+            <img src="./The_process/Estimation.jpg" alt="Costing and estimate worksheet" loading="lazy" decoding="async" />
             <h3>Estimation</h3>
             <p>The pricing details and the total cost of the customer&apos;s interior design project.</p>
           </article>
 
           <article class="home-process-card">
-            <img src="./The_process/Execution.png" alt="Construction site execution and on-site supervision" loading="lazy" decoding="async" />
+            <img src="./The_process/Execution.jpg" alt="Construction site execution and on-site supervision" loading="lazy" decoding="async" />
             <h3>Execution</h3>
             <p><span class="home-process-nowrap">On-site build-out and construction,</span><br />supervised so the finished interior<br />matches the approved plans.</p>
           </article>
@@ -489,7 +510,7 @@
             <img
               src="./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png"
               alt="Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -497,7 +518,7 @@
             <img
               src="./Public/about/IMG1%20(1).png"
               alt="Warm-toned interior with layered materials, soft lighting, and contemporary furnishings"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -505,7 +526,7 @@
             <img
               src="./Public/IMG4.png"
               alt="Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -513,7 +534,7 @@
             <img
               src="./Public/home_page_section2_image1.png"
               alt="Residential interior with clean lines, natural light, and layered neutral textures"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -521,7 +542,7 @@
             <img
               src="./Public/home_page_section2_image2.png"
               alt="Living space with warm neutrals, wood accents, and generous glazing"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -529,7 +550,7 @@
             <img
               src="./Public/home_page_section2_image3.png"
               alt="Open-plan interior with sculptural lighting and refined material palette"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -783,7 +804,7 @@
 
         <div class="footer-v2-bottom">
           <p>&copy; 2026, Stratus. All Rights Reserved</p>
-          <p>Site by PINAKKAA</p>
+          <p>Site by <a href="https://pinakkaa.com/" target="_blank" rel="noopener noreferrer">PINAKKAA</a></p>
         </div>
       </div>
     </footer>

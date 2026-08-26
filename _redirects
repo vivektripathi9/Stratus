@@ -1,0 +1,28 @@
+# Clean URLs (Netlify): extensionless paths serve the .html files
+/de-atelier          /de-atelier.html          200
+/arch_and_intero     /arch_and_intero.html     200
+/available-now       /available-now.html       200
+/contact             /contact.html             200
+/about               /about.html               200
+/privacy             /privacy.html             200
+/terms               /terms.html               200
+/gallary             /gallary.html             200
+/architecture        /architecture.html        200
+/Construction        /Construction.html        200
+/direct_project      /direct_project.html      200
+/project             /project.html             200
+
+# Redirect old .html URLs to clean paths
+/de-atelier.html          /de-atelier          301
+/arch_and_intero.html     /arch_and_intero     301
+/available-now.html       /available-now       301
+/contact.html             /contact             301
+/about.html               /about               301
+/privacy.html             /privacy             301
+/terms.html               /terms               301
+/gallary.html             /gallary             301
+/architecture.html        /architecture        301
+/Construction.html        /Construction        301
+/direct_project.html      /direct_project      301
+/project.html             /project             301
+/index.html               /                    301

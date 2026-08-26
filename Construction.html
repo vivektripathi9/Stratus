@@ -1,22 +1,40 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        try {
+          if (location.protocol !== "http:" && location.protocol !== "https:") return;
+          var path = location.pathname || "/";
+          var file = "/index.html";
+          if (path !== "/" && !/index\.html?$/i.test(path)) {
+            file = /\.html$/i.test(path) ? path : path.replace(/\/+$/, "") + ".html";
+          }
+          try { sessionStorage.setItem("stratus-active-page", file); } catch (err) {}
+          if (path !== "/" || location.hash) {
+            history.replaceState(null, "", "/" + (location.search || ""));
+          }
+          document.documentElement.style.visibility = "";
+        } catch (e) {}
+      })();
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Construction | Stratus</title>
     <link rel="preload" href="./Font/New_images/Construction.png" as="image" fetchpriority="high" />
-    <link
+        <link
       rel="preload"
-      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link
       rel="preload"
-      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -56,6 +74,7 @@
           <ul class="nav-links">
             <li><a href="./de-atelier.html">De Atelier</a></li>
             <li><a href="./arch_and_intero.html">Design and Build</a></li>
+            <li><a href="./available-now.html">Available Now</a></li>
           </ul>
           <a href="./contact.html" class="hero-contact-btn"
             >Know more <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
@@ -198,7 +217,7 @@
             <img
               src="./Public/99cfc03b1894196bd8af33b7e2635199e3bb02eb.png"
               alt="Cafe with glass block walls, exposed concrete ceiling, terracotta-textured walls, and bouclé chairs"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -206,7 +225,7 @@
             <img
               src="./Public/about/IMG1%20(1).png"
               alt="Warm-toned interior with layered materials, soft lighting, and contemporary furnishings"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -214,7 +233,7 @@
             <img
               src="./Public/IMG4.png"
               alt="Cafe interior with textured circular pendant lights, metal slat partition, and lush potted plants"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -222,7 +241,7 @@
             <img
               src="./Public/home_page_section2_image1.png"
               alt="Residential interior with clean lines, natural light, and layered neutral textures"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -230,7 +249,7 @@
             <img
               src="./Public/home_page_section2_image2.png"
               alt="Living space with warm neutrals, wood accents, and generous glazing"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -238,7 +257,7 @@
             <img
               src="./Public/home_page_section2_image3.png"
               alt="Open-plan interior with sculptural lighting and refined material palette"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </article>
@@ -310,7 +329,7 @@
         />
         <div class="footer-v2-bottom">
           <p>&copy; 2026, Stratus. All Rights Reserved</p>
-          <p>Site by PINAKKAA</p>
+          <p>Site by <a href="https://pinakkaa.com/" target="_blank" rel="noopener noreferrer">PINAKKAA</a></p>
         </div>
       </div>
     </footer>

@@ -1,11 +1,6 @@
 @font-face {
   font-family: "Panigale";
   src:
-    url("./Font/Panigale-Font/Panigale-Regular.woff2") format("woff2"),
-    url("./Font/Panigale-Font/Panigale-Regular.woff") format("woff"),
-    url("./Font/Panigale-Font/Panigale-Regular.ttf") format("truetype"),
-    local("Panigale"),
-    local("Panigale Regular"),
     url("./Font/Panigale-Font/panigale.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
@@ -15,10 +10,6 @@
 @font-face {
   font-family: "Panigale";
   src:
-    url("./Font/Panigale-Font/Panigale-Medium.woff2") format("woff2"),
-    url("./Font/Panigale-Font/Panigale-Medium.woff") format("woff"),
-    url("./Font/Panigale-Font/Panigale-Medium.ttf") format("truetype"),
-    local("Panigale Medium"),
     url("./Font/Panigale-Font/panigale.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
@@ -28,11 +19,6 @@
 @font-face {
   font-family: "Panigale";
   src:
-    url("./Font/Panigale-Font/Panigale-SemiBold.woff2") format("woff2"),
-    url("./Font/Panigale-Font/Panigale-SemiBold.woff") format("woff"),
-    url("./Font/Panigale-Font/Panigale-SemiBold.ttf") format("truetype"),
-    local("Panigale SemiBold"),
-    local("Panigale Semibold"),
     url("./Font/Panigale-Font/panigale.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
@@ -73,15 +59,10 @@
 
 @font-face {
   font-family: "Barlow Condensed";
-  src:
-    url("./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2") format("woff2"),
-    url("./Font/Barlow_Condensed/BarlowCondensed-Regular.woff") format("woff"),
-    url("./Font/Barlow_Condensed/BarlowCondensed-Regular.ttf") format("truetype"),
-    local("Barlow Condensed"),
-    local("BarlowCondensed-Regular");
+  src: url("./Font/Barlow_Condensed/BarlowCondensed-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -107,28 +88,18 @@
 
 @font-face {
   font-family: "Barlow Condensed";
-  src:
-    url("./Font/Barlow_Condensed/BarlowCondensed-Medium.woff2") format("woff2"),
-    url("./Font/Barlow_Condensed/BarlowCondensed-Medium.woff") format("woff"),
-    url("./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf") format("truetype"),
-    local("Barlow Condensed Medium"),
-    local("BarlowCondensed-Medium");
+  src: url("./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: "Barlow Condensed";
-  src:
-    url("./Font/Barlow_Condensed/BarlowCondensed-SemiBold.woff2") format("woff2"),
-    url("./Font/Barlow_Condensed/BarlowCondensed-SemiBold.woff") format("woff"),
-    url("./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf") format("truetype"),
-    local("Barlow Condensed SemiBold"),
-    local("BarlowCondensed-SemiBold");
+  src: url("./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -170,7 +141,7 @@
   --display-font: "Panigale", serif;
   /* Display headings site-wide */
   --heading-font: "Bebas Neue", "Metropolis", sans-serif;
-  --body-font: "Barlow Condensed", sans-serif;
+  --body-font: "Barlow Condensed", "Arial Narrow", "Segoe UI", sans-serif;
   --primary: #d6bfa8;
   --primary-light: #e5d3c2;
   /* Home “Our Services” band + home page canvas (index.html) */
@@ -453,8 +424,12 @@ h6 {
 .nav-links a {
   text-decoration: none;
   color: #fff;
+  font-family: var(--body-font);
   font-size: 18px;
   font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-rendering: geometricPrecision;
 }
 
 .nav-toggle,
@@ -567,6 +542,10 @@ body.home-page {
   padding: 0 22px 0;
   overflow: hidden;
   background-color: #2a1f18;
+  background-image: url("./Public/architecture/home-hero-poster.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .home-page .home-hero-video {
@@ -583,10 +562,6 @@ body.home-page {
 @media (prefers-reduced-motion: reduce) {
   .home-page .home-hero-video {
     display: none;
-  }
-
-  .home-page .hero {
-    background-image: none;
   }
 }
 
@@ -643,8 +618,8 @@ body.home-page {
   display: block;
 }
 
-.home-page .home-banner-panel--center img {
-  filter: grayscale(100%) contrast(1.08);
+.home-page .home-banner-panel--center {
+  background-color: #67493b;
 }
 
 .home-page .home-banner-panel--center img.home-banner-center-com {
@@ -660,7 +635,6 @@ body.home-page {
   object-position: center bottom;
   z-index: 2;
   pointer-events: none;
-  filter: none;
 }
 
 .home-page .home-banner-panel--cycle img {
@@ -854,9 +828,12 @@ body.home-page {
 
 .home-page .nav-links a {
   color: #ffffff;
+  font-family: var(--body-font);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-rendering: geometricPrecision;
 }
 
 .hero-contact-btn {
@@ -1944,9 +1921,12 @@ body.home-page .home-faq-section {
 
 .top-hero-page .nav-links a {
   color: #ffffff;
+  font-family: var(--body-font);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-rendering: geometricPrecision;
 }
 
 .top-hero-page .page-hero {
@@ -2081,6 +2061,13 @@ body.home-page .home-faq-section {
 
   .architecture-hero--project {
     background-image: url("./Gallary_image/contianer/5f607df988573267de310004e556017920e0340d.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .architecture-hero--arch-intero {
+    background-image: url("./All_Images/builvideo-poster.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -2353,8 +2340,17 @@ body.home-page .home-faq-section {
 }
 
 .architecture-hero--arch-intero {
-  background-image: url("./Few_new_images/Banner_image.png");
+  background-color: #1a1512;
+  background-image: url("./All_Images/builvideo-poster.jpg");
   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.architecture-hero--arch-intero .page-hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .architecture-hero--project {
@@ -2374,6 +2370,11 @@ body.home-page .home-faq-section {
 
 .architecture-hero--gallery {
   background-image: url("./Font/updated_images/gallary_banner.png");
+  background-position: center;
+}
+
+.architecture-hero--evara {
+  background-image: url("./Gallary_image/contianer/Evara_Cover%20Pic.png");
   background-position: center;
 }
 
@@ -2879,6 +2880,148 @@ body.home-page .home-faq-section {
   display: block;
   object-fit: cover;
   object-position: center;
+}
+
+.arch-intero-philosophy-section {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 120px clamp(24px, 6vw, 80px) 112px;
+  background-color: #f7f1ea;
+}
+
+.arch-intero-philosophy-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.arch-intero-philosophy-block + .arch-intero-philosophy-block {
+  margin-top: 96px;
+  padding-top: 80px;
+  border-top: 1px solid rgba(62, 46, 38, 0.14);
+}
+
+.arch-intero-philosophy-block h2 {
+  margin: 0 0 56px;
+  font-family: var(--heading-font);
+  font-size: clamp(22px, 2.8vw, 42px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: #3e2e26;
+  text-align: center;
+  max-width: 100%;
+  text-wrap: balance;
+}
+
+.arch-intero-philosophy-title-brand,
+.arch-intero-philosophy-title-rest {
+  display: inline;
+}
+
+.arch-intero-philosophy-title-brand:has(+ .arch-intero-philosophy-title-rest)::after {
+  content: " — ";
+}
+
+.arch-intero-philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 72px;
+  align-items: start;
+}
+
+.arch-intero-philosophy-col {
+  padding: 36px 32px 40px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(62, 46, 38, 0.08);
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.arch-intero-philosophy-col h3 {
+  margin: 0 0 18px;
+  font-family: var(--heading-font);
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  color: #3e2e26;
+}
+
+.arch-intero-philosophy-col p {
+  margin: 0;
+  font-family: var(--body-font);
+  font-size: 18px;
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  color: #5a4a40;
+}
+
+@media (max-width: 900px) {
+  .arch-intero-philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .arch-intero-philosophy-section {
+    padding: 56px 16px 52px;
+  }
+
+  .arch-intero-philosophy-block + .arch-intero-philosophy-block {
+    margin-top: 48px;
+    padding-top: 48px;
+  }
+
+  .arch-intero-philosophy-block h2 {
+    margin-bottom: 28px;
+    font-size: clamp(20px, 5.6vw, 28px);
+    line-height: 1.28;
+    letter-spacing: 0.02em;
+    padding-inline: 4px;
+  }
+
+  .arch-intero-philosophy-title-brand,
+  .arch-intero-philosophy-title-rest {
+    display: block;
+  }
+
+  .arch-intero-philosophy-title-brand {
+    margin-bottom: 6px;
+  }
+
+  .arch-intero-philosophy-title-brand::after {
+    content: none;
+  }
+
+  .arch-intero-philosophy-col {
+    padding: 22px 18px 26px;
+  }
+
+  .arch-intero-philosophy-col h3 {
+    margin-bottom: 12px;
+    font-size: clamp(20px, 5vw, 24px);
+    letter-spacing: 0.04em;
+  }
+
+  .arch-intero-philosophy-col p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 480px) {
+  .arch-intero-philosophy-section {
+    padding: 48px 14px 44px;
+  }
+
+  .arch-intero-philosophy-block h2 {
+    font-size: clamp(18px, 5.2vw, 22px);
+  }
+
+  .arch-intero-philosophy-col {
+    padding: 18px 14px 22px;
+  }
 }
 
 .arch-intero-page .architecture-intro-section {
@@ -3656,6 +3799,21 @@ body.arch-intero-drawer-scroll-locked {
   line-height: 1.12;
   color: #1a1410;
   letter-spacing: -0.02em;
+}
+
+.arch-intero-drawer__subtitle {
+  margin: 0.45em 0 0;
+  font-family: var(--body-font, system-ui, sans-serif);
+  font-size: clamp(1rem, 1.45vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(26, 20, 16, 0.62);
+  letter-spacing: 0.01em;
+  white-space: pre-line;
+}
+
+.arch-intero-drawer__subtitle[hidden] {
+  display: none !important;
 }
 
 .arch-intero-drawer__desc {
@@ -6844,6 +7002,135 @@ body.portfolio-panel-lightbox-open {
   }
 }
 
+/* De Atelier — About */
+.interior-page .de-atelier-brand-story {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 80px clamp(24px, 5vw, 64px) 96px;
+  background-color: #ffffff;
+  overflow-x: clip;
+}
+
+.interior-page .de-atelier-brand-story__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.interior-page .de-atelier-brand-story__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 48px);
+  align-items: stretch;
+  min-height: 0;
+}
+
+.interior-page .de-atelier-brand-story__media {
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  align-self: stretch;
+}
+
+.interior-page .de-atelier-brand-story__media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.interior-page .de-atelier-brand-story__copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  padding: clamp(20px, 2.4vw, 32px);
+  border-radius: 18px;
+  background: #faf8f5;
+  color: var(--text-muted);
+}
+
+.interior-page .de-atelier-brand-story h2 {
+  margin: 0 0 32px;
+  font-family: var(--heading-font);
+  font-size: clamp(44px, 4vw, 64px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: #3e2e26;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.interior-page .de-atelier-brand-story__copy p {
+  margin: 0 0 18px;
+  font-family: var(--body-font);
+  font-size: clamp(17px, 1.25vw, 20px);
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  color: rgba(90, 70, 54, 0.9);
+}
+
+.interior-page .de-atelier-brand-story__copy p:last-child {
+  margin-bottom: 0;
+}
+
+.interior-page .de-atelier-brand-story__copy a {
+  color: #3e2e26;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.interior-page .de-atelier-brand-story__copy a:hover {
+  color: #8c6e54;
+}
+
+@media (max-width: 900px) {
+  .interior-page .de-atelier-brand-story {
+    padding: 56px 20px 64px;
+  }
+
+  .interior-page .de-atelier-brand-story__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    min-height: 0;
+  }
+
+  .interior-page .de-atelier-brand-story h2 {
+    margin-bottom: 22px;
+    font-size: clamp(36px, 10vw, 52px);
+    line-height: 1.02;
+  }
+
+  .interior-page .de-atelier-brand-story__media {
+    max-width: none;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .interior-page .de-atelier-brand-story__media img {
+    position: absolute;
+  }
+
+  .interior-page .de-atelier-brand-story__copy p {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+}
+
 /* De Atelier — Ar Gargi De portfolio grid (de-atelier.html) */
 .interior-page .de-atelier-gargi-portfolio {
   box-sizing: border-box;
@@ -7253,6 +7540,49 @@ body.portfolio-panel-lightbox-open {
   .interior-page .de-atelier-gargi-portfolio__grid {
     grid-template-columns: 1fr;
   }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .de-atelier-gargi-portfolio__card-top {
+    aspect-ratio: 16 / 10;
+    min-height: 210px;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .de-atelier-gargi-portfolio__media img {
+    object-fit: cover;
+    object-position: 62% 42%;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .de-atelier-gargi-portfolio__caption {
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    font-size: 0.95rem;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .arch-intero-projects-card-panel-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .arch-intero-projects-card-panel-figure {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .arch-intero-projects-card-panel-figure img {
+    object-position: 62% 42%;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 521px) {
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .de-atelier-gargi-portfolio__media img {
+    object-position: 58% 40%;
+  }
+
+  .interior-page .de-atelier-gargi-portfolio__card--sierra .de-atelier-gargi-portfolio__caption {
+    font-size: 0.82rem;
+    padding: 12px 12px;
+    line-height: 1.28;
+  }
 }
 
 /* Interior page — stacked projects band (full-width, white) */
@@ -7552,6 +7882,24 @@ body.portfolio-panel-lightbox-open {
 /* Continuous autoplay uses scrollLeft steps — avoid smooth-scroll lag */
 .gallary-scroll-viewport--infinite {
   scroll-behavior: auto;
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior-x: contain;
+}
+
+.gallary-scroll-viewport--infinite.is-gallary-booting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallary-scroll-viewport--infinite.is-gallary-ready {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallary-scroll-viewport--infinite.is-gallary-ready {
+    transition: none;
+  }
 }
 
 .gallary-scroll-viewport--infinite.is-gallary-autoplay {
@@ -7619,10 +7967,21 @@ body.portfolio-panel-lightbox-open {
   opacity: 1;
   transform: none;
   transition: none;
+  background-color: #e8dfd6;
+  contain: layout paint;
 }
 
 .gallary-scroll-viewport--infinite .gallary-card:nth-child(n) {
   transition-delay: 0s;
+}
+
+.gallary-scroll-viewport--infinite .gallary-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .gallary-card {
@@ -8853,6 +9212,16 @@ body.portfolio-panel-lightbox-open {
   color: rgba(232, 219, 204, 0.84);
 }
 
+.footer-v2-bottom a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-v2-bottom a:hover {
+  color: #ffffff;
+}
+
 /* WhatsApp FAB: injected as last child of <html> (see script.js) + viewport-fixed, so it never
    scrolls with <body> during page-in / exit animations. */
 @keyframes stratus-wa-attention {
@@ -9932,5 +10301,346 @@ body.portfolio-panel-lightbox-open {
   .architecture-latest-arrow {
     min-width: 44px;
     min-height: 44px;
+  }
+}
+
+/* Available Now — Evara (available-now.html) */
+.available-now-page .available-now-hero-content {
+  text-align: center;
+}
+
+.available-now-page .available-now-hero-content h1 {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: clamp(48px, 8vw, 88px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: #fff;
+  white-space: nowrap;
+  text-transform: none;
+}
+
+.available-now-page .available-now-hero-lede {
+  margin: 18px 0 0;
+  max-width: 28ch;
+  margin-inline: auto;
+  font-family: var(--body-font);
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.available-now-floorplans__header h2 {
+  margin: 0 0 8px;
+  font-family: var(--heading-font);
+  font-size: clamp(44px, 5vw, 64px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: #3e2e26;
+}
+
+.available-now-floorplans__location {
+  margin: 0 0 28px;
+  font-family: var(--body-font);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(90, 70, 54, 0.82);
+}
+
+.available-now-floorplans__subheading {
+  margin: 0 0 10px;
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  color: #6b2d26;
+}
+
+.available-now-floorplans {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(64px, 8vw, 96px) clamp(20px, 4vw, 48px);
+  background: #ffffff;
+}
+
+.available-now-floorplans__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.available-now-floorplans__header {
+  max-width: 720px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.available-now-floorplans__header p:last-child {
+  margin: 0;
+  font-family: var(--body-font);
+  font-size: 18px;
+  line-height: 1.65;
+  color: rgba(90, 70, 54, 0.9);
+}
+
+.available-now-floorplans__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 40px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.available-now-floorplan-group {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid rgba(62, 46, 38, 0.12);
+  border-radius: 18px;
+  background: #faf8f5;
+}
+
+.available-now-floorplan-group__title {
+  margin: 0 0 clamp(16px, 2.5vw, 24px);
+  font-family: var(--heading-font);
+  font-size: clamp(26px, 2.8vw, 34px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #6b2d26;
+  text-align: center;
+}
+
+.available-now-floorplan-group__images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+}
+
+.available-now-floorplan-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(62, 46, 38, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.available-now-floorplan-thumb:hover {
+  transform: translateY(-2px);
+  border-color: rgba(140, 110, 84, 0.35);
+  box-shadow: 0 10px 24px rgba(62, 46, 38, 0.08);
+}
+
+.available-now-floorplan-thumb:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+.available-now-floorplan-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+
+.available-now-floorplan-thumb__label {
+  padding: 10px 12px;
+  font-family: var(--body-font);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(90, 70, 54, 0.88);
+  background: rgba(247, 244, 240, 0.95);
+}
+
+.available-now-floorplan-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin: 0;
+  padding: clamp(18px, 2.5vw, 24px);
+  border: 1px solid rgba(62, 46, 38, 0.12);
+  border-radius: 16px;
+  background: #faf8f5;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.available-now-floorplan-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(140, 110, 84, 0.35);
+  box-shadow: 0 12px 28px rgba(62, 46, 38, 0.08);
+}
+
+.available-now-floorplan-card:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+.available-now-floorplan-card__title {
+  margin: 0 0 14px;
+  font-family: var(--heading-font);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #6b2d26;
+  text-align: center;
+}
+
+.available-now-floorplan-card__media {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(62, 46, 38, 0.1);
+  background: #fff;
+}
+
+.available-now-floorplan-card__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+
+.available-now-floorplan-card__cta {
+  margin-top: 14px;
+  font-family: var(--body-font);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(90, 70, 54, 0.82);
+}
+
+.available-now-floorplans__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(36px, 5vw, 48px);
+}
+
+.available-now-enquire-btn {
+  padding-inline: 36px;
+  min-height: 48px;
+}
+
+.available-now-enquiry {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.available-now-enquiry[hidden] {
+  display: none !important;
+}
+
+.available-now-enquiry__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 21, 18, 0.58);
+}
+
+.available-now-enquiry__panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 640px);
+  max-height: min(92vh, 820px);
+  overflow: auto;
+  padding: clamp(24px, 4vw, 36px);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 64px rgba(26, 21, 18, 0.22);
+}
+
+.available-now-enquiry__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(62, 46, 38, 0.08);
+  color: #3e2e26;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.available-now-enquiry__close:hover {
+  background: rgba(62, 46, 38, 0.14);
+}
+
+.available-now-enquiry__panel h2 {
+  margin: 0 36px 8px 0;
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #3e2e26;
+}
+
+.available-now-enquiry__intro {
+  margin: 0 0 24px;
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(90, 70, 54, 0.9);
+}
+
+.available-now-page .available-now-enquiry__form {
+  max-width: none;
+}
+
+@media (max-width: 900px) {
+  .available-now-floorplans__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .available-now-floorplan-group__images {
+    grid-template-columns: 1fr;
+  }
+
+  .available-now-page .available-now-hero-content h1 {
+    font-size: clamp(44px, 14vw, 72px);
+  }
+
+  .available-now-enquiry {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .available-now-enquiry__panel {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }

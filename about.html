@@ -1,22 +1,40 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        try {
+          if (location.protocol !== "http:" && location.protocol !== "https:") return;
+          var path = location.pathname || "/";
+          var file = "/index.html";
+          if (path !== "/" && !/index\.html?$/i.test(path)) {
+            file = /\.html$/i.test(path) ? path : path.replace(/\/+$/, "") + ".html";
+          }
+          try { sessionStorage.setItem("stratus-active-page", file); } catch (err) {}
+          if (path !== "/" || location.hash) {
+            history.replaceState(null, "", "/" + (location.search || ""));
+          }
+          document.documentElement.style.visibility = "";
+        } catch (e) {}
+      })();
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>About | Stratus</title>
     <link rel="preload" href="./photos/Mungo/aboutbanner.jpg" as="image" fetchpriority="high" />
-    <link
+        <link
       rel="preload"
-      href="./Font/Panigale-Font/Panigale-SemiBold.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-SemiBold.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link
       rel="preload"
-      href="./Font/Barlow_Condensed/BarlowCondensed-Regular.woff2"
+      href="./Font/Barlow_Condensed/BarlowCondensed-Medium.ttf"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -56,6 +74,7 @@
           <ul class="nav-links">
             <li><a href="./de-atelier.html">De Atelier</a></li>
             <li><a href="./arch_and_intero.html">Design and Build</a></li>
+            <li><a href="./available-now.html">Available Now</a></li>
           </ul>
           <a href="./contact.html" class="hero-contact-btn"
             >Know more <span class="hero-contact-btn-icon" aria-hidden="true">&#8594;</span></a
@@ -267,7 +286,7 @@
 
         <div class="footer-v2-bottom">
           <p>&copy; 2026, Stratus. All Rights Reserved</p>
-          <p>Site by PINAKKAA</p>
+          <p>Site by <a href="https://pinakkaa.com/" target="_blank" rel="noopener noreferrer">PINAKKAA</a></p>
         </div>
       </div>
     </footer>

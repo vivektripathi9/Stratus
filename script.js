@@ -1409,6 +1409,10 @@ if (latestRoot) {
           title: topicLabel,
           message: message,
         });
+        /* Meta Pixel: Lead only after a successful send */
+        if (typeof window.fbq === "function") {
+          window.fbq("track", "Lead", { content_name: "Website Enquiry Form" });
+        }
         form.reset();
         setStatus(
           status,
@@ -1550,6 +1554,29 @@ if (latestRoot) {
   );
 
   cards.forEach((card) => io.observe(card));
+})();
+
+/* Meta Pixel: Contact event on any WhatsApp link click (incl. the floating button) */
+(function initWhatsAppContactTracking() {
+  document.addEventListener(
+    "click",
+    function (e) {
+      var link = e.target && e.target.closest ? e.target.closest("a") : null;
+      if (!link || !link.href) return;
+      var href = link.href.toLowerCase();
+      if (
+        href.indexOf("wa.me") > -1 ||
+        href.indexOf("api.whatsapp.com") > -1 ||
+        href.indexOf("web.whatsapp.com") > -1 ||
+        href.indexOf("whatsapp://") === 0
+      ) {
+        if (typeof window.fbq === "function") {
+          window.fbq("track", "Contact", { content_name: "WhatsApp Enquiry" });
+        }
+      }
+    },
+    true
+  );
 })();
 
 (function initWhatsAppFloat() {
@@ -2663,6 +2690,10 @@ if (latestRoot) {
         title: "Evara enquiry: " + floor,
         message: message,
       });
+      /* Meta Pixel: Lead only after a successful send */
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "Lead", { content_name: "Website Enquiry Form" });
+      }
       form.reset();
       api.setStatus(
         status,
